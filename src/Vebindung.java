@@ -15,27 +15,15 @@ public class Vebindung {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
-		
-		JCoDestination dest;
-		//try {
-			//dest = JCoDestinationManager.getDestination("DES1");
+
 			Provider prov = new Provider();
 			prov.setLoginData("GBI-612", "tho123");
 			com.sap.conn.jco.ext.Environment.registerDestinationDataProvider(prov);
-			/*dest = JCoDestinationManager.getDestination("");
-			JCoFunction function = dest.getRepository().getFunction("BAPI_SALESORDER_CREATEFROMDAT2");
-			if(function == null)
-			{
-				Logger.logMsg(1, "Funktionsbaustein nicht vorhanden");
-				throw new RuntimeException("Funktionsbaustein nicht vorhanden");
-			}*/
-			System.out.println("test");
-		/*} catch (JCoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-			
-	}
 
+			System.out.println("test");
+
+		}
+			
 }
+
+
