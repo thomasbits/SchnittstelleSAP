@@ -78,3 +78,23 @@ COUNTER     3
     error group: 102
     key: RFC_ERROR_COMMUNICATION
 
+
+**** Error file opened at 20150515 141950 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Fri May 15 14:19:50,199<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=/H/remote.hcc.uni-magdeburg.de/S/3299/H SYSNR=52 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       service '?' unknown
+TIME        Fri May 15 14:19:50 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+DETAIL      NiErrSet
+COUNTER     3
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
