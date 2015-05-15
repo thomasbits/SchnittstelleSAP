@@ -19,7 +19,8 @@ public class Provider implements DestinationDataProvider{
 	public Provider() {
 		// TODO Auto-generated constructor stub
 		properties = new Properties();
-		properties.setProperty(DestinationDataProvider.JCO_ASHOST, "/H/remote.hcc.uni-magdeburg.de/S/3299/H");
+		//properties.setProperty(DestinationDataProvider.JCO_ASHOST, "/H/remote.hcc.uni-magdeburg.de/S/3299/H");
+		properties.setJCO_ASHOST("/H/saprouter.hcc.uni-magdeburg.de/S/3299/H/R52Z");
 		properties.setProperty(DestinationDataProvider.JCO_R3NAME, "R52");
 		properties.setProperty(DestinationDataProvider.JCO_SYSNR, "52");
 		properties.setProperty(DestinationDataProvider.JCO_CLIENT, "204");
