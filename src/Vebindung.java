@@ -1,10 +1,5 @@
-import java.util.logging.Level;
-
 import com.sap.conn.jco.JCoDestinationManager;
-import com.sap.conn.jco.JCoDestination;
 import com.sap.conn.jco.JCoException;
-import com.sap.conn.jco.JCoFunction;
-import com.sun.media.jfxmedia.logging.Logger;
 
 
 public class Vebindung {
@@ -36,6 +31,9 @@ public class Vebindung {
 					e.printStackTrace();
 					System.out.println("Kein Erfolg");
 				}
+				
+				NeuerKundeSAP test = new NeuerKundeSAP();
+				test.createKunde();
 				
 			}
  

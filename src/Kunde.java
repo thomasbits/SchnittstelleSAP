@@ -3,10 +3,33 @@
  */
 public class Kunde {
 	
-	private String name, vorname, strasse, hasunr, ort, plz, tel, email, land, region;
+	private String name, vorname, strasse, hasunr, ort, plz, tel, email, land, region, kundennr;
 	
-	public Kunde() {
-		// TODO Auto-generated constructor stub
+	
+	
+	public Kunde(String name, String vorname, String strasse, String hasunr,
+			String ort, String plz, String tel, String email, String land,
+			String region, String kundennr) {
+		super(); //???
+		this.name = name;
+		this.vorname = vorname;
+		this.strasse = strasse;
+		this.hasunr = hasunr;
+		this.ort = ort;
+		this.plz = plz;
+		this.tel = tel;
+		this.email = email;
+		this.land = land;
+		this.region = region;
+		this.kundennr = kundennr;
+	}
+
+	public String getKundennr() {
+		return kundennr;
+	}
+
+	public void setKundennr(String kundennr) {
+		this.kundennr = kundennr;
 	}
 
 	public String getLand() {

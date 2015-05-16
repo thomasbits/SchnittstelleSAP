@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="ProgrammEinstieg.java|MyDestinationDataProvider.java" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="D:/BackUp/Studium/4. Semester/Projekt Realisierung betrieblicher IT-Systeme/Schnittstellen Programmierung/Lib/sapjco3-NTAMD64-3.0.10/sapjco3.jar"/>
 	<classpathentry kind="output" path="bin"/>
