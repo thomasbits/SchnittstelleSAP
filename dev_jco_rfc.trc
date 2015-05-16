@@ -78,3 +78,222 @@ COUNTER     3
     error group: 102
     key: RFC_ERROR_COMMUNICATION
 
+
+**** Error file opened at 20150515 141950 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Fri May 15 14:19:50,199<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=/H/remote.hcc.uni-magdeburg.de/S/3299/H SYSNR=52 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       service '?' unknown
+TIME        Fri May 15 14:19:50 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+DETAIL      NiErrSet
+COUNTER     3
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+
+**** Error file opened at 20150515 142826 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Fri May 15 14:28:26,033<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=/H/remote.hcc.uni-magdeburg.de/S/3299/H SYSNR=52 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       service '?' unknown
+TIME        Fri May 15 14:28:26 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+DETAIL      NiErrSet
+COUNTER     3
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+
+**** Error file opened at 20150515 153900 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Fri May 15 15:39:00,601<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=/H/remote.hcc.uni-magdeburg.de/S/3299/H SYSNR=52 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       service '?' unknown
+TIME        Fri May 15 15:39:00 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+DETAIL      NiErrSet
+COUNTER     3
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+
+**** Error file opened at 20150515 154004 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Fri May 15 15:40:04,618<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=/H/remote.hcc.uni-magdeburg.de/S/3299/H SYSNR=52 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       service '?' unknown
+TIME        Fri May 15 15:40:04 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+DETAIL      NiErrSet
+COUNTER     3
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+
+**** Error file opened at 20150515 154347 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Fri May 15 15:43:47,400<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=/H/remote.hcc.uni-magdeburg.de/S/3299/H SYSNR=52 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       service '?' unknown
+TIME        Fri May 15 15:43:47 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+DETAIL      NiErrSet
+COUNTER     3
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+
+**** Error file opened at 20150515 154538 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Fri May 15 15:45:38,839<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=/H/remote.hcc.uni-magdeburg.de/S/3299/H SYSNR=52 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       service '?' unknown
+TIME        Fri May 15 15:45:38 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+DETAIL      NiErrSet
+COUNTER     3
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+
+**** Error file opened at 20150515 155134 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Fri May 15 15:51:34,378<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=/H/remote.hcc.uni-magdeburg.de/S/3299/H SYSNR=52 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       service '?' unknown
+TIME        Fri May 15 15:51:34 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+DETAIL      NiErrSet
+COUNTER     3
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+
+**** Error file opened at 20150515 155418 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Fri May 15 15:54:18,756<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=/H/remote.hcc.uni-magdeburg.de/S/3299/H SYSNR=52 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       service '?' unknown
+TIME        Fri May 15 15:54:18 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+DETAIL      NiErrSet
+COUNTER     3
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+
+**** Error file opened at 20150515 155753 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Fri May 15 15:57:53,432<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=/H/remote.hcc.uni-magdeburg.de/S/3299/H SYSNR=52 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       service '?' unknown
+TIME        Fri May 15 15:57:53 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+DETAIL      NiErrSet
+COUNTER     3
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+
+**** Error file opened at 20150515 160112 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Fri May 15 16:01:12,451<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=/H/remote.hcc.uni-magdeburg.de/S/3299/H SYSNR=52 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       service '?' unknown
+TIME        Fri May 15 16:01:12 2015
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -3
+DETAIL      NiErrSet
+COUNTER     3
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+
+**** Error file opened at 20150516 125559 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Sat May 16 12:55:59,352<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       f00: route permission denied (87.166.108.59 to R52Z, 3352)
+TIME        Sat May 16 12:56:02 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -94
+COUNTER     760397
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+

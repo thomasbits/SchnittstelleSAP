@@ -16,14 +16,35 @@ public class Vebindung {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-			Provider prov = new Provider();
-			prov.setLoginData("GBI-612", "tho123");
-			com.sap.conn.jco.ext.Environment.registerDestinationDataProvider(prov);
-
-			System.out.println("test");
-
-		}
 			
-}
+				Provider des = new Provider(); 
+				des.setLoginData("GBI-612", "tho123"); 
+				if(com.sap.conn.jco.ext.Environment.isDestinationDataProviderRegistered())
+				{
+					com.sap.conn.jco.ext.Environment.unregisterDestinationDataProvider(des);
+				}
+				com.sap.conn.jco.ext.Environment.registerDestinationDataProvider(des);
+				
+				
+				try
+				{
+					JCoDestinationManager.getDestination("").ping();
+					System.out.println("Erfolg");
+				}
+				catch (JCoException e)
+				{
+					e.printStackTrace();
+					System.out.println("Kein Erfolg");
+				}
+				
+			}
+ 
+			
+
+			
+	}
+
+			
+
 
 

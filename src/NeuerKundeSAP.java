@@ -25,7 +25,11 @@ public class NeuerKundeSAP {
 			JCoFunction func = repo.getFunction("BAPI_CUSTOMER_CREATEFROMDATA1");
 			
 			JCoStructure personalData = func.getImportParameterList().getStructure("PI_PERSONALDATA");
-			personalData.setValue("", "");
+			personalData.setValue("FIRSTNAME", "Max");
+			personalData.setValue("LASTNAME", "Musterman");
+			personalData.setValue("DATE BIRTH", "1.1.1990");
+			personalData.setValue("CITY", "Musterhausen");
+			personalData.setValue("POSTL_COD1", "32839");
 			
 			
 			
