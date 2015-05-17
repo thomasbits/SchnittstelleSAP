@@ -38,14 +38,18 @@ public class NeuerKundeSAP {
 			
 			JCoStructure personalData = func.getImportParameterList().getStructure("PI_PERSONALDATA");
 			//werte zum testen, sollen später aus der klasse Kunde genommen werden
+			personalData.setValue("TITLE_P", "Herr");
 			personalData.setValue("FIRSTNAME", "Max");
-			personalData.setValue("LASTNAME", "Musterman");
-			//personalData.setValue("DATE_BIRTH", "1.1.1990");
-			personalData.setValue("CITY", "Musterhausen");
+			personalData.setValue("LASTNAME", "Musterman");	
+			personalData.setValue("DATE_BIRTH", "19901230");	
+			personalData.setValue("CITY", "Steinheim");
 			personalData.setValue("POSTL_COD1", "32839");
 			personalData.setValue("STREET","Musterstrasse");
+			personalData.setValue("HOUSE_NO", "5");
+			personalData.setValue("E_MAIL", "Max.Musterman@gmail.de");
 			personalData.setValue("LANGU_P","DE");
-			personalData.setValue("CURRENCY","Euro");
+			personalData.setValue("CURRENCY","EUR");
+			personalData.setValue("COUNTRY","DE");
 
 			/*
 			 *The reference customer should be created bearing in mind that its sole
@@ -59,10 +63,10 @@ public class NeuerKundeSAP {
 			//Referezkunde, wird für das anlegen eines neuen Kunden benötigt
 			//muss im SAP System noch erstellt werden
 			JCoStructure referenceData = func.getImportParameterList().getStructure("PI_COPYREFERENCE");
-			referenceData.setValue("SALESORG", "");
-			referenceData.setValue("DISTR_CHAN", "");
-			referenceData.setValue("DIVISION", "");			//Hier fehlen noch Werte!!!
-			referenceData.setValue("REF_CUSTMR", "");
+			referenceData.setValue("SALESORG", "DN00");
+			referenceData.setValue("DISTR_CHAN", "IN");
+			referenceData.setValue("DIVISION", "BI");			//Hier fehlen noch Werte!!!
+			referenceData.setValue("REF_CUSTMR", "0000014000");
 			
 			JCoContext.begin(dest);
 			

@@ -13,7 +13,8 @@ public class Vebindung {
 
 			
 				Provider des = new Provider(); 
-				des.setLoginData("GBI-612", "tho123"); 
+				//des.setLoginData("GBI-612", "tho123"); 
+				des.setLoginData("JCO_BITS", "init123"); 
 				if(com.sap.conn.jco.ext.Environment.isDestinationDataProviderRegistered())
 				{
 					com.sap.conn.jco.ext.Environment.unregisterDestinationDataProvider(des);
