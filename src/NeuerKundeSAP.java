@@ -38,7 +38,7 @@ public class NeuerKundeSAP {
 			
 			JCoStructure personalData = func.getImportParameterList().getStructure("PI_PERSONALDATA");
 			//werte zum testen, sollen später aus der klasse Kunde genommen werden
-			personalData.setValue("TITLE_P", "Herr");
+			personalData.setValue("TITLE_P", "Herr");		//Webshop verwendet hier Geschlecht, muss hier noch geändert werden
 			personalData.setValue("FIRSTNAME", "Max");
 			personalData.setValue("LASTNAME", "Musterman");	
 			personalData.setValue("DATE_BIRTH", "19901230");	
@@ -76,6 +76,7 @@ public class NeuerKundeSAP {
 			JCoContext.end(dest);
 			
 			System.out.println(func.getExportParameterList().getValue("RETURN"));
+			System.out.println(func.getExportParameterList().getValue("CUSTOMERNO"));
 			
 			
 			
