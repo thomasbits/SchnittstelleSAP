@@ -3,5 +3,7 @@
 	<classpathentry excluding="ProgrammEinstieg.java|MyDestinationDataProvider.java" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="D:/BackUp/Studium/4. Semester/Projekt Realisierung betrieblicher IT-Systeme/Schnittstellen Programmierung/Lib/sapjco3-NTAMD64-3.0.10/sapjco3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Robin/workspace2/mysql-connector-java-5.0.8/mysql-connector-java-5.0.8-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Robin/workspace2/sapjco3-NTAMD64-3.0.10/sapjco3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

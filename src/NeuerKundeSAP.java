@@ -1,3 +1,4 @@
+
 import com.sap.conn.jco.JCoContext;
 import com.sap.conn.jco.JCoDestination;
 import com.sap.conn.jco.JCoDestinationManager;
@@ -12,20 +13,6 @@ public class NeuerKundeSAP {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void save(Kunde k)
-	{
-		if(kundeIstNeu(k))
-		{
-			//createKunde(k);
-		}
-		else
-		{
-			//Methode zum ändern eines Kunden implementieren
-			System.out.println("Kunde bereits vorhanden");
-		}
-			
-	}
-
 	public boolean createKunde(/*Kunde k*/)
 	{
 		
@@ -39,11 +26,11 @@ public class NeuerKundeSAP {
 			JCoStructure personalData = func.getImportParameterList().getStructure("PI_PERSONALDATA");
 			//werte zum testen, sollen später aus der klasse Kunde genommen werden
 			personalData.setValue("TITLE_P", "Herr");		//Webshop verwendet hier Geschlecht, muss hier noch geändert werden
-			personalData.setValue("FIRSTNAME", "Max");
-			personalData.setValue("LASTNAME", "Musterman");	
+			personalData.setValue("FIRSTNAME", "Testuser");
+			personalData.setValue("LASTNAME", "Testuser");	
 			personalData.setValue("DATE_BIRTH", "19901230");	
-			personalData.setValue("CITY", "Steinheim");
-			personalData.setValue("POSTL_COD1", "32839");
+			personalData.setValue("CITY", "Bad Driburg");
+			personalData.setValue("POSTL_COD1", "33014");
 			personalData.setValue("STREET","Musterstrasse");
 			personalData.setValue("HOUSE_NO", "5");
 			personalData.setValue("E_MAIL", "Max.Musterman@gmail.de");
@@ -91,9 +78,6 @@ public class NeuerKundeSAP {
 		return true;
 	}
 	
-	private boolean kundeIstNeu(Kunde k)
-	{
-		return k.getKundennr() == null || k.getKundennr().isEmpty();
-	}
+
 	
 }
