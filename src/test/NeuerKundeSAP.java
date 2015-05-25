@@ -1,4 +1,4 @@
-package robin;
+package test;
 
 import com.sap.conn.jco.JCoContext;
 import com.sap.conn.jco.JCoDestination;

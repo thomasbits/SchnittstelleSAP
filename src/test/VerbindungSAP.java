@@ -1,4 +1,4 @@
-package robin;
+package test;
 
 import com.sap.conn.jco.JCoDestinationManager;
 import com.sap.conn.jco.JCoException;
