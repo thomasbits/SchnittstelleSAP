@@ -47,9 +47,10 @@ public class Kunde {
 		return titel;
 	}
 	
-	public void setGeburtstdatum()
+	public void setGeburtstdatum(String Geburtsdatum)
 	{
 		
+		Geburtsdatum = Geburtsdatum.replace( "-", "" );
 	}
 	
 	public void setOrt()

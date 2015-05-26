@@ -58,7 +58,13 @@ public class DatenbankVerbindung {
 			while (results.next()) 
 			{
 				String vorname = results.getString("vorname");
-				System.out.println("Mein Name:" + vorname);
+				String name = results.getString("name");
+				String kid = results.getString("KId");
+				String PLZ = results.getString("PLZ");
+				String ort = results.getString("Ort");
+				String email = results.getString("Email");
+				String gebdat = results.getString("Geburtsdatum");
+				System.out.println("Mein Name:" + vorname + " " +gebdat );
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
