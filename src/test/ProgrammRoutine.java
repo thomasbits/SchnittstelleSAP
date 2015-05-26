@@ -2,6 +2,7 @@ package test;
 
 import java.util.Scanner;
 
+import com.mysql.jdbc.Statement;
 import com.sap.conn.jco.JCoDestinationManager;
 import com.sap.conn.jco.JCoException;
 
@@ -52,6 +53,8 @@ public class ProgrammRoutine extends Thread {
 			case 7:
 				DatenbankVerbindung dbconnection = new DatenbankVerbindung();
 				break;
+			case 8:
+				
 			}
 
 		}while(durchlauf);

@@ -11,6 +11,8 @@ import java.sql.Statement;
 
 public class DatenbankVerbindung {
 
+	public static Statement stmt;
+
 	private static Connection conn = null;
 
 	// Hostname
@@ -20,7 +22,7 @@ public class DatenbankVerbindung {
 	private static String dbPort = "3306";
 
 	// Datenbankname
-	private static String database = "test";
+	private static String database = "webshop";
 
 	// Datenbankuser
 	private static String dbUser = "root";
@@ -41,12 +43,26 @@ public class DatenbankVerbindung {
 			conn = DriverManager.getConnection("jdbc:mysql://" + dbHost + ":"
 					+ dbPort + "/" + database + "?" + "user=" + dbUser + "&"
 					+ "password=" + dbPassword);
+
+			stmt = conn.createStatement();
 		} catch (ClassNotFoundException e) {
 			System.out.println("Treiber nicht gefunden");
 			System.out.println(e);
 		} catch (SQLException e) {
 			System.out.println("Connect nicht moeglich");
 			System.out.println(e);
+		}
+
+		try {
+			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE SAP_KId IS NULL;");
+			while (results.next()) 
+			{
+				String vorname = results.getString("vorname");
+				System.out.println("Mein Name:" + vorname);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -57,4 +73,25 @@ public class DatenbankVerbindung {
 			new DatenbankVerbindung();
 		return conn;
 	}
+
+	public static Statement getStatement()
+	{
+
+		return stmt;
+	}
+
+
+	public void schliesseVerbindung()
+	{
+		try 
+		{
+			stmt.close();
+			conn.close();
+		}
+		catch (SQLException sqle) 
+		{
+			System.out.println(sqle.toString());
+		}
+	}
+
 }
