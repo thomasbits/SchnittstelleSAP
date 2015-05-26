@@ -1,6 +1,6 @@
 package test;
 
-import com.mysql.jdbc.ResultSet;
+
 
 public class KundenSync extends Thread{
 
