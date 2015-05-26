@@ -30,7 +30,7 @@ public class ProgrammRoutine extends Thread {
 		{
 			Scanner scanner = new Scanner(System.in);
 
-			System.out.print("--------\n0-Programm gestartet \n1-Synchronisierung starten \n2-Synchronisierung beenden \n4-Programm beenden\n5-Verbindungaufbauen \n6-Kundeanlegen \n7-Datenbankverbindung\nLetzterStatus: " + status + " -Eingabe: ");
+			System.out.print("--------\n0-Programm gestartet \n1-Synchronisierung starten \n2-Synchronisierung beenden \n4-Programm beenden\n5-Verbindungaufbauen \n6-Kundeanlegen \n7-Datenbankverbindung \n8-Funktion testen\nLetzterStatus: " + status + " -Eingabe: ");
 
 			String eingabe = scanner.nextLine();
 			try {
@@ -48,7 +48,7 @@ public class ProgrammRoutine extends Thread {
 				verbindung.connect();
 				break;
 			case 6:
-				neuerKunde.createKunde();
+				neuerKunde.speichereKunden();
 				break;
 			case 7:
 				DatenbankVerbindung dbconnection = new DatenbankVerbindung();

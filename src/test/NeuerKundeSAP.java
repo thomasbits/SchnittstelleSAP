@@ -14,7 +14,21 @@ public class NeuerKundeSAP {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public boolean createKunde(/*Kunde k*/)
+	//Methode wird aufgerufen um einen Kundendatensatz zu speichern.
+	//Gibt es bereits einen Datensatz mit der selben E-Mail gibt es die passende Rückmeldung
+	public boolean speichereKunden(/*Übergabe des Kunden der erstellt werden soll*/)		
+	{
+		if (kundeIstNeu("kunde@email.de"/*email des zu erstellenden Kunden*/))
+		{
+			createKunde();
+			return true;
+		}else{
+			System.out.println("Kunde bereits vorhanden");
+			return false;
+		}
+	}
+	
+	private boolean createKunde(/*Kunde k*/)
 	{
 		
 		try {
@@ -79,6 +93,92 @@ public class NeuerKundeSAP {
 		return true;
 	}
 	
+	private boolean kundeIstNeu(String email)		//E-Mail und Verkaufsorgansisation des zu prüfenden Kunden
+	{
+		try{
+		JCoDestination dest = JCoDestinationManager.getDestination("");
+		
+		JCoRepository repo = dest.getRepository();
+		
+		
+		JCoFunction func = repo.getFunction("BAPI_CUSTOMER_SEARCH1");
+		
 
+		func.getImportParameterList().setValue("PI_E_MAIL","Unique@mail.com");		//E-Mail des Kunden	->	später durch den Übergabeparameter email ersetzen
+		
+		//Möglicherweise sind nicht alle Pflicht
+//		emailData.setValue("E_MAIL", "Max.Musterman@gmail.de");		//E-Mail des zu gesuchten Kunden
+//		emailData.setValue("LANGU_P", "");		//Sprachschlüssel
+//		emailData.setValue("CURRENCY", "");		//Währung
+//		emailData.setValue("TITLE_KEY", "");	//Anredeschlüssel
+		
+		
+		
+		func.getImportParameterList().setValue("PI_SALESORG","DN00");		//Verkaufsorganisation ->	später durch den Übergabeparameter verkaufsOrg ersetzen
+		//Möglicherweise sind nicht alle pflicht
+		//beste wahl wahrscheinlich der Referenzkunde
+//		salesOrgData.setValue("SALESORG","");		//Pflicht
+//		salesOrgData.setValue("DISTR_CHAN","");			
+//		salesOrgData.setValue("DIVISION","");			
+//		salesOrgData.setValue("REF_CUSTMR","");
+		
+		
+		//Ausführen der Funktionen mit anschließenden Commit
+		JCoContext.begin(dest);
+		func.execute(dest);
+		JCoFunction funcCommit = dest.getRepository().getFunction("BAPI_TRANSACTION_COMMIT");
+		funcCommit.execute(dest);
+		JCoContext.end(dest);
+		
+		
+		
+		System.out.println(func.getExportParameterList().getValue("RETURN"));
+		System.out.println(func.getExportParameterList().getValue("CUSTOMERNO"));					//Ausgaben nur zum Testen
+		System.out.println(func.getExportParameterList().getValue("CUSTOMERNO") == null);
+		return func.getExportParameterList().getValue("CUSTOMERNO") == null;			//Gibt true zurück, wenn die abfrage ans SAP-System keine Kundennummer zurück gibt
+		
+		
+		} catch (JCoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Verbindung konnte nicht aufgebaut werden.");
+			return false;
+		}
+		
+	}
 	
+/*	//wird nicht benötigt
+	public void getKunde()
+	{
+		try{
+			JCoDestination dest = JCoDestinationManager.getDestination("");
+			
+			JCoRepository repo = dest.getRepository();
+			
+			JCoFunction func = repo.getFunction("BAPI_CUSTOMER_GETDETAIL2");
+			
+			
+			JCoStructure gesuchterKunde = func.getImportParameterList().getStructure("CUSTOMERNO");
+			gesuchterKunde.setValue("CUSTOMER", "");		//Kundennummer
+			gesuchterKunde.setValue("COMP_CODE", "");	//Buchungskreis
+			gesuchterKunde.setValue("SALES_ORG", "");	//Verkaufsorganisation
+			gesuchterKunde.setValue("DISTR_CHAN", "");	//Vertriebsweg
+			gesuchterKunde.setValue("DIVISION", "");		//Sparte
+			
+			JCoStructure gefundenerKunde = func.getExportParameterList().getStructure("CUSTOMERADDRESS");
+			//Neuer Kunde wird erstellt und mit den Daten "gefüllt" kann dann anschließend in die SQL Datenbank geschrieben werden
+			Kunde ergebnisKunde = new Kunde();
+			ergebnisKunde.setName(gefundenerKunde.getValue("NAME").toString());
+			ergebnisKunde.setOrt(gefundenerKunde.getValue("CITY").toString());
+			
+			
+			
+			
+		}catch(JCoException e){
+		
+		}
+		
+	}
+
+	*/
 }
