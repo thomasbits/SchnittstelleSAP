@@ -32,7 +32,7 @@ public class DatenbankVerbindung {
 
 	public DatenbankVerbindung() {
 		try {
-
+			//Hallo
 			// Datenbanktreiber für ODBC Schnittstellen laden.
 			// Für verschiedene ODBC-Datenbanken muss dieser Treiber
 			// nur einmal geladen werden.
