@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DatenbankConnection {
+public class DatenbankVerbindung {
 
 	private static Connection conn = null;
 
@@ -28,7 +28,7 @@ public class DatenbankConnection {
 	// Datenbankpasswort
 	private static String dbPassword = "test1234";
 
-	public DatenbankConnection() {
+	public DatenbankVerbindung() {
 		try {
 
 			// Datenbanktreiber für ODBC Schnittstellen laden.
@@ -54,7 +54,7 @@ public class DatenbankConnection {
 	private static Connection getInstance()
 	{
 		if(conn == null)
-			new DatenbankConnection();
+			new DatenbankVerbindung();
 		return conn;
 	}
 }

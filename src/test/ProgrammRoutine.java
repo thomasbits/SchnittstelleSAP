@@ -50,7 +50,7 @@ public class ProgrammRoutine extends Thread {
 				neuerKunde.createKunde();
 				break;
 			case 7:
-				DatenbankConnection dbconnection = new DatenbankConnection();
+				DatenbankVerbindung dbconnection = new DatenbankVerbindung();
 				break;
 			}
 
