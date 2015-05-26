@@ -18,7 +18,7 @@ public class ProgrammRoutine extends Thread {
 		ProgrammRoutine einstieg = new ProgrammRoutine();
 		einstieg.start();
 	}
-
+	//Test
 	public void run()
 	{
 		VerbindungSAP verbindung = new VerbindungSAP();
