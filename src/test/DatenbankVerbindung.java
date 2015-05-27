@@ -52,7 +52,7 @@ public class DatenbankVerbindung {
 			System.out.println("Connect nicht moeglich");
 			System.out.println(e);
 		}
-
+		/*
 		try {
 			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE SAP_KId IS NULL;");
 			while (results.next()) 
@@ -70,10 +70,10 @@ public class DatenbankVerbindung {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		*/
 	}
 
-	private static Connection getInstance()
+	public static Connection getInstance()
 	{
 		if(conn == null)
 			new DatenbankVerbindung();

@@ -54,7 +54,17 @@ public class ProgrammRoutine extends Thread {
 				DatenbankVerbindung dbconnection = new DatenbankVerbindung();
 				break;
 			case 8:
-				
+				System.out.println("Hallo");
+				break;
+			case 9:
+				System.out.println("Hallo");
+				//Kundensynchronisierung
+				//Vorher Datenbankverbindung aufbauen
+				System.out.println("Hallo");
+				KundenSync Sync = new KundenSync();
+				Sync.test();
+				System.out.println("Hallo");
+				break;
 			}
 
 		}while(durchlauf);

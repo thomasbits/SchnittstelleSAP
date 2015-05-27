@@ -5,6 +5,11 @@ public class Kunde {
 	private String vorname;
 	private String name;
 	private String titel;
+	private String geburtsdatum;
+	private String ort;
+	private String strasse;
+	private String hausNr;
+	private String email;
 
 	public Kunde() {
 		// TODO Auto-generated constructor stub
@@ -50,31 +55,51 @@ public class Kunde {
 	public void setGeburtstdatum(String Geburtsdatum)
 	{
 		
-		Geburtsdatum = Geburtsdatum.replace( "-", "" );
+		geburtsdatum = Geburtsdatum.replace( "-", "" );
 	}
 	
-	public void setOrt()
+	public String getGeburtstdatum()
 	{
-		
+		return geburtsdatum;
 	}
-	public void setPLZ()
-	{
-		
+
+
+	public String getOrt() {
+		return ort;
 	}
-	
-	public void setStrasse()
-	{
-		
+
+
+	public void setOrt(String ort) {
+		this.ort = ort;
 	}
-	
-	public void setHausnr()
-	{
-		
+
+
+	public String getStrasse() {
+		return strasse;
 	}
-	
-	public void setEmail()
-	{
-		
+
+
+	public void setStrasse(String strasse) {
+		this.strasse = strasse;
 	}
-	
+
+
+	public String getHausNr() {
+		return hausNr;
+	}
+
+
+	public void setHausNr(String hausNr) {
+		this.hausNr = hausNr;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }
