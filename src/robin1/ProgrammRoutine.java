@@ -26,7 +26,7 @@ public class ProgrammRoutine extends Thread {
 	{
 		VerbindungSAP verbindung = new VerbindungSAP();
 		KundenSyncNEU Sync = new KundenSyncNEU();
-		
+		KundenSyncLOE SyncLoeschen = new KundenSyncLOE();
 		boolean durchlauf = true;
 		do
 		{
@@ -63,8 +63,8 @@ public class ProgrammRoutine extends Thread {
 				//Kundensynchronisierung
 				//Vorher Datenbankverbindung aufbauen
 				
-				
-				Sync.start();
+				SyncLoeschen.start();
+				//Sync.start();
 
 				break;
 			}

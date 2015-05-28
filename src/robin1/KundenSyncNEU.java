@@ -10,7 +10,7 @@ import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoRepository;
 import com.sap.conn.jco.JCoStructure;
 
-//Klasse die die Kundensynchronisierung verwaltet
+//Klasse die alle neuen Kunden in der Datenbank in das SAP System schreibt. (Merkmal leere SAP Debitor Nummer)
 public class KundenSyncNEU extends Thread{
 
 	private boolean datenVorhanden = true;
