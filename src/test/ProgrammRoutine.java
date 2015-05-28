@@ -1,7 +1,6 @@
 package test;
 
 import java.util.Scanner;
-
 import com.mysql.jdbc.Statement;
 import com.sap.conn.jco.JCoDestinationManager;
 import com.sap.conn.jco.JCoException;
@@ -19,12 +18,12 @@ public class ProgrammRoutine extends Thread {
 		ProgrammRoutine einstieg = new ProgrammRoutine();
 		einstieg.start();
 	}
-	//Test hallo
+	
 	public void run()
 	{
 		VerbindungSAP verbindung = new VerbindungSAP();
-		NeuerKundeSAP neuerKunde = new NeuerKundeSAP();
-		
+		KundenSyncNEU Sync = new KundenSyncNEU();
+		KundenSyncLOE SyncLoeschen = new KundenSyncLOE();
 		boolean durchlauf = true;
 		do
 		{
@@ -41,6 +40,7 @@ public class ProgrammRoutine extends Thread {
 
 			switch (status) {
 			case 4:
+				Sync.setSyncFalse();
 				durchlauf = false;
 				System.out.println("Programm beendet");
 				break;
@@ -48,7 +48,7 @@ public class ProgrammRoutine extends Thread {
 				verbindung.connect();
 				break;
 			case 6:
-				neuerKunde.speichereKunden();
+				//neuerKunde.speichereKunden();
 				break;
 			case 7:
 				DatenbankVerbindung dbconnection = new DatenbankVerbindung();
@@ -57,13 +57,12 @@ public class ProgrammRoutine extends Thread {
 				System.out.println("Hallo");
 				break;
 			case 9:
-				System.out.println("Hallo");
 				//Kundensynchronisierung
 				//Vorher Datenbankverbindung aufbauen
-				System.out.println("Hallo");
-				KundenSync Sync = new KundenSync();
-				Sync.test();
-				System.out.println("Hallo");
+				
+				SyncLoeschen.start();
+				//Sync.start();
+
 				break;
 			}
 
