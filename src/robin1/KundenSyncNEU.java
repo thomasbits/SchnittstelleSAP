@@ -11,7 +11,7 @@ import com.sap.conn.jco.JCoRepository;
 import com.sap.conn.jco.JCoStructure;
 
 //Klasse die die Kundensynchronisierung verwaltet
-public class KundenSync extends Thread{
+public class KundenSyncNEU extends Thread{
 
 	private boolean datenVorhanden = true;
 	private java.sql.Statement stmt;
@@ -19,7 +19,7 @@ public class KundenSync extends Thread{
 	private boolean sync = true;
 	private int i = 0;
 
-	public KundenSync() {
+	public KundenSyncNEU() {
 		//Konstruktor
 	}
 

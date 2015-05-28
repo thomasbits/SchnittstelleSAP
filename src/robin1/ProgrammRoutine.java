@@ -25,8 +25,7 @@ public class ProgrammRoutine extends Thread {
 	public void run()
 	{
 		VerbindungSAP verbindung = new VerbindungSAP();
-		NeuerKundeSAP neuerKunde = new NeuerKundeSAP();
-		KundenSync Sync = new KundenSync();
+		KundenSyncNEU Sync = new KundenSyncNEU();
 		
 		boolean durchlauf = true;
 		do
