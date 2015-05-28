@@ -5,14 +5,12 @@ import java.util.Properties;
 import com.sap.conn.jco.ext.DestinationDataEventListener;
 import com.sap.conn.jco.ext.DestinationDataProvider;
 
-/*
- * Stellt die Daten für eine Verbindung bereit
- */
 
+//Stellt die Daten für eine Verbindung bereit
 public class Provider implements DestinationDataProvider{
 
 	private String JCO_ASHOST;
-	private String JCO_SYSNR;		//Hier im Konstruktor als Parameter einfügen, Getter und Setter Methoden erstellen, in der Klasse Verbindung Eingaben über die Konsole entgegennehmen und über die setter "setzen"
+	private String JCO_SYSNR;		
 	private String JCO_CLIENT;
 	
 	private String JCO_USER;

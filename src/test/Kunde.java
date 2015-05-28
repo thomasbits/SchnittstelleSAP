@@ -10,6 +10,8 @@ public class Kunde {
 	private String strasse;
 	private String hausNr;
 	private String email;
+	private String sapNummer;
+	private String PLZ;
 
 	public Kunde() {
 		// TODO Auto-generated constructor stub
@@ -102,4 +104,24 @@ public class Kunde {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getPLZ() {
+		return PLZ;
+	}
+
+
+	public void setPLZ(String pLZ) {
+		PLZ = pLZ;
+	}
+
+
+	public String getSapNummer() {
+		return sapNummer;
+	}
+
+
+	public void setSapNummer(String sapNummer) {
+		this.sapNummer = sapNummer;
+	}
+	
 }
