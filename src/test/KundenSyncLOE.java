@@ -20,59 +20,38 @@ public class KundenSyncLOE extends Thread {
 	private java.sql.Statement stmt;
 	private String SAPDebitorNr;
 	Kunde kunde1 = new Kunde();
-	
+
 	public KundenSyncLOE() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public void run()
 	{
-		while(sync)
+
+
+		//Datenbankverbindung aufbauen - Instanz
+		DatenbankVerbindung dbconnection = new DatenbankVerbindung();
+
+		//Variable ob Daten vorhanden sind
+		datenVorhanden = true;
+		//Statement abfragen
+		stmt = dbconnection.getStatement();
+		//Daten abfragen
+		kundenLoeschenDatenbank();
+		//Wenn Daten vorhanden, dann in das SAP System schreiben
+		if(datenVorhanden)
 		{
-			
-			//Datenbankverbindung aufbauen - Instanz
-			DatenbankVerbindung dbconnection = new DatenbankVerbindung();
-			//Nach 20 Abfragen Verbindung neu aufbauen!
-			for(i = 0; i<20; i++)
-			{
-				//Variable ob Daten vorhanden sind
-				datenVorhanden = true;
-				//Statement abfragen
-				stmt = dbconnection.getStatement();
-				//Daten abfragen
-				kundenLoeschenDatenbank();
-				//Wenn Daten vorhanden, dann in das SAP System schreiben
-				if(datenVorhanden)
-				{
-					System.out.println("Kunde gefunden.. wird gelöscht");
-					//Verbindung zum SAP System
-					VerbindungSAP verbindung = new VerbindungSAP();
-					verbindung.connect();
-					//Kunde erstellen
-					deleteKunde();
-					
-					
-					
-				}
-				
-				try {
-					sleep(20000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	
-			}
-			//DB Verbindung schließen
-			dbconnection.schliesseVerbindung();
+			System.out.println("Kunde gefunden.. wird gelöscht");
+			//Verbindung zum SAP System
+			VerbindungSAP verbindung = new VerbindungSAP();
+			verbindung.connect();
+			//Kunde erstellen
+			deleteKunde();
 		}
+		//DB Verbindung schließen
+		dbconnection.schliesseVerbindung();
 	}
 
-	public void setSyncFalse()
-	{
-		sync = false;
-		i = 19;
-	}
-	
 	public void kundenLoeschenDatenbank()
 	{
 		try {
@@ -80,23 +59,21 @@ public class KundenSyncLOE extends Thread {
 			ResultSet results = stmt.executeQuery("SELECT SAP_KId FROM kunde WHERE status = 'l' AND SAP_KId IS NOT NULL;");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
-				//System.out.println("Result ist empty!!!!");
+				System.out.println("Result ist empty!!!!");
 				datenVorhanden = false;
 			}else
 			{
 				//Sonst Daten abfragen
 				results.first();
-
 				kunde1.setSapNummer(results.getString("SAP_KId"));
-				
-				
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	private boolean deleteKunde(/*Kunde k*/)
 	{
 		try {
@@ -107,13 +84,13 @@ public class KundenSyncLOE extends Thread {
 			//BAPI auswählen
 			JCoFunction func = repo.getFunction("BAPI_CUSTOMER_DELETE");
 			//Import Parameter festlegen
-			
-			
-	
+
+
+
 			//JCoStructure personalData = func.getImportParameterList().getStructure("CUSTOMERNO");
 			func.getImportParameterList().setValue("CUSTOMERNO", kunde1.getSapNummer());
 			//personalData.setValue("CUSTOMER",kunde1.getSapNummer());		
-			
+
 
 			//Daten an das SAP System übergeben
 			JCoContext.begin(dest);
@@ -132,8 +109,8 @@ public class KundenSyncLOE extends Thread {
 			//String query1 = "UPDATE kunde set SAP_KId = " + sapNr + " WHERE Email = \"" + Kunde1.getEmail() +"\";";
 
 			//Query ausführen
-			 
-			
+
+
 			/*
 			try {
 				stmt.execute(query1);
@@ -141,7 +118,7 @@ public class KundenSyncLOE extends Thread {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			*/
+			 */
 		} catch (JCoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -151,7 +128,7 @@ public class KundenSyncLOE extends Thread {
 		return true;
 	}
 }
-	
-	
-	
+
+
+
 

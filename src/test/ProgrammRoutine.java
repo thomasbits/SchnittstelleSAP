@@ -22,8 +22,8 @@ public class ProgrammRoutine extends Thread {
 	public void run()
 	{
 		VerbindungSAP verbindung = new VerbindungSAP();
-		KundenSyncNEU Sync = new KundenSyncNEU();
-		KundenSyncLOE SyncLoeschen = new KundenSyncLOE();
+		KundenSyncNEU SyncKundeNeu = new KundenSyncNEU();
+		KundenSyncLOE SyncKundeLoeschen = new KundenSyncLOE();
 		boolean durchlauf = true;
 		do
 		{
@@ -40,18 +40,19 @@ public class ProgrammRoutine extends Thread {
 
 			switch (status) {
 			case 4:
-				Sync.setSyncFalse();
+				//Programm beenden
+				SyncKundeNeu.setSyncFalse();
 				durchlauf = false;
 				System.out.println("Programm beendet");
 				break;
-			case 5:
-				verbindung.connect();
+			case 1:
+				SyncKundeNeu.start();
 				break;
 			case 6:
-				//neuerKunde.speichereKunden();
+			
 				break;
 			case 7:
-				DatenbankVerbindung dbconnection = new DatenbankVerbindung();
+				
 				break;
 			case 8:
 				System.out.println("Hallo");
@@ -60,8 +61,8 @@ public class ProgrammRoutine extends Thread {
 				//Kundensynchronisierung
 				//Vorher Datenbankverbindung aufbauen
 				
-				SyncLoeschen.start();
-				//Sync.start();
+				SyncKundeLoeschen.start();
+				//
 
 				break;
 			}
