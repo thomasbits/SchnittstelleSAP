@@ -6,7 +6,7 @@ import com.sap.conn.jco.JCoDestinationManager;
 import com.sap.conn.jco.JCoException;
 
 /*
- * Klasse Programm
+ * Klasse Programmeinstieg
  */
 
 public class Programmeinstieg extends Thread {
@@ -26,9 +26,6 @@ public class Programmeinstieg extends Thread {
 	
 	public void run()
 	{
-		VerbindungSAP verbindung = new VerbindungSAP();
-		KundenSyncNEU SyncKundeNeu = new KundenSyncNEU();
-		KundenSyncLOE SyncKundeLoeschen = new KundenSyncLOE();
 		boolean durchlauf = true;
 		do
 		{
@@ -56,10 +53,6 @@ public class Programmeinstieg extends Thread {
 				break;
 			//Programm beenden
 			case 4:
-				SyncKundeNeu.setSyncFalse();
-				durchlauf = false;
-				System.out.println("Programm beendet");
-				break;
 			}
 		}while(durchlauf);
 	}
