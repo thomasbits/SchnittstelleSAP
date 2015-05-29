@@ -10,6 +10,9 @@ public class Ablaufsteuerung extends Thread {
 		// TODO Auto-generated constructor stub
 	}
 	
+	private KundeWEB kundeWEB = new KundeWEB();
+	
+	
 	public void run()
 	{
 		//Datenbankverbindung aufbauen
@@ -17,10 +20,14 @@ public class Ablaufsteuerung extends Thread {
 		//Statement von der Datenbank holen
 		java.sql.Statement stmt = verbindung.getStatement();
 		
-		while(true)
+		//Überprüfen ob neuer Kunde vorhanden
+		Kunde kunde1 = kundeWEB.abfrageNeueKunden(stmt);
+		if(kunde1 != null)
 		{
-		 
+			//Kunde in das SAP System schreiben
 		}
+		
+		
 		
 	}
 }
