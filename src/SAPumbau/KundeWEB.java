@@ -10,7 +10,16 @@ public class KundeWEB {
 
 	}
 	Kunde kunde1 = new Kunde();
-	public Kunde abfrageNeueKunden(java.sql.Statement stmt)
+	java.sql.Statement stmt;
+	
+	public void setStatement(java.sql.Statement stmt)
+	{
+		this.stmt = stmt;
+	}
+	
+	
+	
+	public Kunde abfrageNeueKunden()
 	{
 
 
@@ -43,20 +52,21 @@ public class KundeWEB {
 		}
 		return kunde1;
 	}
-	
-	/*
-	//Muss in die Klasse KundeWEB
-	//SAP Nummer in Datenbank schreiben
-	String query1 = "UPDATE kunde set SAP_KId = " + sapNr + " WHERE Email = \"" + kunde1.getEmail() +"\";";
 
-	//Query ausführen
-	try {
-		stmt.execute(query1);
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+
+	public void schreibeSAPNummer(String sapNummer)
+
+	{
+		//Muss in die Klasse KundeWEB
+		//SAP Nummer in Datenbank schreiben
+		String query1 = "UPDATE kunde set SAP_KId = " + sapNummer + " WHERE Email = \"" + kunde1.getEmail() +"\";";
+
+		//Query ausführen
+		try {
+			stmt.execute(query1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	*/
-	
-	
 }

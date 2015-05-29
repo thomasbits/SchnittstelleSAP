@@ -21,7 +21,8 @@ public class Ablaufsteuerung extends Thread {
 		java.sql.Statement stmt = verbindung.getStatement();
 		
 		//Überprüfen ob neuer Kunde vorhanden
-		Kunde kunde1 = kundeWEB.abfrageNeueKunden(stmt);
+		kundeWEB.setStatement(stmt);
+		Kunde kunde1 = kundeWEB.abfrageNeueKunden();
 		if(kunde1 != null)
 		{
 			//Kunde in das SAP System schreiben
