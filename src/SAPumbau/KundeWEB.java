@@ -43,4 +43,20 @@ public class KundeWEB {
 		}
 		return kunde1;
 	}
+	
+	/*
+	//Muss in die Klasse KundeWEB
+	//SAP Nummer in Datenbank schreiben
+	String query1 = "UPDATE kunde set SAP_KId = " + sapNr + " WHERE Email = \"" + kunde1.getEmail() +"\";";
+
+	//Query ausführen
+	try {
+		stmt.execute(query1);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	*/
+	
+	
 }
