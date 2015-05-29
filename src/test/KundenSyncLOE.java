@@ -91,6 +91,11 @@ public class KundenSyncLOE extends Thread {
 			func.getImportParameterList().setValue("CUSTOMERNO", kunde1.getSapNummer());
 			//personalData.setValue("CUSTOMER",kunde1.getSapNummer());		
 
+			/*
+			personalData.setValue("SALESORG", "DN00");
+			personalData.setValue("DISTR_CHAN", "IN");
+			personalData.setValue("DIVISION", "BI");
+			*/
 
 			//Daten an das SAP System übergeben
 			JCoContext.begin(dest);
