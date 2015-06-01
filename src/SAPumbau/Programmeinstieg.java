@@ -16,12 +16,15 @@ public class Programmeinstieg extends Thread {
 	}
 	//Status des Programms
 	public int status = 0;
+	private Ablaufsteuerung ablaufsteuerung = new Ablaufsteuerung();
+	
 	
 	//Main Methode
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Programmeinstieg einstieg = new Programmeinstieg();
 		einstieg.start();
+		
 	}
 	
 	public void run()
@@ -43,7 +46,7 @@ public class Programmeinstieg extends Thread {
 			switch (status) {
 			//Synchronisierung starten
 			case 1:
-				SyncKundeNeu.start();
+				ablaufsteuerung.start();
 				break;
 			//Synchronisierung beenden
 			case 2:
@@ -53,6 +56,9 @@ public class Programmeinstieg extends Thread {
 				break;
 			//Programm beenden
 			case 4:
+			ablaufsteuerung.threadStop();
+			durchlauf = false;s
+				
 			}
 		}while(durchlauf);
 	}

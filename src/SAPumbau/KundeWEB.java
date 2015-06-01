@@ -11,27 +11,27 @@ public class KundeWEB {
 	public KundeWEB(Ablaufsteuerung ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
 		this.ablaufsteuerung = ablaufsteuerung;
-		
-		
+
+
 
 	}
 	Kunde kunde1 = new Kunde();
 	java.sql.Statement stmt;
-	
+
 	public void setStatement(java.sql.Statement stmt)
 	{
 		this.stmt = stmt;
 	}
-	
-	
-	
+
+
+
 	public void abfrageNeueKunden()
 	{
 		if (kundeSAP == null) {
 			//Instanz KundeSAP holen
 			ablaufsteuerung.getInstanceKundeSAP()
 		}
-		
+
 		try {
 			//Query ob Datensätze ohne SAP Nummer vorhanden sind?
 			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE SAP_KId IS NULL;");
@@ -59,9 +59,13 @@ public class KundeWEB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		kundeSAP.createKunde(kunde1);
-		
+		if(kunde1 != null)
+		{
+			//Kunde in das SAP System schreiben
+			kundeSAP.createKunde(kunde1);
+		}
+
+
 	}
 
 
@@ -80,4 +84,31 @@ public class KundeWEB {
 			e.printStackTrace();
 		}
 	}
+
+	//Kunde löschen
+	public void kundenLoeschenDatenbank()
+	{
+		try {
+			//Query ob Datensätze ohne SAP Nummer vorhanden sind?
+			ResultSet results = stmt.executeQuery("SELECT SAP_KId FROM kunde WHERE status = 'l' AND SAP_KId IS NOT NULL;");
+			//Abfragen ob Datensatz leer ist?
+			if (!results.next()){
+				System.out.println("Result ist empty!!!!");
+			}else
+			{
+				//Sonst Daten abfragen
+				results.first();
+				kunde1.setSapNummer(results.getString("SAP_KId"));
+				kundeSAP.deleteKunde(kunde1);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	//Kunde ändern
+
+
 }

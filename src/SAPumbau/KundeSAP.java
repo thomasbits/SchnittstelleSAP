@@ -20,7 +20,7 @@ public class KundeSAP {
 		this.ablaufsteuerung = ablaufsteuerung;
 	}
 	
-	public boolean createKunde(Kunde kunde1)
+	public void createKunde(Kunde kunde1)
 	{
 		if (kundeWEB == null) {
 			//Instanz KundeWEB holen
@@ -79,8 +79,9 @@ public class KundeSAP {
 			//Rückgabewert engegennehmen (SAP Kundennummer/Debitor)
 			String sapNr = (String) func.getExportParameterList().getValue("CUSTOMERNO");
 			
-			kunde1.setSapNummer(sapNr);
 			
+			
+			kundeWEB.schreibeSAPNummer(sapNr);
 			
 			
 			
@@ -89,9 +90,9 @@ public class KundeSAP {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Verbindung konnte nicht aufgebaut werden.");
-			return false;
+			
 		}
-		return true;
+		
 	}
 	
 	
@@ -106,10 +107,12 @@ public class KundeSAP {
 		return true;
 	}
 	
-	
+	//Kunde löschen
+
 	public boolean deleteKunde(Kunde kunde1)
 	{
 		try {
+			System.out.println("test");
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
 			JCoDestination dest = JCoDestinationManager.getDestination("");
 			//Repository holen
@@ -165,4 +168,7 @@ public class KundeSAP {
 		}
 		return true;
 	}
+	
+	
+	//Kunde ändern
 }
