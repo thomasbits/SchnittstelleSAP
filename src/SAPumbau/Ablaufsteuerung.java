@@ -28,7 +28,7 @@ public class Ablaufsteuerung extends Thread {
 	public void threadStop()
 	{
 		threadRun = false;
-		i = 19;
+		i = 21;
 	}
 
 	public void run()

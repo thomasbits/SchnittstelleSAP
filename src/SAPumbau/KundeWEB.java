@@ -29,7 +29,7 @@ public class KundeWEB {
 	{
 		if (kundeSAP == null) {
 			//Instanz KundeSAP holen
-			ablaufsteuerung.getInstanceKundeSAP();
+			kundeSAP = ablaufsteuerung.getInstanceKundeSAP();
 		}
 
 		try {
@@ -88,6 +88,12 @@ public class KundeWEB {
 	//Kunde löschen
 	public void kundenLoeschenDatenbank()
 	{
+		
+		if (kundeSAP == null) {
+			//Instanz KundeSAP holen
+			kundeSAP = ablaufsteuerung.getInstanceKundeSAP();
+		}
+		kunde1 = new Kunde();
 		try {
 			//Query ob Datensätze ohne SAP Nummer vorhanden sind?
 			ResultSet results = stmt.executeQuery("SELECT SAP_KId FROM kunde WHERE status = 'l' AND SAP_KId IS NOT NULL;");
