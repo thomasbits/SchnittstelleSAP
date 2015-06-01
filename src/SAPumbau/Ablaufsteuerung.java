@@ -6,12 +6,16 @@ import com.mysql.jdbc.Statement;
 
 public class Ablaufsteuerung extends Thread {
 
+	private KundeWEB kundeWEB; 
+	private KundeSAP kundeSAP;
+	
 	public Ablaufsteuerung() {
 		// TODO Auto-generated constructor stub
+		kundeWEB = new KundeWEB(this);
+		kundeSAP = new KundeSAP(this);
 	}
 	private VerbindungSAP verbindungSAP = new VerbindungSAP();
-	private KundeWEB kundeWEB = new KundeWEB(this);
-	private KundeSAP kundeSAP = new KundeSAP(this);
+	
 	private boolean threadRun = true;
 	private	int i = 0;
 	
@@ -50,9 +54,9 @@ public class Ablaufsteuerung extends Thread {
 				kundeWEB.setStatement(stmt);
 
 
-				kundeWEB.abfrageNeueKunden();
+				//kundeWEB.abfrageNeueKunden();
 				
-				//kundeWEB.kundenLoeschenDatenbank();
+				kundeWEB.kundenLoeschenDatenbank();
 				
 				try {
 					sleep(4000);
