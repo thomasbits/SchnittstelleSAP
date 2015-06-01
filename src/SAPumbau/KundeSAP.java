@@ -12,8 +12,8 @@ import com.sap.conn.jco.JCoStructure;
 
 public class KundeSAP {
 	
-	Ablaufsteuerung ablaufsteuerung;
-	KundeWEB kundeWEB;
+	private Ablaufsteuerung ablaufsteuerung;
+	private KundeWEB kundeWEB;
 
 	public KundeSAP(Ablaufsteuerung ablaufsteuerug) {
 		// TODO Auto-generated constructor stub
@@ -24,7 +24,7 @@ public class KundeSAP {
 	{
 		if (kundeWEB == null) {
 			//Instanz KundeWEB holen
-			ablaufsteuerung.getInstanceKundeWEB();
+			this.kundeWEB = ablaufsteuerung.getInstanceKundeWEB();
 		}
 		
 		

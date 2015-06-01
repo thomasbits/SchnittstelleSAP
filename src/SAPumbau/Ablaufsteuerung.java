@@ -9,7 +9,7 @@ public class Ablaufsteuerung extends Thread {
 	public Ablaufsteuerung() {
 		// TODO Auto-generated constructor stub
 	}
-
+	private VerbindungSAP verbindungSAP = new VerbindungSAP();
 	private KundeWEB kundeWEB = new KundeWEB(this);
 	private KundeSAP kundeSAP = new KundeSAP(this);
 	private boolean threadRun = true;
@@ -36,6 +36,9 @@ public class Ablaufsteuerung extends Thread {
 
 		while(threadRun)
 		{
+			
+			//SAP Verbindung
+			verbindungSAP.connect();
 			//Datenbankverbindung aufbauen
 			DatenbankVerbindung verbindung = new DatenbankVerbindung();
 			//Statement von der Datenbank holen
@@ -49,7 +52,7 @@ public class Ablaufsteuerung extends Thread {
 
 				kundeWEB.abfrageNeueKunden();
 				
-				kundeWEB.kundenLoeschenDatenbank();
+				//kundeWEB.kundenLoeschenDatenbank();
 				
 				try {
 					sleep(4000);
