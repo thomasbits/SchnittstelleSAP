@@ -5,8 +5,14 @@ import java.sql.SQLException;
 
 public class KundeWEB {
 
-	public KundeWEB() {
+	Ablaufsteuerung ablaufsteuerung;
+	KundeSAP kundeSAP;
+	KundeWEB kundeWEB;
+	public KundeWEB(Ablaufsteuerung ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
+		this.ablaufsteuerung = ablaufsteuerung;
+		
+		
 
 	}
 	Kunde kunde1 = new Kunde();
@@ -19,10 +25,13 @@ public class KundeWEB {
 	
 	
 	
-	public Kunde abfrageNeueKunden()
+	public void abfrageNeueKunden()
 	{
-
-
+		if (kundeSAP == null) {
+			//Instanz KundeSAP holen
+			ablaufsteuerung.getInstanceKundeSAP()
+		}
+		
 		try {
 			//Query ob Datensätze ohne SAP Nummer vorhanden sind?
 			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE SAP_KId IS NULL;");
@@ -50,7 +59,9 @@ public class KundeWEB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return kunde1;
+		
+		kundeSAP.createKunde(kunde1);
+		
 	}
 
 

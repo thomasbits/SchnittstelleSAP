@@ -12,14 +12,23 @@ import com.sap.conn.jco.JCoStructure;
 
 public class KundeSAP {
 	
-	
+	Ablaufsteuerung ablaufsteuerung;
+	KundeWEB kundeWEB;
 
-	public KundeSAP() {
+	public KundeSAP(Ablaufsteuerung ablaufsteuerug) {
 		// TODO Auto-generated constructor stub
+		this.ablaufsteuerung = ablaufsteuerung;
 	}
 	
 	public boolean createKunde(Kunde kunde1)
 	{
+		if (kundeWEB == null) {
+			//Instanz KundeWEB holen
+			ablaufsteuerung.getInstanceKundeWEB();
+		}
+		
+		
+		
 		try {
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
 			JCoDestination dest = JCoDestinationManager.getDestination("");
@@ -72,7 +81,7 @@ public class KundeSAP {
 			
 			kunde1.setSapNummer(sapNr);
 			
-			KundeWEB.schreibeSAPNummer(sapNr);
+			
 			
 			
 			

@@ -10,8 +10,18 @@ public class Ablaufsteuerung extends Thread {
 		// TODO Auto-generated constructor stub
 	}
 	
-	private KundeWEB kundeWEB = new KundeWEB();
+	private KundeWEB kundeWEB = new KundeWEB(this);
+	private KundeSAP kundeSAP = new KundeSAP(this);
 	
+	public KundeWEB getInstanceKundeWEB()
+	{
+		return kundeWEB;
+	}
+	
+	public KundeSAP getInstanceKundeSAP()
+	{
+		return kundeSAP;
+	}
 	
 	public void run()
 	{
@@ -22,7 +32,7 @@ public class Ablaufsteuerung extends Thread {
 		
 		//Überprüfen ob neuer Kunde vorhanden
 		kundeWEB.setStatement(stmt);
-		Kunde kunde1 = kundeWEB.abfrageNeueKunden();
+		kundeWEB.abfrageNeueKunden();
 		if(kunde1 != null)
 		{
 			//Kunde in das SAP System schreiben
