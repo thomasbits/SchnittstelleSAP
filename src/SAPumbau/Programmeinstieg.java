@@ -57,7 +57,7 @@ public class Programmeinstieg extends Thread {
 			//Programm beenden
 			case 4:
 			ablaufsteuerung.threadStop();
-			durchlauf = false;s
+			durchlauf = false;
 				
 			}
 		}while(durchlauf);

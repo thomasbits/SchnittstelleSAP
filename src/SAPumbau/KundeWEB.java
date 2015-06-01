@@ -29,7 +29,7 @@ public class KundeWEB {
 	{
 		if (kundeSAP == null) {
 			//Instanz KundeSAP holen
-			ablaufsteuerung.getInstanceKundeSAP()
+			ablaufsteuerung.getInstanceKundeSAP();
 		}
 
 		try {
