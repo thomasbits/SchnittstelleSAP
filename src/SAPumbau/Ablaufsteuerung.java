@@ -1,10 +1,8 @@
 package SAPumbau;
 
-<<<<<<< HEAD
 
-=======
 import com.mysql.jdbc.Statement;
->>>>>>> refs/remotes/origin/master
+
 
 public class Ablaufsteuerung extends Thread {
 
