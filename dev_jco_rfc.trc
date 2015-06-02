@@ -1,0 +1,55 @@
+
+**** Error file opened at 20150601 215523 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Mon Jun 01 21:55:23,340<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       f00: route permission denied (79.254.224.63 to R52Z, 3352)
+TIME        Mon Jun  1 21:55:23 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -94
+COUNTER     310043
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+
+**** Error file opened at 20150602 194753 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Tue Jun 02 19:47:53,941<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       f00: route permission denied (87.166.122.228 to R52Z, 3352)
+TIME        Tue Jun  2 19:47:54 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -94
+COUNTER     337201
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Tue Jun 02 19:47:55,705<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       f00: route permission denied (87.166.122.228 to R52Z, 3352)
+TIME        Tue Jun  2 19:47:55 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -94
+COUNTER     337203
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
