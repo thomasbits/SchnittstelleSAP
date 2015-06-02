@@ -114,7 +114,49 @@ public class KundeWEB {
 		}
 	}
 
-	//Kunde ändern
+	public void abfrageGeänderteKunden()
+	{
+		if (kundeSAP == null) {
+			//Instanz KundeSAP holen
+			kundeSAP = ablaufsteuerung.getInstanceKundeSAP();
+		}
+
+		try {
+			//Query ob Datensätze mit Änderungen vorhanden sind?
+			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE status = 'a';");
+			//Abfragen ob Datensatz leer ist?
+			if (!results.next()){
+				//System.out.println("Result ist empty!!!!");
+				kunde1 = null;
+			}else
+			{
+				//Sonst Daten abfragen und in Klasse Kunde1 schreiben	
+				results.first();
+
+				kunde1.setSapNummer(results.getString("SAP_KId"));
+				kunde1.setVorname(results.getString("vorname"));
+				kunde1.setName(results.getString("name"));
+				kunde1.setPLZ(results.getString("PLZ"));
+				kunde1.setOrt(results.getString("Ort"));
+				kunde1.setEmail(results.getString("Email"));
+				kunde1.setGeburtstdatum(results.getString("Geburtsdatum"));
+				kunde1.setGeschlecht(results.getString("Geschlecht"));
+				kunde1.setStrasse(results.getString("Strasse"));
+				kunde1.setHausNr(results.getString("Hausnummer"));
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(kunde1 != null)
+		{
+			//Änderungen in das SAP System schreiben
+			kundeSAP.changeKunde(kunde1);
+		}
+
+
+	}
 
 
 }

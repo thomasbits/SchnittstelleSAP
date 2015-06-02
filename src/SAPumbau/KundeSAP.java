@@ -15,7 +15,7 @@ public class KundeSAP {
 	private Ablaufsteuerung ablaufsteuerung;
 	private KundeWEB kundeWEB;
 
-	public KundeSAP(Ablaufsteuerung ablaufsteuerug) {
+	public KundeSAP(Ablaufsteuerung ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
 		this.ablaufsteuerung = ablaufsteuerung;
 	}
@@ -100,18 +100,87 @@ public class KundeSAP {
 	
 	
 	
-	public boolean changeKunde()
+	public boolean changeKunde(Kunde kunde1)
 	{
-		//muss noch implementiert werden
+		try{
+		//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
+		JCoDestination dest = JCoDestinationManager.getDestination("");
+		//Repository holen
+		JCoRepository repo = dest.getRepository();
+		//BAPI auswählen
+		JCoFunction func = repo.getFunction("BAPI_CUSTOMER_CHANGEFROMDATA1");
 		
+		//Kundennummer, dessen Daten geändert werden sollen
+		func.getImportParameterList().setValue("CUSTOMERNO","0000025012");
+		
+		//die Daten, die geändert werden sollen
+		JCoStructure changeData = func.getImportParameterList().getStructure("PI_PERSONALDATA");
+		changeData.setValue("TITLE_P","Herr");
+		changeData.setValue("FIRSTNAME","Testkunde");
+		changeData.setValue("LASTNAME","Testkunde");
+		changeData.setValue("DATE_BIRTH","19920820");
+		changeData.setValue("CITY","Buxdehude");
+		changeData.setValue("POSTL_COD1","34389");				//testdaten, später aus kunde1 holen.
+		changeData.setValue("STREET","Kleiner Weg");
+		changeData.setValue("HOUSE_NO","5");
+		changeData.setValue("E_MAIL","Testuser@user.com");
+		changeData.setValue("COUNTRY","DE");
+		changeData.setValue("CURRENCY","EUR");
+		changeData.setValue("LANGU_P","DE");
+		
+		//Flag, welches bei den Werten, die geändert werden sollen, gesetzt werden muss
+		JCoStructure changeFlag = func.getImportParameterList().getStructure("PI_PERSONALDATAX");
+		changeFlag.setValue("TITLE_P","X");
+		changeFlag.setValue("FIRSTNAME","X");
+		changeFlag.setValue("LASTNAME","X");
+		changeFlag.setValue("DATE_BIRTH","X");
+		changeFlag.setValue("CITY","X");
+		changeFlag.setValue("POSTL_COD1","X");
+		changeFlag.setValue("STREET","X");
+		changeFlag.setValue("HOUSE_NO","X");
+		changeFlag.setValue("E_MAIL","X");
+		changeFlag.setValue("COUNTRY", "X");
+		changeFlag.setValue("CURRENCY", "X");
+		changeFlag.setValue("LANGU_P", "X");
+		
+		
+		func.getImportParameterList().setValue("PI_SALESORG", "DN00");
+		
+		/*JCoStructure referenceData = func.getImportParameterList().getStructure("PI_SALESORG");		//wahrscheinlich setValue() statt getStructure()	
+		referenceData.setValue("SALESORG", "DN00");
+		referenceData.setValue("DISTR_CHAN", "IN");
+		referenceData.setValue("DIVISION", "BI");			
+		referenceData.setValue("REF_CUSTMR", "0000014000");
+		*/
+		
+		//Daten an das SAP System übergeben
+		JCoContext.begin(dest);
+		func.execute(dest);
+		JCoFunction funcCommit = dest.getRepository().getFunction("BAPI_TRANSACTION_COMMIT");
+		funcCommit.execute(dest);
+		JCoContext.end(dest);
+		
+		
+		System.out.println(func.getExportParameterList().getValue("RETURN"));
+		
+		
+		
+		}catch (JCoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Verbindung konnte nicht aufgebaut werden.");
+			return false;
+		}
 		return true;
 	}
 	
+	
 	//Kunde löschen
-
+	//so nicht Umsetzbar. Anderen Lösungsweg finden.
 	public boolean deleteKunde(Kunde kunde1)
 	{
 		try {
+//			kundeIstNeu();
 			System.out.println("test");
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
 			JCoDestination dest = JCoDestinationManager.getDestination("");
@@ -121,17 +190,18 @@ public class KundeSAP {
 			JCoFunction func = repo.getFunction("BAPI_CUSTOMER_DELETE");
 			//Import Parameter festlegen
 
+			System.out.println(func.getImportParameterList());
 
+//			JCoStructure personalData = func.getImportParameterList().getStructure("CUSTOMERNO");
+			func.getImportParameterList().setValue("CUSTOMERNO", "25009");//kunde1.getSapNummer());
+//			personalData.setValue("CUSTOMER", "25009");//kunde1.getSapNummer());	
+			
 
-			//JCoStructure personalData = func.getImportParameterList().getStructure("CUSTOMERNO");
-			func.getImportParameterList().setValue("CUSTOMERNO", kunde1.getSapNummer());
-			//personalData.setValue("CUSTOMER",kunde1.getSapNummer());		
-
-			/*
-			personalData.setValue("SALESORG", "DN00");
-			personalData.setValue("DISTR_CHAN", "IN");
-			personalData.setValue("DIVISION", "BI");
-			*/
+			
+//			personalData.setValue("SALESORG", "DN00");
+//			personalData.setValue("DISTR_CHAN", "IN");
+//			personalData.setValue("DIVISION", "BI");
+			
 
 			//Daten an das SAP System übergeben
 			JCoContext.begin(dest);
@@ -169,6 +239,49 @@ public class KundeSAP {
 		return true;
 	}
 	
+	
+	private boolean kundeIstNeu(/*String email*/)		//E-Mail des zu prüfenden Kunden
+	{
+		try{
+			
+			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
+			JCoDestination dest = JCoDestinationManager.getDestination("");
+			//Repository holen
+			JCoRepository repo = dest.getRepository();
+			
+			
+			
+	
+		JCoFunction func = repo.getFunction("BAPI_CUSTOMER_SEARCH1");
+		
+
+		func.getImportParameterList().setValue("PI_E_MAIL","Max.Musterman@gmail.de");		//E-Mail des Kunden	->	später durch den Übergabeparameter email ersetzen
+		
+		func.getImportParameterList().setValue("PI_SALESORG","DN00");				//Verkaufsorganisation
+
+		//Ausführen der Funktionen mit anschließenden Commit
+		JCoContext.begin(dest);
+		func.execute(dest);
+		JCoFunction funcCommit = dest.getRepository().getFunction("BAPI_TRANSACTION_COMMIT");
+		funcCommit.execute(dest);
+		JCoContext.end(dest);
+		
+		
+		
+		System.out.println(func.getExportParameterList().getValue("RETURN"));
+		System.out.println(func.getExportParameterList().getValue("CUSTOMERNO"));					//Ausgaben nur zum Testen
+		System.out.println(func.getExportParameterList().getValue("CUSTOMERNO") == null);
+		return func.getExportParameterList().getValue("CUSTOMERNO") == null;						//Gibt true zurück, wenn die abfrage ans SAP-System keine Kundennummer zurück gibt
+		
+		
+		} catch (JCoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Verbindung konnte nicht aufgebaut werden.");
+			return false;
+		}
+		
+	}
 	
 	//Kunde ändern
 }

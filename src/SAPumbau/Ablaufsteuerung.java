@@ -1,7 +1,5 @@
 package SAPumbau;
 
-import com.mysql.jdbc.Statement;
-
 
 
 public class Ablaufsteuerung extends Thread {
@@ -48,6 +46,14 @@ public class Ablaufsteuerung extends Thread {
 			//Statement von der Datenbank holen
 			java.sql.Statement stmt = verbindung.getStatement();
 
+			
+			
+			kundeSAP.changeKunde(new Kunde());
+			
+			
+			
+			
+			/*
 			for (i=0; i<20; i++)
 			{
 				//Überprüfen ob neuer Kunde vorhanden
@@ -66,7 +72,7 @@ public class Ablaufsteuerung extends Thread {
 				}
 
 			}
-			
+			*/
 		}
 
 
