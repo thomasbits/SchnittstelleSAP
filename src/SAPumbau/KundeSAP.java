@@ -11,24 +11,31 @@ import com.sap.conn.jco.JCoRepository;
 import com.sap.conn.jco.JCoStructure;
 
 public class KundeSAP {
-	
+
 	private Ablaufsteuerung ablaufsteuerung;
 	private KundeWEB kundeWEB;
 
-	public KundeSAP(Ablaufsteuerung ablaufsteuerug) {
+	public KundeSAP(Ablaufsteuerung ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
+
 		this.ablaufsteuerung = ablaufsteuerung;
-	}
-	
+	}						  
+
+
+
+
 	public void createKunde(Kunde kunde1)
 	{
+
+
 		if (kundeWEB == null) {
+			System.out.println("testas");
 			//Instanz KundeWEB holen
-			this.kundeWEB = ablaufsteuerung.getInstanceKundeWEB();
+			kundeWEB = ablaufsteuerung.getInstanceKundeWEB();
 		}
-		
-		
-		
+
+
+
 		try {
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
 			JCoDestination dest = JCoDestinationManager.getDestination("");
@@ -75,44 +82,37 @@ public class KundeSAP {
 			JCoFunction funcCommit = dest.getRepository().getFunction("BAPI_TRANSACTION_COMMIT");
 			funcCommit.execute(dest);
 			JCoContext.end(dest);
-			
+
 			//Rückgabewert engegennehmen (SAP Kundennummer/Debitor)
 			String sapNr = (String) func.getExportParameterList().getValue("CUSTOMERNO");
-			
-			
-			
+
+
+
 			kundeWEB.schreibeSAPNummer(sapNr);
-			
-			
-			
-			
+
+
+
 		} catch (JCoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Verbindung konnte nicht aufgebaut werden.");
-			
+
 		}
-		
+
 	}
-	
-	
-	
-	
-	
-	
+
 	public boolean changeKunde()
 	{
 		//muss noch implementiert werden
-		
+
 		return true;
 	}
-	
+
 	//Kunde löschen
 
 	public boolean deleteKunde(Kunde kunde1)
 	{
 		try {
-			System.out.println("test");
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
 			JCoDestination dest = JCoDestinationManager.getDestination("");
 			//Repository holen
@@ -131,7 +131,7 @@ public class KundeSAP {
 			personalData.setValue("SALESORG", "DN00");
 			personalData.setValue("DISTR_CHAN", "IN");
 			personalData.setValue("DIVISION", "BI");
-			*/
+			 */
 
 			//Daten an das SAP System übergeben
 			JCoContext.begin(dest);
@@ -168,7 +168,7 @@ public class KundeSAP {
 		}
 		return true;
 	}
-	
-	
+
+
 	//Kunde ändern
 }
