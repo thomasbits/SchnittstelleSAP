@@ -1,5 +1,6 @@
 package SAPumbau;
 
+import com.sap.conn.jco.JCoDestination;
 import com.sap.conn.jco.JCoDestinationManager;
 import com.sap.conn.jco.JCoException;
 
@@ -10,6 +11,7 @@ public class VerbindungSAP {
 	//Konstruktor
 	}
 
+	private JCoDestination dest;
 	public void connect() {
 		// TODO Auto-generated method stub
 		// Neue Instanz des Providers (Verbindungsdaten)
