@@ -13,7 +13,7 @@ public class ProduktKatalogSAP {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void getProduktKatalog(/*KatalogNr*/)
+	public void getProduktKatalog(/*String KatalogNr*/)
 	{
 		try{
 			

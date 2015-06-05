@@ -114,6 +114,8 @@ public class KundeWEB {
 		}
 	}
 
+	//Fragt in der Webshopdatenbank ab, ob es geänderte Kundendatensätze gibt und
+	//schreibt diese anschließend ins SAP System
 	public void abfrageGeänderteKunden()
 	{
 		if (kundeSAP == null) {
@@ -126,11 +128,11 @@ public class KundeWEB {
 			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE status = 'a';");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
-				//System.out.println("Result ist empty!!!!");
+				System.out.println("Result ist empty!!!!");			//nur zum Testen
 				kunde1 = null;
 			}else
 			{
-				//Sonst Daten abfragen und in Klasse Kunde1 schreiben	
+				//Sonst Daten abfragen und in Klasse Kunde schreiben	
 				results.first();
 
 				kunde1.setSapNummer(results.getString("SAP_KId"));
@@ -152,7 +154,8 @@ public class KundeWEB {
 		if(kunde1 != null)
 		{
 			//Änderungen in das SAP System schreiben
-			kundeSAP.changeKunde(kunde1);
+//			kundeSAP.changeKunde(kunde1);
+			System.out.println(kunde1.getVorname());		//nur zum testen
 		}
 
 

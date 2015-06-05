@@ -14,7 +14,7 @@ public class Ablaufsteuerung extends Thread {
 		// TODO Auto-generated constructor stub
 		kundeWEB = new KundeWEB(this);
 		kundeSAP = new KundeSAP(this);
-		verbindungSAP= new VerbindungSAP();
+		verbindungSAP = new VerbindungSAP();
 	}
 
 	private boolean threadRun = true;
@@ -49,17 +49,25 @@ public class Ablaufsteuerung extends Thread {
 			java.sql.Statement stmt = verbindung.getStatement();
 
 			
+			for (i=0; i<20; i++)
+			{
+			kundeWEB.setStatement(stmt);
 			
-			kundeSAP.changeKunde(new Kunde());
+			kundeWEB.abfrageGeänderteKunden();
 			
-			
-			
+				try {
+					sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			
 			/*
-			for (i=0; i<20; i++)
-=======
+
+
 			for (i=0; i<10; i++)
->>>>>>> refs/remotes/origin/master
+
 			{
 				//Überprüfen ob neuer Kunde vorhanden
 				kundeWEB.setStatement(stmt);

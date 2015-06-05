@@ -101,7 +101,7 @@ public class KundeSAP {
 
 	}
 
-
+	//Gibt noch eine Fehlermeldung zurück
 	public boolean changeKunde(Kunde kunde1)
 	{
 
@@ -114,7 +114,7 @@ public class KundeSAP {
 		JCoFunction func = repo.getFunction("BAPI_CUSTOMER_CHANGEFROMDATA1");
 		
 		//Kundennummer, dessen Daten geändert werden sollen
-		func.getImportParameterList().setValue("CUSTOMERNO","0000025012");
+		func.getImportParameterList().setValue("CUSTOMERNO","0000025012");		//testdaten, später aus kunde1 holen.
 		
 		//die Daten, die geändert werden sollen
 		JCoStructure changeData = func.getImportParameterList().getStructure("PI_PERSONALDATA");
@@ -145,16 +145,9 @@ public class KundeSAP {
 		changeFlag.setValue("COUNTRY", "X");
 		changeFlag.setValue("CURRENCY", "X");
 		changeFlag.setValue("LANGU_P", "X");
-		
-		
+				
 		func.getImportParameterList().setValue("PI_SALESORG", "DN00");
 		
-		/*JCoStructure referenceData = func.getImportParameterList().getStructure("PI_SALESORG");		//wahrscheinlich setValue() statt getStructure()	
-		referenceData.setValue("SALESORG", "DN00");
-		referenceData.setValue("DISTR_CHAN", "IN");
-		referenceData.setValue("DIVISION", "BI");			
-		referenceData.setValue("REF_CUSTMR", "0000014000");
-		*/
 		
 		//Daten an das SAP System übergeben
 		JCoContext.begin(dest);
