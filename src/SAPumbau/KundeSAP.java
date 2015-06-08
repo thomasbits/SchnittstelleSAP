@@ -9,7 +9,9 @@ import com.sap.conn.jco.JCoException;
 import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoRepository;
 import com.sap.conn.jco.JCoStructure;
-
+/*
+ * 
+ */
 public class KundeSAP {
 
 	private Ablaufsteuerung ablaufsteuerung;
@@ -114,7 +116,7 @@ public class KundeSAP {
 		JCoFunction func = repo.getFunction("BAPI_CUSTOMER_CHANGEFROMDATA1");
 		
 		//Kundennummer, dessen Daten geändert werden sollen
-		func.getImportParameterList().setValue("CUSTOMERNO","0000025012");		//testdaten, später aus kunde1 holen.
+		func.getImportParameterList().setValue("CUSTOMERNO","25026");		//testdaten, später aus kunde1 holen.
 		
 		//die Daten, die geändert werden sollen
 		JCoStructure changeData = func.getImportParameterList().getStructure("PI_PERSONALDATA");
@@ -190,7 +192,7 @@ public class KundeSAP {
 			System.out.println(func.getImportParameterList());
 
 //			JCoStructure personalData = func.getImportParameterList().getStructure("CUSTOMERNO");
-			func.getImportParameterList().setValue("CUSTOMERNO", "25009");//kunde1.getSapNummer());
+			func.getImportParameterList().setValue("CUSTOMERNO", "25026");//kunde1.getSapNummer());
 //			personalData.setValue("CUSTOMER", "25009");//kunde1.getSapNummer());	
 			
 

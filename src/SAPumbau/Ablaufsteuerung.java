@@ -3,11 +3,14 @@ package SAPumbau;
 
 import com.mysql.jdbc.Statement;
 
-
+/*
+ * 
+ */
 public class Ablaufsteuerung extends Thread {
 
 	private KundeWEB kundeWEB; 
 	private KundeSAP kundeSAP;
+	private KundenauftragSAP auftragSAP;
 	private VerbindungSAP verbindungSAP;
 
 	public Ablaufsteuerung() {
@@ -29,6 +32,11 @@ public class Ablaufsteuerung extends Thread {
 	{
 		return kundeSAP;
 	}
+	
+	public KundenauftragSAP getInstanceKundenauftragSAP()
+	{
+		return auftragSAP;
+	}
 
 	public void threadStop()
 	{
@@ -43,11 +51,16 @@ public class Ablaufsteuerung extends Thread {
 		while(threadRun)
 		{
 			
+			//SAP Verbindung
+			verbindungSAP.connect();
+			
 			//Datenbankverbindung aufbauen
 			DatenbankVerbindung verbindung = new DatenbankVerbindung();
 			//Statement von der Datenbank holen
 			java.sql.Statement stmt = verbindung.getStatement();
 
+			
+			
 			
 			for (i=0; i<20; i++)
 			{

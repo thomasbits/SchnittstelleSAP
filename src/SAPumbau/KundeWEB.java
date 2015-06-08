@@ -2,21 +2,23 @@ package SAPumbau;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/*
+ * 
+ */
 public class KundeWEB {
 
 	Ablaufsteuerung ablaufsteuerung;
 	KundeSAP kundeSAP;
 	KundeWEB kundeWEB;
+	Kunde kunde1 = new Kunde();
+	java.sql.Statement stmt;
+	
+	
 	public KundeWEB(Ablaufsteuerung ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
 		this.ablaufsteuerung = ablaufsteuerung;
-
-
-
 	}
-	Kunde kunde1 = new Kunde();
-	java.sql.Statement stmt;
+	
 
 	public void setStatement(java.sql.Statement stmt)
 	{

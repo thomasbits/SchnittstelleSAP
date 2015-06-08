@@ -7,15 +7,18 @@ import com.sap.conn.jco.JCoException;
 //Klasse für die SAP Verbindung
 public class VerbindungSAP {
 
+	Provider des;
+	
 	public VerbindungSAP() {
 	//Konstruktor
+	// Neue Instanz des Providers (Verbindungsdaten)
+		des = new Provider();
 	}
 
 	private JCoDestination dest;
 	public void connect() {
 		// TODO Auto-generated method stub
-		// Neue Instanz des Providers (Verbindungsdaten)
-		Provider des = new Provider();
+
 		//Logindaten setzen
 		des.setLoginData("JCO_BITS", "init1234"); 
 		//Abfragen ob der DestinationDataProvider registriert ist, wenn nicht wird neu registiert
