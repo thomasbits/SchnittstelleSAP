@@ -1,6 +1,9 @@
 package SAPumbau;
 
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
 /*
  * Repräsentiert einen Kundenauftrag. 
  */
@@ -8,12 +11,22 @@ public class Kundenauftrag {
 	
 	private String bestellNRSAP, bestellNRWEB, verkaufsbelegart, partnerrolle, debitorennummer, status;		//nicht alle notwendig weil immer gleich??
 	private Hashtable<String, String> position;	//
+	private HashMap<String, String> pos = new HashMap<String, String>();		//Besser als HashTable??? oder iterator verwenden
 
 	public Kundenauftrag() {
 		
 	}
 
+	public HashMap<String, String> getPos() {
+		return pos;
+	}
+
+	public void setPos(String produkt, String menge) {
+		this.pos.put(produkt, menge);
+	}
+
 	public Hashtable<String, String> getPosition() {
+		
 		return position;
 	}
 

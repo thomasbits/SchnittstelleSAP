@@ -11,6 +11,7 @@ public class Ablaufsteuerung extends Thread {
 	private KundeWEB kundeWEB; 
 	private KundeSAP kundeSAP;
 	private KundenauftragSAP auftragSAP;
+	private KundenauftragWEB auftragWEB;
 	private VerbindungSAP verbindungSAP;
 
 	public Ablaufsteuerung() {
@@ -18,6 +19,8 @@ public class Ablaufsteuerung extends Thread {
 		kundeWEB = new KundeWEB(this);
 		kundeSAP = new KundeSAP(this);
 		verbindungSAP = new VerbindungSAP();
+		auftragSAP = new KundenauftragSAP();
+		auftragWEB = new KundenauftragWEB(this);
 	}
 
 	private boolean threadRun = true;
@@ -62,12 +65,14 @@ public class Ablaufsteuerung extends Thread {
 			
 			
 			
-			for (i=0; i<20; i++)
+			
+			
+			for (i=0; i<10; i++)
 			{
-			kundeWEB.setStatement(stmt);
-			
-			kundeWEB.abfrageGeänderteKunden();
-			
+				auftragSAP.createKundenauftrag(new Kundenauftrag());
+//				auftragWEB.setStatement(stmt);
+//				auftragWEB.abfrageNeueBestellungen();
+				threadStop();
 				try {
 					sleep(500);
 				} catch (InterruptedException e) {
@@ -104,7 +109,7 @@ public class Ablaufsteuerung extends Thread {
 					e.printStackTrace();
 				}
 			}
-<<<<<<< HEAD
+
 			*/
 
 		}

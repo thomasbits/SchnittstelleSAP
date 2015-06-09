@@ -9,12 +9,17 @@ import java.sql.SQLException;
 public class KundenauftragWEB {
 
 	Ablaufsteuerung ablaufsteuerung;
-	Kundenauftrag auftrag;
+	Kundenauftrag auftrag = new Kundenauftrag();
 	KundenauftragSAP auftragSAP;
 	java.sql.Statement stmt;
 	
 	public KundenauftragWEB(Ablaufsteuerung ablaufsteuerung) {
 		this.ablaufsteuerung = ablaufsteuerung;
+	}
+	
+	public void setStatement(java.sql.Statement stmt)
+	{
+		this.stmt = stmt;
 	}
 	
 	public void abfrageNeueBestellungen()
@@ -29,10 +34,12 @@ public class KundenauftragWEB {
 			ResultSet results = stmt.executeQuery("SELECT * FROM bestellung WHERE SAP_BestID IS NULL;");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
-				//System.out.println("Result ist empty!!!!");
+				System.out.println("Result ist empty!!!!");
 				auftrag = null;
 			}else
 			{
+				
+				System.out.println("BestellID:" + results.getString("BestId"));			//nur zum Testen
 				//Sonst Daten abfragen und in Klasse Kundenauftrag schreiben	
 				results.first();
 
@@ -48,9 +55,14 @@ public class KundenauftragWEB {
 					{			
 						auftrag.setPosition(results.getString("PId"), results.getString("Menge"));
 					}
+					
+					
+					
 				
 					results.next();
 
+					
+					
 				}
 			}
 		} catch (SQLException e) {
@@ -60,7 +72,7 @@ public class KundenauftragWEB {
 		if(auftrag != null)
 		{
 			//Auftrag in das SAP System schreiben
-			auftragSAP.createKundenauftrag(auftrag);
+			//auftragSAP.createKundenauftrag(auftrag);
 		}
 	}
 	

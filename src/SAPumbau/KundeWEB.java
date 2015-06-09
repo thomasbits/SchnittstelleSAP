@@ -25,8 +25,7 @@ public class KundeWEB {
 		this.stmt = stmt;
 	}
 
-
-
+	
 	public void abfrageNeueKunden()
 	{
 		if (kundeSAP == null) {
