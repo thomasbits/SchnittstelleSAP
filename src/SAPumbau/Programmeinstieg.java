@@ -50,6 +50,9 @@ public class Programmeinstieg extends Thread {
 				break;
 			//Synchronisierung beenden
 			case 2:
+				Mail mail = new Mail();
+				mail.senden();
+				
 				break;
 			//
 			case 3:
