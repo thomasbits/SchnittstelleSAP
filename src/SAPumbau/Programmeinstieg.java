@@ -1,6 +1,7 @@
 package SAPumbau;
 
 import java.util.Scanner;
+
 import com.mysql.jdbc.Statement;
 import com.sap.conn.jco.JCoDestinationManager;
 import com.sap.conn.jco.JCoException;
@@ -50,8 +51,14 @@ public class Programmeinstieg extends Thread {
 				break;
 			//Synchronisierung beenden
 			case 2:
-				Mail mail = new Mail();
-				mail.senden();
+				//Mail mail = new Mail();
+				//mail.senden();
+				VerbindungSAP verbindungSAP = new VerbindungSAP();
+				verbindungSAP.connect();
+				
+				
+				MaterialSAP material = new MaterialSAP();
+				material.materialListeHolen();
 				
 				break;
 			//
