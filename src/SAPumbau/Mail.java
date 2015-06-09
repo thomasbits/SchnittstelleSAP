@@ -16,11 +16,12 @@ public class Mail {
 		String msgBody = "msgBody";
 		String userEmail = "robin@kljb-alhausen.de";
 		final String username = "sapservice@felixbe.de";
-		final String password = "^Y4jm30t";
+		final String password = "";
 
 		Properties prop = new Properties();
 		prop.put("mail.smtp.auth", "true");
 		prop.put("mail.smtp.starttls.enable", "false");
+		//prop.put("mail.smtp.ssl.enable", "false");
 		prop.put("mail.smtp.host", "mail.felixbe.de");
 		prop.put("mail.smtp.port", "25");
 
