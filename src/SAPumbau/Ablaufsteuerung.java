@@ -61,7 +61,7 @@ public class Ablaufsteuerung extends Thread {
 			DatenbankVerbindung verbindung = new DatenbankVerbindung();
 			//Statement von der Datenbank holen
 			java.sql.Statement stmt = verbindung.getStatement();
-
+			
 			
 			
 			
@@ -69,6 +69,7 @@ public class Ablaufsteuerung extends Thread {
 			
 			for (i=0; i<10; i++)
 			{
+//				kundeSAP.changeKunde(new Kunde());
 				auftragSAP.createKundenauftrag(new Kundenauftrag());
 //				auftragWEB.setStatement(stmt);
 //				auftragWEB.abfrageNeueBestellungen();

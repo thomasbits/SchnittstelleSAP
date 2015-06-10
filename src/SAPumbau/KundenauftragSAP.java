@@ -45,8 +45,8 @@ public class KundenauftragSAP {
 			
 			JCoTable partner = func.getTableParameterList().getTable("ORDER_PARTNERS");
 			partner.appendRow();
-			partner.setValue("PARTN_ROLE", "AG");			//Partnerrolle: hier AuftragGeber
-			partner.setValue("PARTN_NUMB", "25026");		//Debitorennummer
+			partner.setValue("PARTN_ROLE", "AG");				//Partnerrolle: hier AuftragGeber
+			partner.setValue("PARTN_NUMB", "0000025026");		//Debitorennummer
 			
 			
 			auftrag.setPos("1234", "1");
@@ -78,7 +78,7 @@ public class KundenauftragSAP {
 			
 				JCoTable shedules = func.getTableParameterList().getTable("ORDER_SCHEDULES_IN");
 				shedules.appendRow();	
-				shedules.setValue("ITM_NUMBER", i);						//Verkaufsbelegposition
+				shedules.setValue("ITM_NUMBER", i);							//Verkaufsbelegposition
 				shedules.setValue("SCHED_LINE", "1");						//Einteilungsnummer
 				shedules.setValue("REQ_QTY", e.getValue());					//Auftragsmenge des Kunden in VME
 				

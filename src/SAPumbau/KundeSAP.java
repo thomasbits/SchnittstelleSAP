@@ -19,7 +19,6 @@ public class KundeSAP {
 
 	public KundeSAP(Ablaufsteuerung ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
-
 		this.ablaufsteuerung = ablaufsteuerung;
 	}						  
 
@@ -116,11 +115,11 @@ public class KundeSAP {
 		JCoFunction func = repo.getFunction("BAPI_CUSTOMER_CHANGEFROMDATA1");
 		
 		//Kundennummer, dessen Daten geändert werden sollen
-		func.getImportParameterList().setValue("CUSTOMERNO","25026");		//testdaten, später aus kunde1 holen.
+		func.getImportParameterList().setValue("CUSTOMERNO","0000025026");		//testdaten, später aus kunde1 holen.
 		
 		//die Daten, die geändert werden sollen
 		JCoStructure changeData = func.getImportParameterList().getStructure("PI_PERSONALDATA");
-		changeData.setValue("TITLE_P","Herr");
+		changeData.setValue("TITLE_P","Frau");
 		changeData.setValue("FIRSTNAME","Testkunde");
 		changeData.setValue("LASTNAME","Testkunde");
 		changeData.setValue("DATE_BIRTH","19920820");
@@ -149,6 +148,8 @@ public class KundeSAP {
 		changeFlag.setValue("LANGU_P", "X");
 				
 		func.getImportParameterList().setValue("PI_SALESORG", "DN00");
+		func.getImportParameterList().setValue("PI_DISTR_CHAN", "IN");
+		func.getImportParameterList().setValue("PI_DIVISION", "BI");
 		
 		
 		//Daten an das SAP System übergeben

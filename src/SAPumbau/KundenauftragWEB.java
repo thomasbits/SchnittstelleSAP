@@ -55,14 +55,9 @@ public class KundenauftragWEB {
 					{			
 						auftrag.setPosition(results.getString("PId"), results.getString("Menge"));
 					}
-					
-					
-					
-				
+		
 					results.next();
-
-					
-					
+	
 				}
 			}
 		} catch (SQLException e) {

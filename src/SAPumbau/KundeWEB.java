@@ -10,16 +10,17 @@ public class KundeWEB {
 	Ablaufsteuerung ablaufsteuerung;
 	KundeSAP kundeSAP;
 	KundeWEB kundeWEB;
-	Kunde kunde1 = new Kunde();
+	Kunde kunde1;
 	java.sql.Statement stmt;
 	
 	
 	public KundeWEB(Ablaufsteuerung ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
 		this.ablaufsteuerung = ablaufsteuerung;
+		kunde1 = new Kunde();
 	}
 	
-
+	
 	public void setStatement(java.sql.Statement stmt)
 	{
 		this.stmt = stmt;
@@ -155,10 +156,9 @@ public class KundeWEB {
 		if(kunde1 != null)
 		{
 			//Änderungen in das SAP System schreiben
-//			kundeSAP.changeKunde(kunde1);
+			kundeSAP.changeKunde(kunde1);
 			System.out.println(kunde1.getVorname());		//nur zum testen
 		}
-
 
 	}
 
