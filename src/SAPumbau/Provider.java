@@ -5,8 +5,9 @@ import java.util.Properties;
 import com.sap.conn.jco.ext.DestinationDataEventListener;
 import com.sap.conn.jco.ext.DestinationDataProvider;
 
-
-//Stellt die Daten für eine Verbindung bereit
+/*
+ * Stellt die Daten für eine Verbindung bereit
+*/
 public class Provider implements DestinationDataProvider{
 
 	private String JCO_ASHOST;

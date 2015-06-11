@@ -22,7 +22,6 @@ public class KundenauftragSAP {
 	
 
 	public KundenauftragSAP() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public void createKundenauftrag(Kundenauftrag auftrag)

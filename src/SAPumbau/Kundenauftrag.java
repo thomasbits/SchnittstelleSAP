@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 /*
- * Repräsentiert einen Kundenauftrag. 
+ * Repräsentiert einen Kundenauftrag mit den zugehörigen Methoden
  */
 public class Kundenauftrag {
 	

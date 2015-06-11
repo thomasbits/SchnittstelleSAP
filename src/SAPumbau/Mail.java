@@ -6,7 +6,9 @@ import javax.activation.MailcapCommandMap;
 import javax.mail.*;
 import javax.mail.Provider;
 import javax.mail.internet.*;
-
+/*
+ * Stellt 
+ */
 public class Mail {
 
 

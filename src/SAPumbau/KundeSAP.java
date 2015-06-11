@@ -10,7 +10,7 @@ import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoRepository;
 import com.sap.conn.jco.JCoStructure;
 /*
- * 
+ * Stellt die nötigen Methoden bereit, um einen Kunden im SAP-System zu erstellen und zu bearbeiten.
  */
 public class KundeSAP {
 
@@ -24,10 +24,9 @@ public class KundeSAP {
 
 
 
-
+	//Erstellt einen Kunden im SAP-System und schreibt die SAP-Kundennummer in die Webshopdatenbank
 	public void createKunde(Kunde kunde1)
 	{
-
 
 		if (kundeWEB == null) {
 			System.out.println("testas");
@@ -73,13 +72,12 @@ public class KundeSAP {
 			JCoStructure referenceData = func.getImportParameterList().getStructure("PI_COPYREFERENCE");
 			referenceData.setValue("SALESORG", "DN00");
 			referenceData.setValue("DISTR_CHAN", "IN");
-			referenceData.setValue("DIVISION", "BI");			//Hier fehlen noch Werte!!!
+			referenceData.setValue("DIVISION", "BI");
 			referenceData.setValue("REF_CUSTMR", "0000014000");
 
 			//Daten an das SAP System übergeben
 			JCoContext.begin(dest);
 			func.execute(dest);
-
 			JCoFunction funcCommit = dest.getRepository().getFunction("BAPI_TRANSACTION_COMMIT");
 			funcCommit.execute(dest);
 			JCoContext.end(dest);
@@ -102,7 +100,7 @@ public class KundeSAP {
 
 	}
 
-	//Gibt noch eine Fehlermeldung zurück
+	//Ändert einen Kunden im SAP-System
 	public boolean changeKunde(Kunde kunde1)
 	{
 
@@ -173,6 +171,7 @@ public class KundeSAP {
 		return true;
 	}
 
+	/*
 	//Kunde löschen
 	//so nicht Umsetzbar. Anderen Lösungsweg finden.
 	public boolean deleteKunde(Kunde kunde1)
@@ -208,11 +207,11 @@ public class KundeSAP {
 			func.getImportParameterList().setValue("CUSTOMERNO", kunde1.getSapNummer());
 			//personalData.setValue("CUSTOMER",kunde1.getSapNummer());		
 
-			/*
-			personalData.setValue("SALESORG", "DN00");
-			personalData.setValue("DISTR_CHAN", "IN");
-			personalData.setValue("DIVISION", "BI");
-			 */
+			
+//			personalData.setValue("SALESORG", "DN00");
+//			personalData.setValue("DISTR_CHAN", "IN");
+//			personalData.setValue("DIVISION", "BI");
+			 
 
 
 			//Daten an das SAP System übergeben
@@ -231,17 +230,8 @@ public class KundeSAP {
 			//SAP Nummer in Datenbank schreiben
 			//String query1 = "UPDATE kunde set SAP_KId = " + sapNr + " WHERE Email = \"" + Kunde1.getEmail() +"\";";
 
-			//Query ausführen
 
 
-			/*
-			try {
-				stmt.execute(query1);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			 */
 		} catch (JCoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -250,9 +240,9 @@ public class KundeSAP {
 		}
 		return true;
 	}
-
-	
-	private boolean kundeIstNeu(/*String email*/)		//E-Mail des zu prüfenden Kunden
+*/
+	/*
+	private boolean kundeIstNeu()		//E-Mail des zu prüfenden Kunden
 	{
 		try{
 			
@@ -294,5 +284,5 @@ public class KundeSAP {
 		}
 		
 	}
-
+*/
 }

@@ -4,7 +4,7 @@ package SAPumbau;
 import com.mysql.jdbc.Statement;
 
 /*
- * 
+ * Klasse Ablaufsteuerung: Steuert den Ablauf der Synchronisierung. Ruft in bestimmten intervallen die nötigen Methoden auf
  */
 public class Ablaufsteuerung extends Thread {
 

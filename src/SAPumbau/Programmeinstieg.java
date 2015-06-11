@@ -7,7 +7,7 @@ import com.sap.conn.jco.JCoDestinationManager;
 import com.sap.conn.jco.JCoException;
 
 /*
- * Klasse Programmeinstieg
+ * Klasse Programmeinstieg; nimmt die Benutzereingaben entgegen und soll dem Benutzer verscheidene Konfigurationsmöglichkeiten bieten.
  */
 
 public class Programmeinstieg extends Thread {

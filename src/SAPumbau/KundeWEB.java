@@ -3,7 +3,7 @@ package SAPumbau;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 /*
- * 
+ * Stellt dei benötigten Methoden bereit, um einen Kunden in der Webshopdatenbank zu erfassen und zu bearbeiten.
  */
 public class KundeWEB {
 
@@ -27,6 +27,9 @@ public class KundeWEB {
 	}
 
 	
+	/*
+	 * Fragt in der Webshopdatenbank ab, ob sich ein neuer Kunde Registriert hat.(Neu registrierte Kunden haben noch keine SAP-Kundennummer)
+	 */
 	public void abfrageNeueKunden()
 	{
 		if (kundeSAP == null) {
@@ -70,11 +73,9 @@ public class KundeWEB {
 
 	}
 
-
+	//Schreibt die Übergebene SAP-Nummer in die Webshopdatenbank
 	public void schreibeSAPNummer(String sapNummer)
-
 	{
-		//Muss in die Klasse KundeWEB
 		//SAP Nummer in Datenbank schreiben
 		String query1 = "UPDATE kunde set SAP_KId = " + sapNummer + " WHERE Email = \"" + kunde1.getEmail() +"\";";
 
@@ -107,7 +108,7 @@ public class KundeWEB {
 				//Sonst Daten abfragen
 				results.first();
 				kunde1.setSapNummer(results.getString("SAP_KId"));
-				kundeSAP.deleteKunde(kunde1);
+//				kundeSAP.deleteKunde(kunde1);
 			}
 
 		} catch (SQLException e) {

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /*
- * Klasse Datenbankverbindung
+ * Klasse Datenbankverbindung: Stellt die Verbindung zur Datenbank des Webshops her.
  */
 
 public class DatenbankVerbindung {

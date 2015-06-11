@@ -1,5 +1,7 @@
 package SAPumbau;
-
+/*
+ * Repräsentiert einen Kunden, mit den zugehörigen getter und setter Methoden
+ */
 public class Kunde {
 	
 	private String vorname;
@@ -14,7 +16,7 @@ public class Kunde {
 	private String PLZ;
 
 	public Kunde() {
-		// TODO Auto-generated constructor stub
+
 	}
 	
 
@@ -38,6 +40,7 @@ public class Kunde {
 		return name;
 	}
 	
+	//da es in der Webshopdatenbank keine Feld für die Anrede(Titel) gibt muss dies über das Geschlecht des Kunde ermittelt werden
 	public void setGeschlecht(String Geschlecht)
 	{
 		if(Geschlecht.equals("männlich"))
@@ -54,6 +57,7 @@ public class Kunde {
 		return titel;
 	}
 	
+	//Geburtsdatum ist ein Pflichtfeld im SAP-System. Um einen Kunden anlegen zukönnen der noch kein Geburtsdatum angegeben hat wird hier ein Standardwert für das Geburtsdatum gesetzt
 	public void setGeburtstdatum(String Geburtsdatum)
 	{
 		if(Geburtsdatum == null || Geburtsdatum.equals(""))
