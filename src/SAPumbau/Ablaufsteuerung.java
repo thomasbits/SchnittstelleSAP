@@ -66,7 +66,7 @@ public class Ablaufsteuerung extends Thread {
 			
 			
 			
-			
+			/*
 			for (i=0; i<10; i++)
 			{
 //				kundeSAP.changeKunde(new Kunde());
@@ -82,7 +82,7 @@ public class Ablaufsteuerung extends Thread {
 				}
 			}
 			
-			/*
+			*/
 
 
 			for (i=0; i<10; i++)
@@ -111,8 +111,7 @@ public class Ablaufsteuerung extends Thread {
 				}
 			}
 
-			*/
-
+			
 		}
 	}
 }

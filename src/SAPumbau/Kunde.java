@@ -40,7 +40,7 @@ public class Kunde {
 	
 	public void setGeschlecht(String Geschlecht)
 	{
-		if(Geschlecht.charAt(0)=='m')
+		if(Geschlecht.equals("männlich"))
 		{
 			titel = "Herr";
 		}else
@@ -56,8 +56,13 @@ public class Kunde {
 	
 	public void setGeburtstdatum(String Geburtsdatum)
 	{
-		
+		if(Geburtsdatum == null || Geburtsdatum.equals(""))
+		{
+		geburtsdatum = "19700101";
+		}else
+		{
 		geburtsdatum = Geburtsdatum.replace( "-", "" );
+		}
 	}
 	
 	public String getGeburtstdatum()
