@@ -14,18 +14,20 @@ public class Programmeinstieg extends Thread {
 
 	public Programmeinstieg() {
 		// TODO Auto-generated constructor stub
+		
+		ablaufsteuerung = new Ablaufsteuerung();
 	}
 
 	//Status des Programms
 	public int status = 0;
-	private static Ablaufsteuerung ablaufsteuerung;
+	private Ablaufsteuerung ablaufsteuerung;
 
 	//Main Methode
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Programmeinstieg einstieg = new Programmeinstieg();
 		einstieg.start();
-		ablaufsteuerung = new Ablaufsteuerung();
+		
 
 	}
 
@@ -51,9 +53,9 @@ public class Programmeinstieg extends Thread {
 			//Synchronisierung starten
 			case 1:
 				
-			
-						ablaufsteuerung.start();
-					
+				Thread t = new Thread(ablaufsteuerung);
+				t.start();
+								
 			break;
 
 			//Synchronisierung beenden

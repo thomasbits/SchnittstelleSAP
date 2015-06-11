@@ -6,7 +6,7 @@ import com.mysql.jdbc.Statement;
 /*
  * 
  */
-public class Ablaufsteuerung extends Thread {
+public class Ablaufsteuerung implements Runnable {
 
 	private KundeWEB kundeWEB; 
 	private KundeSAP kundeSAP;
@@ -97,7 +97,7 @@ public class Ablaufsteuerung extends Thread {
 				kundeWEB.abfrageNeueKunden();
 
 				try {
-					sleep(500);
+					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -106,7 +106,7 @@ public class Ablaufsteuerung extends Thread {
 				kundeWEB.kundenLoeschenDatenbank();
 
 				try {
-					sleep(10000);
+					Thread.sleep(10000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
