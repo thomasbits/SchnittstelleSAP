@@ -14,7 +14,7 @@ public class Programmeinstieg extends Thread {
 
 	public Programmeinstieg() {
 		// TODO Auto-generated constructor stub
-		
+
 		ablaufsteuerung = new Ablaufsteuerung();
 	}
 
@@ -27,7 +27,7 @@ public class Programmeinstieg extends Thread {
 		// TODO Auto-generated method stub
 		Programmeinstieg einstieg = new Programmeinstieg();
 		einstieg.start();
-		
+
 
 	}
 
@@ -52,40 +52,51 @@ public class Programmeinstieg extends Thread {
 
 			//Synchronisierung starten
 			case 1:
-				
+				boolean help = true;
 				Thread t = new Thread(ablaufsteuerung);
-				t.start();
-								
-			break;
+				while(help)
+				{
+					if(t.isAlive())
+					{
+						ablaufsteuerung.threadStop();
+					}else
+					{
+						help = false;
+						t.start();
+					}
+				}
 
-			//Synchronisierung beenden
-		case 2:
-			ablaufsteuerung.threadStop();
+
+				break;
+
+				//Synchronisierung beenden
+			case 2:
+				ablaufsteuerung.threadStop();
 
 
-			break;
+				break;
 
-			//Synchronisierung beenden
-		case 3:
-			break;
+				//Synchronisierung beenden
+			case 3:
+				break;
 
-			//Programm beenden
-		case 4:
-			ablaufsteuerung.threadStop();
-			durchlauf = false;
-			break;
+				//Programm beenden
+			case 4:
+				ablaufsteuerung.threadStop();
+				durchlauf = false;
+				break;
 
-			//Testfunktion
-		case 5:
-			//Mail mail = new Mail();
-			//mail.senden();
-			//VerbindungSAP verbindungSAP = new VerbindungSAP();
-			//verbindungSAP.connect();
-			//MaterialSAP material = new MaterialSAP();
-			//material.materialListeHolen();
+				//Testfunktion
+			case 5:
+				//Mail mail = new Mail();
+				//mail.senden();
+				//VerbindungSAP verbindungSAP = new VerbindungSAP();
+				//verbindungSAP.connect();
+				//MaterialSAP material = new MaterialSAP();
+				//material.materialListeHolen();
 
-			break;
-		}
-	}while(durchlauf);
-}
+				break;
+			}
+		}while(durchlauf);
+	}
 }
