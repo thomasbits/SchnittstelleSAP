@@ -13,6 +13,7 @@ public class Ablaufsteuerung extends Thread {
 	private KundenauftragSAP auftragSAP;
 	private KundenauftragWEB auftragWEB;
 	private VerbindungSAP verbindungSAP;
+	private DatenbankVerbindung verbindung;
 
 	public Ablaufsteuerung() {
 		// TODO Auto-generated constructor stub
@@ -35,7 +36,7 @@ public class Ablaufsteuerung extends Thread {
 	{
 		return kundeSAP;
 	}
-	
+
 	public KundenauftragSAP getInstanceKundenauftragSAP()
 	{
 		return auftragSAP;
@@ -51,21 +52,22 @@ public class Ablaufsteuerung extends Thread {
 	{
 		//SAP Verbindung
 		verbindungSAP.connect();
+		threadRun = true;
 		while(threadRun)
 		{
-			
+
 			//SAP Verbindung
 			verbindungSAP.connect();
-			
+
 			//Datenbankverbindung aufbauen
-			DatenbankVerbindung verbindung = new DatenbankVerbindung();
+			verbindung = new DatenbankVerbindung();
 			//Statement von der Datenbank holen
 			java.sql.Statement stmt = verbindung.getStatement();
-			
-			
-			
-			
-			
+
+
+
+
+
 			/*
 			for (i=0; i<10; i++)
 			{
@@ -81,8 +83,8 @@ public class Ablaufsteuerung extends Thread {
 					e.printStackTrace();
 				}
 			}
-			
-			*/
+
+			 */
 
 
 			for (i=0; i<10; i++)
@@ -93,14 +95,14 @@ public class Ablaufsteuerung extends Thread {
 
 
 				kundeWEB.abfrageNeueKunden();
-				
+
 				try {
 					sleep(500);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 				kundeWEB.kundenLoeschenDatenbank();
 
 				try {
@@ -111,7 +113,10 @@ public class Ablaufsteuerung extends Thread {
 				}
 			}
 
-			
+
 		}
+		
+		verbindung.schliesseVerbindung();
+		System.out.println("Sync beendet");
 	}
 }
