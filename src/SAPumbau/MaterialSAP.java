@@ -8,6 +8,11 @@ import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoRepository;
 import com.sap.conn.jco.JCoStructure;
 
+
+/**
+ * @author Thomas
+ *
+ */
 public class MaterialSAP {
 
 	public MaterialSAP() {

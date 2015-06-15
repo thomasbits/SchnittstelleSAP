@@ -5,6 +5,11 @@ import java.sql.SQLException;
 /*
  * Stellt dei benötigten Methoden bereit, um einen Kunden in der Webshopdatenbank zu erfassen und zu bearbeiten.
  */
+
+/**
+ * @author Thomas
+ *	Stellt die benötigten Methoden bereit, um den Datensatz eines Kunden aus der Webshopdatenbank abzufragen 
+ */
 public class KundeWEB {
 
 	Ablaufsteuerung ablaufsteuerung;

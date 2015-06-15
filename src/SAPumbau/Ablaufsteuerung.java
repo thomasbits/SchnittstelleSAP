@@ -6,6 +6,13 @@ import com.mysql.jdbc.Statement;
 /*
  * Klasse Ablaufsteuerung: Steuert den Ablauf der Synchronisierung. Ruft in bestimmten intervallen die nötigen Methoden auf
  */
+
+
+/**
+ * @author Thomas
+ * 	
+ *	Im Thread der Klasse Ablaufsteuerung wird die Synchronisation gesteuert
+ */
 public class Ablaufsteuerung extends Thread {
 
 	private KundeWEB kundeWEB; 
@@ -13,6 +20,9 @@ public class Ablaufsteuerung extends Thread {
 	private KundenauftragSAP auftragSAP;
 	private KundenauftragWEB auftragWEB;
 	private VerbindungSAP verbindungSAP;
+	private boolean threadRun = true;
+	private	int i = 0;
+	
 
 	public Ablaufsteuerung() {
 		// TODO Auto-generated constructor stub
@@ -22,9 +32,6 @@ public class Ablaufsteuerung extends Thread {
 		auftragSAP = new KundenauftragSAP();
 		auftragWEB = new KundenauftragWEB(this);
 	}
-
-	private boolean threadRun = true;
-	private	int i = 0;
 
 	public KundeWEB getInstanceKundeWEB()
 	{
@@ -104,7 +111,7 @@ public class Ablaufsteuerung extends Thread {
 				kundeWEB.kundenLoeschenDatenbank();
 
 				try {
-					sleep(10000);
+					sleep(30000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

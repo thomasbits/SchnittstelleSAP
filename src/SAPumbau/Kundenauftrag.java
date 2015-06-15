@@ -7,6 +7,11 @@ import java.util.Iterator;
 /*
  * Repräsentiert einen Kundenauftrag mit den zugehörigen Methoden
  */
+
+/**
+ * @author Thomas
+ *	Enthält alle Attribute eines Kundenauftrages, dient zum Austausch der Daten zwischen KundenauftragSAP und KundenauftragWEB
+ */
 public class Kundenauftrag {
 	
 	private String bestellNRSAP, bestellNRWEB, verkaufsbelegart, partnerrolle, debitorennummer, status;		//nicht alle notwendig weil immer gleich??

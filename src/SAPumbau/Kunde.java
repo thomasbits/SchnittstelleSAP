@@ -2,6 +2,11 @@ package SAPumbau;
 /*
  * Repräsentiert einen Kunden, mit den zugehörigen getter und setter Methoden
  */
+
+/**
+ * @author Thomas
+ *	Enthält alle Attribute eines Kunden, wird zum Austausch zwischen KundeSAP und KundeWEB benutzt
+ */
 public class Kunde {
 	
 	private String vorname;

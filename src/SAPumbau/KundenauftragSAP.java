@@ -16,6 +16,11 @@ import com.sap.conn.jco.JCoTable;
  * Schreibt die Daten zu einem Kundenauftrag in das SAP-System.
  * Holt den aktuellen Stand eines Kundenauftrages aus dem SAP-System um ihn an den Webshop weiterzuleiten
  */
+
+/**
+ * @author Thomas
+ *	Stellt die benötigten Methoden bereit, um einen Kundenauftrag im SAP-System anzulegen und den aktuellen Status abzufragen
+ */
 public class KundenauftragSAP {
 	
 	int i = 0;

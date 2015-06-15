@@ -10,6 +10,10 @@ import com.sap.conn.jco.JCoException;
  * Klasse Programmeinstieg; nimmt die Benutzereingaben entgegen und soll dem Benutzer verscheidene Konfigurationsmöglichkeiten bieten.
  */
 
+/**
+ * @author Thomas
+ *	Programmstart: Startet den Thread dieser Klasse, in dem dem Benutzer verschiedene Optionen zur Steuerung des Programms geboten werden.
+ */
 public class Programmeinstieg extends Thread {
 
 	public Programmeinstieg() {

@@ -9,6 +9,11 @@ import javax.mail.internet.*;
 /*
  * Stellt 
  */
+
+/**
+ * @author Thomas
+ *
+ */
 public class Mail {
 
 

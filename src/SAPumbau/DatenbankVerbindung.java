@@ -11,6 +11,10 @@ import java.sql.Statement;
  * Klasse Datenbankverbindung: Stellt die Verbindung zur Datenbank des Webshops her.
  */
 
+/**
+ * @author Thomas
+ *	Stellt die Methoden zur Verbindung zur Webshopdatenbank bereit.
+ */
 public class DatenbankVerbindung {
 
 	public static Statement stmt;

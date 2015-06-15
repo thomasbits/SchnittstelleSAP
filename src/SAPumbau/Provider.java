@@ -8,6 +8,11 @@ import com.sap.conn.jco.ext.DestinationDataProvider;
 /*
  * Stellt die Daten für eine Verbindung bereit
 */
+
+/**
+ * @author Thomas
+ * Stellt die Daten für die Verbindung zum SAP-System bereit, enthält außerdem die Methode zum setzen der Logindaten.
+ */
 public class Provider implements DestinationDataProvider{
 
 	private String JCO_ASHOST;

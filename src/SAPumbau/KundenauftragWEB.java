@@ -6,6 +6,11 @@ import java.sql.SQLException;
  * Holt die Daten zu einem Kundenauftrag aus der Datenbank des Webshops um sie anschließend an das SAP-System weiterzuleiten
  * Schreibt den aktuellen Stand eines Kundenauftrages in die Datenbank des Webshops
  */
+
+/**
+ * @author Thomas
+ *	Stellt die benötigten Methoden bereit, um einen Kundenauftrag aus der Webshopdatenbank abzufragen und den Status zu aktualiesieren
+ */
 public class KundenauftragWEB {
 
 	Ablaufsteuerung ablaufsteuerung;

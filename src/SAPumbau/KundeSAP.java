@@ -12,6 +12,11 @@ import com.sap.conn.jco.JCoStructure;
 /*
  * Stellt die nötigen Methoden bereit, um einen Kunden im SAP-System zu erstellen und zu bearbeiten.
  */
+
+/**
+ * @author Thomas
+ *	Die Klasse KundeSAP stellt Methoden bereit, um Kunden im SAP-System zu Erstellen und zu Ändern
+ */
 public class KundeSAP {
 
 	private Ablaufsteuerung ablaufsteuerung;
@@ -25,6 +30,10 @@ public class KundeSAP {
 
 
 	//Erstellt einen Kunden im SAP-System und schreibt die SAP-Kundennummer in die Webshopdatenbank
+	
+	/**
+	 * @param kunde1 Kunde der im SAP-System erstellt werden soll
+	 */
 	public void createKunde(Kunde kunde1)
 	{
 
@@ -33,7 +42,6 @@ public class KundeSAP {
 			//Instanz KundeWEB holen
 			kundeWEB = ablaufsteuerung.getInstanceKundeWEB();
 		}
-
 
 
 		try {
@@ -88,7 +96,7 @@ public class KundeSAP {
 
 
 			kundeWEB.schreibeSAPNummer(sapNr);
-
+			System.out.println("Kunde angelegt");
 
 
 		} catch (JCoException e) {
@@ -101,6 +109,11 @@ public class KundeSAP {
 	}
 
 	//Ändert einen Kunden im SAP-System
+	
+	/**
+	 * @param kunde1 Kunde der im SAP-System geändert werden soll
+	 * @return Returns true, wenn das ändern Erfolgreich war
+	 */
 	public boolean changeKunde(Kunde kunde1)
 	{
 
@@ -121,7 +134,7 @@ public class KundeSAP {
 		changeData.setValue("FIRSTNAME","Testkunde");
 		changeData.setValue("LASTNAME","Testkunde");
 		changeData.setValue("DATE_BIRTH","19920820");
-		changeData.setValue("CITY","Buxdehude");
+		changeData.setValue("CITY","Steinheim");
 		changeData.setValue("POSTL_COD1","34389");				//testdaten, später aus kunde1 holen.
 		changeData.setValue("STREET","Kleiner Weg");
 		changeData.setValue("HOUSE_NO","5");

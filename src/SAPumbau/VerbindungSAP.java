@@ -5,9 +5,15 @@ import com.sap.conn.jco.JCoDestinationManager;
 import com.sap.conn.jco.JCoException;
 
 //Klasse für die SAP Verbindung
+
+/**
+ * @author Thomas
+ * Stellt die Methoden bereit, um eine Verbindung zum SAP-System aufzubauen
+ */
 public class VerbindungSAP {
 
-	Provider des;
+	private Provider des;
+	private JCoDestination dest;
 	
 	public VerbindungSAP() {
 	//Konstruktor
@@ -15,7 +21,7 @@ public class VerbindungSAP {
 		des = new Provider();
 	}
 
-	private JCoDestination dest;
+	
 	public void connect() {
 		// TODO Auto-generated method stub
 
