@@ -92,6 +92,25 @@ public class KundeWEB {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	//Schreibt die Übergebene SAP-Nummer in die Webshopdatenbank
+		public void schreibeGeloescht()
+		{
+			//SAP Nummer in Datenbank schreiben
+			String query1 = "UPDATE kunde set geloescht = 'ja' WHERE SAP_KId = \"" + kunde1.getSapNummer() +"\";";
+
+			//Query ausführen
+			try {
+				stmt.execute(query1);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
+	
+	
 
 	//Kunde löschen
 	public void kundenLoeschenDatenbank()
@@ -104,16 +123,19 @@ public class KundeWEB {
 		kunde1 = new Kunde();
 		try {
 			//Query ob Datensätze ohne SAP Nummer vorhanden sind?
-			ResultSet results = stmt.executeQuery("SELECT SAP_KId FROM kunde WHERE status = 'l' AND SAP_KId IS NOT NULL;");
+			ResultSet results = stmt.executeQuery("SELECT SAP_KId FROM kunde WHERE status = 'l' AND geloescht = 'nein' AND SAP_KId IS NOT NULL;");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
-				System.out.println("Result ist empty!!!!");
+				
 			}else
 			{
 				//Sonst Daten abfragen
 				results.first();
 				kunde1.setSapNummer(results.getString("SAP_KId"));
 //				kundeSAP.deleteKunde(kunde1);
+				//Versende Email
+				schreibeGeloescht();
+				System.out.println("Kunde: " + kunde1.getSapNummer());
 			}
 
 		} catch (SQLException e) {
