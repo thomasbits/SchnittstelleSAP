@@ -18,8 +18,8 @@ import com.sap.conn.jco.JCoTable;
  */
 
 /**
- * @author Thomas
  *	Stellt die benötigten Methoden bereit, um einen Kundenauftrag im SAP-System anzulegen und den aktuellen Status abzufragen
+ * @author Thomas
  */
 public class KundenauftragSAP {
 	
@@ -29,6 +29,10 @@ public class KundenauftragSAP {
 	public KundenauftragSAP() {
 	}
 
+/**
+ * 	Legt den Kundenauftrag, der ihr Übergeben wird, im SAP-System an
+ * @param auftrag Datensatz eines Kundenauftrages, der im SAP-System erstellt werden soll
+ */
 	public void createKundenauftrag(Kundenauftrag auftrag)
 	{
 		
@@ -114,5 +118,46 @@ public class KundenauftragSAP {
 
 		}
 		
+	}
+/**
+ * Fragt den aktuellen Status eines Kundenauftrages im SAP-System ab
+ * @param bestellNRSAP Auftragsnummer, des Auftrages, dessen Status abgefragt werden soll
+ * @return Gibt den aktuellen Status in Form eines Strings zurück
+ */
+	public String getStatus(String bestellNRSAP)
+	{
+		try {
+			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
+			JCoDestination dest = JCoDestinationManager.getDestination("");
+			//Repository holen
+			JCoRepository repo = dest.getRepository();
+			//BAPI auswählen
+			JCoFunction func = repo.getFunction("BAPI_SALESORDER_GETSTATUS");	//Transaktion
+			
+			func.getImportParameterList().setValue("SALESDOCUMENT", "");
+		
+//			func.getTableParameterList().getTable("STATUSINFO").getValue("DOC_NUMBER");
+			
+			
+			//Funktion ausführen und commiten
+			JCoContext.begin(dest);
+			func.execute(dest);
+			JCoFunction funcCommit = dest.getRepository().getFunction("BAPI_TRANSACTION_COMMIT");
+			funcCommit.execute(dest);
+			JCoContext.end(dest);
+			
+			System.out.println(func.getExportParameterList().getValue("RETURN"));
+			
+			
+		} catch (JCoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Verbindung konnte nicht aufgebaut werden.");
+
+		}
+		
+		String status ="";
+		
+		return status;
 	}
 }

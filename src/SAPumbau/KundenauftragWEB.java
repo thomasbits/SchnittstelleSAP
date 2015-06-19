@@ -8,8 +8,8 @@ import java.sql.SQLException;
  */
 
 /**
- * @author Thomas
  *	Stellt die benötigten Methoden bereit, um einen Kundenauftrag aus der Webshopdatenbank abzufragen und den Status zu aktualiesieren
+ * @author Thomas
  */
 public class KundenauftragWEB {
 
@@ -45,7 +45,8 @@ public class KundenauftragWEB {
 			{
 				
 				System.out.println("BestellID:" + results.getString("BestId"));			//nur zum Testen
-				//Sonst Daten abfragen und in Klasse Kundenauftrag schreiben	
+				System.out.println(results);
+				//Sonst Daten abfragen und in instanz auftrag der Klasse Kundenauftrag schreiben	
 				results.first();
 
 				auftrag.setDebitorennummer(results.getString("KId"));
@@ -53,6 +54,8 @@ public class KundenauftragWEB {
 //				auftrag.setStatus(results.getString("Status"));
 				
 				String bestellID = results.getString("BestId");
+				
+				System.out.println(results.getString("PId"));
 				
 				while(results.next())
 				{
@@ -64,6 +67,7 @@ public class KundenauftragWEB {
 					results.next();
 	
 				}
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -11,27 +11,31 @@ import com.sap.conn.jco.JCoException;
  */
 
 /**
- * @author Thomas
  *	Programmstart: Startet den Thread dieser Klasse, in dem dem Benutzer verschiedene Optionen zur Steuerung des Programms geboten werden.
+ * @author Thomas
  */
 public class Programmeinstieg extends Thread {
 
 	public Programmeinstieg() {
 		// TODO Auto-generated constructor stub
+
+		ablaufsteuerung = new Ablaufsteuerung();
 	}
+
 	//Status des Programms
 	public int status = 0;
-	private Ablaufsteuerung ablaufsteuerung = new Ablaufsteuerung();
-	
-	
+	private Ablaufsteuerung ablaufsteuerung;
+
 	//Main Methode
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Programmeinstieg einstieg = new Programmeinstieg();
 		einstieg.start();
-		
+
+
 	}
-	
+
+	//Run Methode (Thread)
 	public void run()
 	{
 		boolean durchlauf = true;
@@ -39,7 +43,7 @@ public class Programmeinstieg extends Thread {
 		{
 			Scanner scanner = new Scanner(System.in);
 
-			System.out.print("--------\n0-Programm gestartet \n1-Synchronisierung starten \n2-Synchronisierung beenden \n4-Programm beenden\n5-Verbindungaufbauen \n6-Kundeanlegen \n7-Datenbankverbindung \n8-Funktion testen\nLetzterStatus: " + status + " -Eingabe: ");
+			System.out.print("--------\n0-Programm gestartet \n1-Synchronisierung starten \n2-Synchronisierung beenden \n4-Programm beenden\n5-Test \nLetzterStatus: " + status + " -Eingabe: ");
 
 			String eingabe = scanner.nextLine();
 			try {
@@ -49,30 +53,53 @@ public class Programmeinstieg extends Thread {
 			}
 
 			switch (status) {
+
 			//Synchronisierung starten
 			case 1:
-				ablaufsteuerung.start();
+				boolean help = true;
+				Thread t = new Thread(ablaufsteuerung);
+				while(help)
+				{
+					if(t.isAlive())
+					{
+						ablaufsteuerung.threadStop();
+					}else
+					{
+						help = false;
+						t.start();
+					}
+				}
+
+
 				break;
-			//Synchronisierung beenden
+
+				//Synchronisierung beenden
 			case 2:
-				//Mail mail = new Mail();
-				//mail.senden();
-				VerbindungSAP verbindungSAP = new VerbindungSAP();
-				verbindungSAP.connect();
-				
-				
-				MaterialSAP material = new MaterialSAP();
-				material.materialListeHolen();
-				
+				ablaufsteuerung.threadStop();
+
+
 				break;
-			//
+
+				//Synchronisierung beenden
 			case 3:
 				break;
-			//Programm beenden
+
+				//Programm beenden
 			case 4:
-			ablaufsteuerung.threadStop();
-			durchlauf = false;
-				
+				ablaufsteuerung.threadStop();
+				durchlauf = false;
+				break;
+
+				//Testfunktion
+			case 5:
+				//Mail mail = new Mail();
+				//mail.senden();
+				//VerbindungSAP verbindungSAP = new VerbindungSAP();
+				//verbindungSAP.connect();
+				//MaterialSAP material = new MaterialSAP();
+				//material.materialListeHolen();
+
+				break;
 			}
 		}while(durchlauf);
 	}

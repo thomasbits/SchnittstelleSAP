@@ -4,8 +4,8 @@ package SAPumbau;
  */
 
 /**
- * @author Thomas
  *	Enthält alle Attribute eines Kunden, wird zum Austausch zwischen KundeSAP und KundeWEB benutzt
+ * @author Thomas
  */
 public class Kunde {
 	

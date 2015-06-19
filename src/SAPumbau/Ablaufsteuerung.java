@@ -9,11 +9,10 @@ import com.mysql.jdbc.Statement;
 
 
 /**
- * @author Thomas
- * 	
  *	Im Thread der Klasse Ablaufsteuerung wird die Synchronisation gesteuert
+ * @author Thomas
  */
-public class Ablaufsteuerung extends Thread {
+public class Ablaufsteuerung implements Runnable {
 
 	private KundeWEB kundeWEB; 
 	private KundeSAP kundeSAP;
@@ -22,7 +21,8 @@ public class Ablaufsteuerung extends Thread {
 	private VerbindungSAP verbindungSAP;
 	private boolean threadRun = true;
 	private	int i = 0;
-	
+	private DatenbankVerbindung verbindung;
+
 
 	public Ablaufsteuerung() {
 		// TODO Auto-generated constructor stub
@@ -31,6 +31,7 @@ public class Ablaufsteuerung extends Thread {
 		verbindungSAP = new VerbindungSAP();
 		auftragSAP = new KundenauftragSAP();
 		auftragWEB = new KundenauftragWEB(this);
+		
 	}
 
 	public KundeWEB getInstanceKundeWEB()
@@ -42,7 +43,7 @@ public class Ablaufsteuerung extends Thread {
 	{
 		return kundeSAP;
 	}
-	
+
 	public KundenauftragSAP getInstanceKundenauftragSAP()
 	{
 		return auftragSAP;
@@ -58,40 +59,39 @@ public class Ablaufsteuerung extends Thread {
 	{
 		//SAP Verbindung
 		verbindungSAP.connect();
+		threadRun = true;
 		while(threadRun)
 		{
-			
+
 			//SAP Verbindung
 			verbindungSAP.connect();
-			
+
 			//Datenbankverbindung aufbauen
-			DatenbankVerbindung verbindung = new DatenbankVerbindung();
+			verbindung = new DatenbankVerbindung();
 			//Statement von der Datenbank holen
 			java.sql.Statement stmt = verbindung.getStatement();
-			
-			
-			
-			
-			
-			/*
+
+
+
 			for (i=0; i<10; i++)
 			{
 //				kundeSAP.changeKunde(new Kunde());
-				auftragSAP.createKundenauftrag(new Kundenauftrag());
+//				auftragSAP.createKundenauftrag(new Kundenauftrag());
+				auftragSAP.getStatus("5");
 //				auftragWEB.setStatement(stmt);
 //				auftragWEB.abfrageNeueBestellungen();
 				threadStop();
 				try {
-					sleep(500);
+					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			
-			*/
 
+			 
 
+/*
 			for (i=0; i<10; i++)
 
 			{
@@ -100,25 +100,29 @@ public class Ablaufsteuerung extends Thread {
 
 
 				kundeWEB.abfrageNeueKunden();
-				
+
 				try {
-					sleep(500);
+					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 				kundeWEB.kundenLoeschenDatenbank();
 
 				try {
-					sleep(30000);
+					Thread.sleep(10000);
+
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 
-			
+*/
 		}
+		
+		verbindung.schliesseVerbindung();
+		System.out.println("Sync beendet");
 	}
 }

@@ -9,8 +9,8 @@ import java.util.Iterator;
  */
 
 /**
+ * Enthält alle Attribute eines Kundenauftrages, dient zum Austausch der Daten zwischen KundenauftragSAP und KundenauftragWEB
  * @author Thomas
- *	Enthält alle Attribute eines Kundenauftrages, dient zum Austausch der Daten zwischen KundenauftragSAP und KundenauftragWEB
  */
 public class Kundenauftrag {
 	
