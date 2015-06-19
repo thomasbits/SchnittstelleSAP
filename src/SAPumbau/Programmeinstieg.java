@@ -99,6 +99,9 @@ public class Programmeinstieg extends Thread {
 				//MaterialSAP material = new MaterialSAP();
 				//material.materialListeHolen();
 
+				
+			
+				
 				break;
 			}
 		}while(durchlauf);

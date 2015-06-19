@@ -108,6 +108,20 @@ public class KundeWEB {
 				e.printStackTrace();
 			}
 		}
+		
+		public void schreibeGeaendert()
+		{
+			//SAP Nummer in Datenbank schreiben
+			String query1 = "UPDATE kunde set status = NULL WHERE SAP_KId = \"" + kunde1.getSapNummer() +"\";";
+
+			//Query ausführen
+			try {
+				stmt.execute(query1);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	
 	
 	
@@ -155,7 +169,7 @@ public class KundeWEB {
 
 		try {
 			//Query ob Datensätze mit Änderungen vorhanden sind?
-			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE status = 'a';");
+			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE status = 'a' ;");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
 				System.out.println("Result ist empty!!!!");			//nur zum Testen
@@ -185,6 +199,9 @@ public class KundeWEB {
 		{
 			//Änderungen in das SAP System schreiben
 			kundeSAP.changeKunde(kunde1);
+			//Status in Datenbank wieder auf Null setzen, da der Kunde erfolgreich geändert wurde.
+			schreibeGeaendert();
+			
 			System.out.println(kunde1.getVorname());		//nur zum testen
 		}
 

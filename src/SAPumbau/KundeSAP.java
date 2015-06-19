@@ -126,19 +126,19 @@ public class KundeSAP {
 		JCoFunction func = repo.getFunction("BAPI_CUSTOMER_CHANGEFROMDATA1");
 		
 		//Kundennummer, dessen Daten geändert werden sollen
-		func.getImportParameterList().setValue("CUSTOMERNO","0000025026");		//testdaten, später aus kunde1 holen.
+		func.getImportParameterList().setValue("CUSTOMERNO",kunde1.getSapNummer());		//testdaten, später aus kunde1 holen.
 		
 		//die Daten, die geändert werden sollen
 		JCoStructure changeData = func.getImportParameterList().getStructure("PI_PERSONALDATA");
-		changeData.setValue("TITLE_P","Frau");
-		changeData.setValue("FIRSTNAME","Testkunde");
-		changeData.setValue("LASTNAME","Testkunde");
-		changeData.setValue("DATE_BIRTH","19920820");
-		changeData.setValue("CITY","Steinheim");
-		changeData.setValue("POSTL_COD1","34389");				//testdaten, später aus kunde1 holen.
-		changeData.setValue("STREET","Kleiner Weg");
-		changeData.setValue("HOUSE_NO","5");
-		changeData.setValue("E_MAIL","Testuser@user.com");
+		changeData.setValue("TITLE_P",kunde1.getTitel()); 
+		changeData.setValue("FIRSTNAME",kunde1.getVorname());
+		changeData.setValue("LASTNAME",kunde1.getName());
+		changeData.setValue("DATE_BIRTH",kunde1.getGeburtstdatum());
+		changeData.setValue("CITY",kunde1.getOrt());
+		changeData.setValue("POSTL_COD1",kunde1.getPLZ());				//testdaten, später aus kunde1 holen.
+		changeData.setValue("STREET",kunde1.getStrasse());
+		changeData.setValue("HOUSE_NO",kunde1.getHausNr());
+		changeData.setValue("E_MAIL",kunde1.getEmail());
 		changeData.setValue("COUNTRY","DE");
 		changeData.setValue("CURRENCY","EUR");
 		changeData.setValue("LANGU_P","DE");
