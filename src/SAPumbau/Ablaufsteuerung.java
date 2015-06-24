@@ -77,9 +77,9 @@ public class Ablaufsteuerung implements Runnable {
 			{
 //				kundeSAP.changeKunde(new Kunde());
 //				auftragSAP.createKundenauftrag(new Kundenauftrag());
-				auftragSAP.getStatus("5");
-//				auftragWEB.setStatement(stmt);
-//				auftragWEB.abfrageNeueBestellungen();
+//				auftragSAP.getStatus("5");
+				auftragWEB.setStatement(stmt);
+				auftragWEB.abfrageNeueBestellungen();
 				threadStop();
 				try {
 					Thread.sleep(500);

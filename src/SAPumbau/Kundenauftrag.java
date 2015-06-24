@@ -15,19 +15,11 @@ import java.util.Iterator;
 public class Kundenauftrag {
 	
 	private String bestellNRSAP, bestellNRWEB, verkaufsbelegart, partnerrolle, debitorennummer, status;		//nicht alle notwendig weil immer gleich??
-	private Hashtable<String, String> position;	//
-	private HashMap<String, String> pos = new HashMap<String, String>();		//Besser als HashTable??? oder iterator verwenden
+	private Hashtable<String, String> position;	
+
 
 	public Kundenauftrag() {
-		
-	}
-
-	public HashMap<String, String> getPos() {
-		return pos;
-	}
-
-	public void setPos(String produkt, String menge) {
-		this.pos.put(produkt, menge);
+		position = new Hashtable<String, String>();
 	}
 
 	public Hashtable<String, String> getPosition() {

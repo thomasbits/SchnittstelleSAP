@@ -30,7 +30,7 @@ public class KundenauftragSAP {
 	}
 
 /**
- * 	Legt den Kundenauftrag, der ihr Übergeben wird, im SAP-System an
+ * 	Legt den übergebnenen Kundenauftrag im SAP-System an
  * @param auftrag Datensatz eines Kundenauftrages, der im SAP-System erstellt werden soll
  */
 	public void createKundenauftrag(Kundenauftrag auftrag)
@@ -57,25 +57,13 @@ public class KundenauftragSAP {
 			partner.setValue("PARTN_NUMB", "0000025026");		//Debitorennummer
 			
 			
-			auftrag.setPos("1234", "1");
-			auftrag.setPos("1235", "2");
-			auftrag.setPos("1236", "3");
-			auftrag.setPos("1237", "4");
-			auftrag.setPos("1238", "5");
-			auftrag.setPos("1239", "6");
-			auftrag.setPos("1230", "7");
+			Iterator iterator = auftrag.getPosition().entrySet().iterator();
 			
 			
-			HashMap positionen = auftrag.getPos();
-			
-			Iterator iterator = positionen.entrySet().iterator();
-			
-			int i = 1;
 			
 			while(iterator.hasNext())
 			{	
 				Map.Entry e = (Map.Entry)iterator.next();
-				
 				
 				JCoTable items = func.getTableParameterList().getTable("ORDER_ITEMS_IN");
 				items.appendRow();
@@ -126,6 +114,7 @@ public class KundenauftragSAP {
  */
 	public String getStatus(String bestellNRSAP)
 	{
+		// TODO Auftragsstatus abfragen
 		try {
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
 			JCoDestination dest = JCoDestinationManager.getDestination("");

@@ -14,8 +14,8 @@ import com.sap.conn.jco.JCoStructure;
  */
 
 /**
- * @author Thomas
  *	Die Klasse KundeSAP stellt Methoden bereit, um Kunden im SAP-System zu Erstellen und zu Ändern
+ * @author Thomas
  */
 public class KundeSAP {
 
@@ -32,6 +32,7 @@ public class KundeSAP {
 	//Erstellt einen Kunden im SAP-System und schreibt die SAP-Kundennummer in die Webshopdatenbank
 	
 	/**
+	 * Erstellt den übergebenen Kunden im SAP-System
 	 * @param kunde1 Kunde der im SAP-System erstellt werden soll
 	 */
 	public void createKunde(Kunde kunde1)
@@ -111,6 +112,7 @@ public class KundeSAP {
 	//Ändert einen Kunden im SAP-System
 	
 	/**
+	 * Ändert die Daten des übergenenen Kunden im SAP-System
 	 * @param kunde1 Kunde der im SAP-System geändert werden soll
 	 * @return Returns true, wenn das ändern Erfolgreich war
 	 */

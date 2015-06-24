@@ -6,6 +6,8 @@ import java.sql.SQLException;
  * Holt die Daten zu einem Kundenauftrag aus der Datenbank des Webshops um sie anschließend an das SAP-System weiterzuleiten
  * Schreibt den aktuellen Stand eines Kundenauftrages in die Datenbank des Webshops
  */
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  *	Stellt die benötigten Methoden bereit, um einen Kundenauftrag aus der Webshopdatenbank abzufragen und den Status zu aktualiesieren
@@ -14,12 +16,13 @@ import java.sql.SQLException;
 public class KundenauftragWEB {
 
 	Ablaufsteuerung ablaufsteuerung;
-	Kundenauftrag auftrag = new Kundenauftrag();
+	Kundenauftrag auftrag;
 	KundenauftragSAP auftragSAP;
 	java.sql.Statement stmt;
 	
 	public KundenauftragWEB(Ablaufsteuerung ablaufsteuerung) {
 		this.ablaufsteuerung = ablaufsteuerung;
+		auftrag = new Kundenauftrag();
 	}
 	
 	public void setStatement(java.sql.Statement stmt)
@@ -45,7 +48,7 @@ public class KundenauftragWEB {
 			{
 				
 				System.out.println("BestellID:" + results.getString("BestId"));			//nur zum Testen
-				System.out.println(results);
+				
 				//Sonst Daten abfragen und in instanz auftrag der Klasse Kundenauftrag schreiben	
 				results.first();
 
@@ -55,19 +58,38 @@ public class KundenauftragWEB {
 				
 				String bestellID = results.getString("BestId");
 				
-				System.out.println(results.getString("PId"));
+//				System.out.println(results.getString("BestId"));
 				
-				while(results.next())
+				
+//------------------------Abfragen der Produkte der Bestellung
+				ResultSet resultsprodukte = stmt.executeQuery("SELECT * FROM bestellprodukte WHERE BestId = " + bestellID + ";");
+				resultsprodukte.first();
+				
+				do
 				{
-					if(results.getString("BestId").equals(bestellID))
-					{			
-						auftrag.setPosition(results.getString("PId"), results.getString("Menge"));
-					}
-		
-					results.next();
-	
+					auftrag.setPosition(resultsprodukte.getString("PId"), resultsprodukte.getString("Menge"));
+						
+					resultsprodukte.next();
+					
+				}while(!resultsprodukte.isAfterLast());
+				
+//-----------------Testausgabe von Position
+				/*
+				Iterator iterator = auftrag.getPosition().entrySet().iterator();
+				
+
+				
+				while(iterator.hasNext())
+				{	
+					Map.Entry e = (Map.Entry)iterator.next();
+					
+					System.out.println(e.getKey());
+					System.out.println(e.getValue());
+					
+					
 				}
 				
+				*/
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -76,7 +98,7 @@ public class KundenauftragWEB {
 		if(auftrag != null)
 		{
 			//Auftrag in das SAP System schreiben
-			//auftragSAP.createKundenauftrag(auftrag);
+			auftragSAP.createKundenauftrag(auftrag);
 		}
 	}
 	

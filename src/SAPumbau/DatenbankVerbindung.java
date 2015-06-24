@@ -12,8 +12,8 @@ import java.sql.Statement;
  */
 
 /**
- * @author Thomas
  *	Stellt die Methoden zur Verbindung zur Webshopdatenbank bereit.
+ * @author Thomas
  */
 public class DatenbankVerbindung {
 

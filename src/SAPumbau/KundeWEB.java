@@ -94,7 +94,7 @@ public class KundeWEB {
 	}
 
 	//Kunde löschen
-	public void kundenLoeschenDatenbank()
+	public void kundenLoeschenDatenbank()	//Methode umbennenen in kundeLöschen() ???
 	{
 		
 		if (kundeSAP == null) {
