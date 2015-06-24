@@ -52,7 +52,7 @@ public class KundeWEB {
 			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE SAP_KId IS NULL;");
 			//Abfragen ob Datensatz leer ist
 			if (!results.next()){
-				new Logger("Kein neuer Kunde gefunden.");
+				//new Logger("Kein neuer Kunde gefunden.");
 			}else
 			{
 				//Sonst Daten abfragen und in Klasse Kunde1 schreiben	
@@ -140,7 +140,7 @@ public class KundeWEB {
 			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE status = 'a' ;");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
-				new Logger("Kein Kunde zum ändern gefunden!");
+				//new Logger("Kein Kunde zum ändern gefunden!");
 				kunde1 = null;
 			}else
 			{
