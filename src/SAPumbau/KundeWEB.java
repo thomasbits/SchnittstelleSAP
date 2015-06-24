@@ -2,13 +2,10 @@ package SAPumbau;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-/*
- * Stellt dei benötigten Methoden bereit, um einen Kunden in der Webshopdatenbank zu erfassen und zu bearbeiten.
- */
 
 /**
- * @author Thomas
- *	Stellt die benötigten Methoden bereit, um den Datensatz eines Kunden aus der Webshopdatenbank abzufragen 
+ * @author Thomas and Robin
+ *	Stellt die benötigten Methoden bereit, um den Datensatz eines Kunden aus der Webshopdatenbank abzufragen und ihn um SAP System anzulegen, löschen oder ändern
  */
 public class KundeWEB {
 
@@ -17,22 +14,30 @@ public class KundeWEB {
 	KundeWEB kundeWEB;
 	Kunde kunde1;
 	java.sql.Statement stmt;
+	boolean kundeGefunden = false;
 	
-	
+	/**
+	 * Konstruktor
+	 * Instanz der Ablaufsteuerung entgegennehmen
+	 * @param ablaufsteuerung
+	 */
 	public KundeWEB(Ablaufsteuerung ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
 		this.ablaufsteuerung = ablaufsteuerung;
 		kunde1 = new Kunde();
 	}
 	
-	
+	/**
+	 * SQL Statement entgegennehmen um Datenbank Querys und Abfragen durchzuführen
+	 * @param stmt
+	 */
 	public void setStatement(java.sql.Statement stmt)
 	{
 		this.stmt = stmt;
 	}
 
 	
-	/*
+	/**
 	 * Fragt in der Webshopdatenbank ab, ob sich ein neuer Kunde Registriert hat.(Neu registrierte Kunden haben noch keine SAP-Kundennummer)
 	 */
 	public void abfrageNeueKunden()
@@ -45,13 +50,16 @@ public class KundeWEB {
 		try {
 			//Query ob Datensätze ohne SAP Nummer vorhanden sind?
 			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE SAP_KId IS NULL;");
-			//Abfragen ob Datensatz leer ist?
+			//Abfragen ob Datensatz leer ist
 			if (!results.next()){
-				//System.out.println("Result ist empty!!!!");
-				kunde1 = new Kunde();
+				System.out.println("Kein neuer Kunde gefunden.");
+				
 			}else
 			{
+				kundeGefunden = true;
 				//Sonst Daten abfragen und in Klasse Kunde1 schreiben	
+				
+				kunde1 = new Kunde();
 				results.first();
 
 				kunde1.setVorname(results.getString("vorname"));
@@ -69,10 +77,15 @@ public class KundeWEB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(kunde1 != null)
+		
+		//System.out.println("Vorname Kunde: " + kunde1.getVorname());
+		
+		if(kundeGefunden)
 		{
 			//Kunde in das SAP System schreiben
+			System.out.println("Hallo");
 			kundeSAP.createKunde(kunde1);
+			kundeGefunden = false;
 		}
 
 
@@ -204,8 +217,5 @@ public class KundeWEB {
 			
 			System.out.println(kunde1.getVorname());		//nur zum testen
 		}
-
 	}
-
-
 }
