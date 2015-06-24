@@ -5,7 +5,8 @@ package SAPumbau;
 
 /**
  *	Enthält alle Attribute eines Kunden, wird zum Austausch zwischen KundeSAP und KundeWEB benutzt
- * @author Thomas
+ *  Getter und Setter Klasse
+ * @author Thomas and Robin
  */
 public class Kunde {
 	
@@ -128,7 +129,7 @@ public class Kunde {
 		PLZ = pLZ;
 	}
 
-
+	//Anpassen der SAP Nummer. Die SAP Nummer wird immer auf 10 Stellen mit laufenden Nullen vorne gefüllt.
 	public String getSapNummer() {
 		
 		String sapNum = sapNummer;
@@ -143,7 +144,7 @@ public class Kunde {
 		return sapNum;
 	}
 
-
+	//Anpassen der SAP Nummer. Die SAP Nummer wird immer auf 10 Stellen mit laufenden Nullen vorne gefüllt.
 	public void setSapNummer(String sapNummer) {
 		
 		String sapNum = sapNummer;
