@@ -31,8 +31,9 @@ public class Programmeinstieg extends Thread {
 		// TODO Auto-generated method stub
 		Programmeinstieg einstieg = new Programmeinstieg();
 		einstieg.start();
-
-
+		
+		Logger log = new Logger("Programmstart");
+		log.loggerLeeren();
 	}
 
 	//Run Methode (Thread)
@@ -99,6 +100,8 @@ public class Programmeinstieg extends Thread {
 				//MaterialSAP material = new MaterialSAP();
 				//material.materialListeHolen();
 
+				
+				new Logger("test");
 				
 			
 				

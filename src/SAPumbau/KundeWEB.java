@@ -52,10 +52,10 @@ public class KundeWEB {
 			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE SAP_KId IS NULL;");
 			//Abfragen ob Datensatz leer ist
 			if (!results.next()){
-				System.out.println("Kein neuer Kunde gefunden.");
-				
+				new Logger("Kein neuer Kunde gefunden.");
 			}else
 			{
+				new Logger("Neuer Kunde gefunden.");
 				kundeGefunden = true;
 				//Sonst Daten abfragen und in Klasse Kunde1 schreiben	
 				
@@ -78,12 +78,11 @@ public class KundeWEB {
 			e.printStackTrace();
 		}
 		
-		//System.out.println("Vorname Kunde: " + kunde1.getVorname());
 		
 		if(kundeGefunden)
 		{
 			//Kunde in das SAP System schreiben
-			System.out.println("Hallo");
+			new Logger("Kunde anlegen wird durchgeführt.");
 			kundeSAP.createKunde(kunde1);
 			kundeGefunden = false;
 		}
@@ -159,8 +158,8 @@ public class KundeWEB {
 				//Sonst Daten abfragen
 				results.first();
 				kunde1.setSapNummer(results.getString("SAP_KId"));
-//				kundeSAP.deleteKunde(kunde1);
 				//Versende Email
+				new Logger("Kunde löschen wird durchgeführt.");
 				schreibeGeloescht();
 				System.out.println("Kunde: " + kunde1.getSapNummer());
 			}
@@ -185,11 +184,13 @@ public class KundeWEB {
 			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE status = 'a' ;");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
-				System.out.println("Result ist empty!!!!");			//nur zum Testen
+				new Logger("Kein Kunde zum ändern gefunden!");
 				kunde1 = null;
 			}else
 			{
-				//Sonst Daten abfragen und in Klasse Kunde schreiben	
+				//Sonst Daten abfragen und in Klasse Kunde schreiben
+				new Logger("Kunde zum ändern gefunden!");
+				
 				results.first();
 
 				kunde1.setSapNummer(results.getString("SAP_KId"));
@@ -212,6 +213,7 @@ public class KundeWEB {
 		{
 			//Änderungen in das SAP System schreiben
 			kundeSAP.changeKunde(kunde1);
+			new Logger("Kunde ändern wird durchgeführt.");
 			//Status in Datenbank wieder auf Null setzen, da der Kunde erfolgreich geändert wurde.
 			schreibeGeaendert();
 			
