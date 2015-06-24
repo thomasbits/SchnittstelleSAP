@@ -48,7 +48,7 @@ public class KundeWEB {
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
 				//System.out.println("Result ist empty!!!!");
-				kunde1 = null;
+				kunde1 = new Kunde();
 			}else
 			{
 				//Sonst Daten abfragen und in Klasse Kunde1 schreiben	
