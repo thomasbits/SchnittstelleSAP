@@ -130,12 +130,31 @@ public class Kunde {
 
 
 	public String getSapNummer() {
-		return sapNummer;
+		
+		String sapNum = sapNummer;
+		
+		for(int i = sapNum.length();i<10;i++ )
+		{
+			sapNum = "0" + sapNum;
+		}
+		
+		
+		
+		return sapNum;
 	}
 
 
 	public void setSapNummer(String sapNummer) {
-		this.sapNummer = sapNummer;
+		
+		String sapNum = sapNummer;
+		
+		for(int i = sapNum.length();i<10;i++ )
+		{
+			sapNum = "0" + sapNum;
+		}
+		
+		this.sapNummer = sapNum;
+		
 	}
 	
 }

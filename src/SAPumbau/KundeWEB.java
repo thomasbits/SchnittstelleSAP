@@ -48,7 +48,7 @@ public class KundeWEB {
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
 				//System.out.println("Result ist empty!!!!");
-				kunde1 = null;
+				kunde1 = new Kunde();
 			}else
 			{
 				//Sonst Daten abfragen und in Klasse Kunde1 schreiben	
@@ -92,6 +92,39 @@ public class KundeWEB {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	//Schreibt die Übergebene SAP-Nummer in die Webshopdatenbank
+		public void schreibeGeloescht()
+		{
+			//SAP Nummer in Datenbank schreiben
+			String query1 = "UPDATE kunde set geloescht = 'ja' WHERE SAP_KId = \"" + kunde1.getSapNummer() +"\";";
+
+			//Query ausführen
+			try {
+				stmt.execute(query1);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		public void schreibeGeaendert()
+		{
+			//SAP Nummer in Datenbank schreiben
+			String query1 = "UPDATE kunde set status = NULL WHERE SAP_KId = \"" + kunde1.getSapNummer() +"\";";
+
+			//Query ausführen
+			try {
+				stmt.execute(query1);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
+	
+	
 
 	//Kunde löschen
 	public void kundenLoeschenDatenbank()	//Methode umbennenen in kundeLöschen() ???
@@ -104,16 +137,19 @@ public class KundeWEB {
 		kunde1 = new Kunde();
 		try {
 			//Query ob Datensätze ohne SAP Nummer vorhanden sind?
-			ResultSet results = stmt.executeQuery("SELECT SAP_KId FROM kunde WHERE status = 'l' AND SAP_KId IS NOT NULL;");
+			ResultSet results = stmt.executeQuery("SELECT SAP_KId FROM kunde WHERE status = 'l' AND geloescht = 'nein' AND SAP_KId IS NOT NULL;");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
-				System.out.println("Result ist empty!!!!");
+				
 			}else
 			{
 				//Sonst Daten abfragen
 				results.first();
 				kunde1.setSapNummer(results.getString("SAP_KId"));
 //				kundeSAP.deleteKunde(kunde1);
+				//Versende Email
+				schreibeGeloescht();
+				System.out.println("Kunde: " + kunde1.getSapNummer());
 			}
 
 		} catch (SQLException e) {
@@ -133,7 +169,7 @@ public class KundeWEB {
 
 		try {
 			//Query ob Datensätze mit Änderungen vorhanden sind?
-			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE status = 'a';");
+			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE status = 'a' ;");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
 				System.out.println("Result ist empty!!!!");			//nur zum Testen
@@ -163,6 +199,9 @@ public class KundeWEB {
 		{
 			//Änderungen in das SAP System schreiben
 			kundeSAP.changeKunde(kunde1);
+			//Status in Datenbank wieder auf Null setzen, da der Kunde erfolgreich geändert wurde.
+			schreibeGeaendert();
+			
 			System.out.println(kunde1.getVorname());		//nur zum testen
 		}
 

@@ -72,7 +72,8 @@ public class Ablaufsteuerung implements Runnable {
 			java.sql.Statement stmt = verbindung.getStatement();
 
 
-
+			//Testelement
+/*
 			for (i=0; i<10; i++)
 			{
 //				kundeSAP.changeKunde(new Kunde());
@@ -88,10 +89,10 @@ public class Ablaufsteuerung implements Runnable {
 					e.printStackTrace();
 				}
 			}
-
+*/
 			 
 
-/*
+
 			for (i=0; i<10; i++)
 
 			{
@@ -109,6 +110,16 @@ public class Ablaufsteuerung implements Runnable {
 				}
 
 				kundeWEB.kundenLoeschenDatenbank();
+				
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				kundeWEB.abfrageGeänderteKunden();
 
 				try {
 					Thread.sleep(10000);
@@ -119,7 +130,7 @@ public class Ablaufsteuerung implements Runnable {
 				}
 			}
 
-*/
+
 		}
 		
 		verbindung.schliesseVerbindung();
