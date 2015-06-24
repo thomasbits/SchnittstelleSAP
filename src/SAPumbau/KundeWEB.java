@@ -2,13 +2,10 @@ package SAPumbau;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-/*
- * Stellt dei benötigten Methoden bereit, um einen Kunden in der Webshopdatenbank zu erfassen und zu bearbeiten.
- */
 
 /**
- * @author Thomas
- *	Stellt die benötigten Methoden bereit, um den Datensatz eines Kunden aus der Webshopdatenbank abzufragen 
+ * @author Thomas and Robin
+ *	Stellt die benötigten Methoden bereit, um den Datensatz eines Kunden aus der Webshopdatenbank abzufragen und ihn um SAP System anzulegen, löschen oder ändern
  */
 public class KundeWEB {
 
@@ -17,22 +14,30 @@ public class KundeWEB {
 	KundeWEB kundeWEB;
 	Kunde kunde1;
 	java.sql.Statement stmt;
+	boolean kundeGefunden = false;
 	
-	
+	/**
+	 * Konstruktor
+	 * Instanz der Ablaufsteuerung entgegennehmen
+	 * @param ablaufsteuerung
+	 */
 	public KundeWEB(Ablaufsteuerung ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
 		this.ablaufsteuerung = ablaufsteuerung;
 		kunde1 = new Kunde();
 	}
 	
-	
+	/**
+	 * SQL Statement entgegennehmen um Datenbank Querys und Abfragen durchzuführen
+	 * @param stmt
+	 */
 	public void setStatement(java.sql.Statement stmt)
 	{
 		this.stmt = stmt;
 	}
 
 	
-	/*
+	/**
 	 * Fragt in der Webshopdatenbank ab, ob sich ein neuer Kunde Registriert hat.(Neu registrierte Kunden haben noch keine SAP-Kundennummer)
 	 */
 	public void abfrageNeueKunden()
@@ -45,13 +50,16 @@ public class KundeWEB {
 		try {
 			//Query ob Datensätze ohne SAP Nummer vorhanden sind?
 			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE SAP_KId IS NULL;");
-			//Abfragen ob Datensatz leer ist?
+			//Abfragen ob Datensatz leer ist
 			if (!results.next()){
-				//System.out.println("Result ist empty!!!!");
-				kunde1 = new Kunde();
+				new Logger("Kein neuer Kunde gefunden.");
 			}else
 			{
+				new Logger("Neuer Kunde gefunden.");
+				kundeGefunden = true;
 				//Sonst Daten abfragen und in Klasse Kunde1 schreiben	
+				
+				kunde1 = new Kunde();
 				results.first();
 
 				kunde1.setVorname(results.getString("vorname"));
@@ -69,10 +77,14 @@ public class KundeWEB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(kunde1 != null)
+		
+		
+		if(kundeGefunden)
 		{
 			//Kunde in das SAP System schreiben
+			new Logger("Kunde anlegen wird durchgeführt.");
 			kundeSAP.createKunde(kunde1);
+			kundeGefunden = false;
 		}
 
 
@@ -146,8 +158,8 @@ public class KundeWEB {
 				//Sonst Daten abfragen
 				results.first();
 				kunde1.setSapNummer(results.getString("SAP_KId"));
-//				kundeSAP.deleteKunde(kunde1);
 				//Versende Email
+				new Logger("Kunde löschen wird durchgeführt.");
 				schreibeGeloescht();
 				System.out.println("Kunde: " + kunde1.getSapNummer());
 			}
@@ -172,11 +184,13 @@ public class KundeWEB {
 			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE status = 'a' ;");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
-				System.out.println("Result ist empty!!!!");			//nur zum Testen
+				new Logger("Kein Kunde zum ändern gefunden!");
 				kunde1 = null;
 			}else
 			{
-				//Sonst Daten abfragen und in Klasse Kunde schreiben	
+				//Sonst Daten abfragen und in Klasse Kunde schreiben
+				new Logger("Kunde zum ändern gefunden!");
+				
 				results.first();
 
 				kunde1.setSapNummer(results.getString("SAP_KId"));
@@ -199,13 +213,11 @@ public class KundeWEB {
 		{
 			//Änderungen in das SAP System schreiben
 			kundeSAP.changeKunde(kunde1);
+			new Logger("Kunde ändern wird durchgeführt.");
 			//Status in Datenbank wieder auf Null setzen, da der Kunde erfolgreich geändert wurde.
 			schreibeGeaendert();
 			
 			System.out.println(kunde1.getVorname());		//nur zum testen
 		}
-
 	}
-
-
 }
