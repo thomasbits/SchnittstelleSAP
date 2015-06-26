@@ -10,7 +10,7 @@ import com.sap.conn.jco.JCoStructure;
 
 
 /**
- * @author Thomas
+ * @author Thomas and Robin
  *
  */
 public class MaterialSAP {
