@@ -30,7 +30,7 @@ public class MaterialSAP {
 			JCoFunction func = repo.getFunction("BAPI_ADV_MED_GET_ITEMS");
 			//Import Parameter festlegen
 			func.getImportParameterList().setValue("CATALOG","K01");
-			
+			func.getImportParameterList().setValue("VARIANT","01");
 			//JCoStructure personalData = func.getImportParameterList().getStructure("CATALOG");
 			//personalData.setValue("PRODCAT","K01");
 			

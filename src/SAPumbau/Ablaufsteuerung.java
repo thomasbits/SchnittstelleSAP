@@ -16,6 +16,7 @@ public class Ablaufsteuerung implements Runnable {
 
 	private KundeWEB kundeWEB; 
 	private KundeSAP kundeSAP;
+	private MaterialSAP materialSAP;
 	private KundenauftragSAP auftragSAP;
 	private KundenauftragWEB auftragWEB;
 	private VerbindungSAP verbindungSAP;
@@ -28,6 +29,8 @@ public class Ablaufsteuerung implements Runnable {
 		// TODO Auto-generated constructor stub
 		kundeWEB = new KundeWEB(this);
 		kundeSAP = new KundeSAP(this);
+
+		materialSAP = new MaterialSAP();
 		verbindungSAP = new VerbindungSAP();
 		auftragSAP = new KundenauftragSAP();
 		auftragWEB = new KundenauftragWEB(this);
@@ -96,10 +99,12 @@ public class Ablaufsteuerung implements Runnable {
 			for (i=0; i<10; i++)
 
 			{
-				//Überprüfen ob neuer Kunde vorhanden
+				
 				kundeWEB.setStatement(stmt);
 
-
+				//Überprüfen ob neuer Kunde vorhanden
+				/*
+				
 				kundeWEB.abfrageNeueKunden();
 
 				try {
@@ -120,7 +125,20 @@ public class Ablaufsteuerung implements Runnable {
 				
 				
 				kundeWEB.abfrageGeänderteKunden();
+				*/
+				
+				
+				
+				
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
+				materialSAP.materialListeHolen();
+				
 				try {
 					Thread.sleep(10000);
 
