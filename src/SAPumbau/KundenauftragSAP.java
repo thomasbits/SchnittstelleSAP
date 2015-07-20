@@ -1,5 +1,6 @@
 package SAPumbau;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -50,16 +51,30 @@ public class KundenauftragSAP {
 			header.setValue("SALES_ORG", "DN00");		//Verkaufsorganisation
 			header.setValue("DISTR_CHAN", "IN");		//Vertriebsweg
 			header.setValue("DIVISION", "BI");			//Sparte
+			header.setValue("PURCH_DATE", new Date());
+			
 			
 			JCoTable partner = func.getTableParameterList().getTable("ORDER_PARTNERS");
 			partner.appendRow();
 			partner.setValue("PARTN_ROLE", "AG");				//Partnerrolle: hier AuftragGeber
 			partner.setValue("PARTN_NUMB", "0000025026");		//Debitorennummer
 			
+			//Nur zum testen
+			JCoTable items = func.getTableParameterList().getTable("ORDER_ITEMS_IN");
+			items.appendRow();
+			items.setValue("ITM_NUMBER", "1");							//Verkaufsbelegposition
+			items.setValue("MATERIAL", "M02");							//Materialnummer
+			items.setValue("TARGET_QTY", "2");							//Zielmenge in Verkaufsmengeneinheit
 			
+			
+			JCoTable shedules = func.getTableParameterList().getTable("ORDER_SCHEDULES_IN");
+			shedules.appendRow();	
+			shedules.setValue("ITM_NUMBER", "1");				//Verkaufsbelegposition
+			shedules.setValue("SCHED_LINE", "1");				//Einteilungsnummer
+			shedules.setValue("REQ_QTY", "2");					//Auftragsmenge des Kunden in VME
+			
+			/*
 			Iterator iterator = auftrag.getPosition().entrySet().iterator();
-			
-			
 			
 			while(iterator.hasNext())
 			{	
@@ -83,8 +98,8 @@ public class KundenauftragSAP {
 				
 				i++;
 			}
-			
-			func.getImportParameterList().setValue("TESTRUN", "X");		//"X" zum Testen sonst "" oder auskommentieren
+			*/
+			func.getImportParameterList().setValue("TESTRUN", "");		//"X" zum Testen sonst "" oder auskommentieren
 			
 			
 			//Funktion ausführen und commiten
@@ -95,8 +110,12 @@ public class KundenauftragSAP {
 			JCoContext.end(dest);
 			
 			
-			
 			System.out.println(func.getTableParameterList().getTable("RETURN"));
+			
+			
+			System.out.println("Salesdocument: " + func.getExportParameterList().getValue("SALESDOCUMENT"));
+			
+			
 			
 
 		} catch (JCoException e) {
@@ -112,6 +131,12 @@ public class KundenauftragSAP {
  * @param bestellNRSAP Auftragsnummer, des Auftrages, dessen Status abgefragt werden soll
  * @return Gibt den aktuellen Status in Form eines Strings zurück
  */
+	/*
+	 * Funktionalität
+Mit dieser Methode können Sie sich zu einem bestimmten Kundenauftrag Informationen hinsichtlich der Verfügbarkeitssituation, des Bearbeitungsstatus (z.B. Lieferstatus) und der 
+Preise beschaffen.Dazu müssen Sie über den Parameter SALESDOCUMENT die entsprechende Belegnummer angeben. Sie erhalten dann über die Struktur STATUSINFO die oben geannten 
+Detailinformationen. Eventuell aufgetretene Fehler werden über den Parameter RETURN zurückgegeben.
+	 */
 	public String getStatus(String bestellNRSAP)
 	{
 		// TODO Auftragsstatus abfragen
@@ -123,10 +148,9 @@ public class KundenauftragSAP {
 			//BAPI auswählen
 			JCoFunction func = repo.getFunction("BAPI_SALESORDER_GETSTATUS");	//Transaktion
 			
-			func.getImportParameterList().setValue("SALESDOCUMENT", "");
+			func.getImportParameterList().setValue("SALESDOCUMENT", "0000000002");	//Auftragsnummer des Auftrages
 		
-//			func.getTableParameterList().getTable("STATUSINFO").getValue("DOC_NUMBER");
-			
+
 			
 			//Funktion ausführen und commiten
 			JCoContext.begin(dest);
@@ -134,6 +158,27 @@ public class KundenauftragSAP {
 			JCoFunction funcCommit = dest.getRepository().getFunction("BAPI_TRANSACTION_COMMIT");
 			funcCommit.execute(dest);
 			JCoContext.end(dest);
+			
+			JCoTable statusinfo = func.getTableParameterList().getTable("STATUSINFO");
+			
+			if (statusinfo.isEmpty())
+			{
+				System.out.println("Auftrag nicht vorhanden!");
+			}else
+			{
+				System.out.println("Doc_Date: " + func.getTableParameterList().getTable("STATUSINFO").getValue("DOC_DATE"));
+			
+				System.out.println("Doc_Number: " + func.getTableParameterList().getTable("STATUSINFO").getValue("DOC_NUMBER"));	
+			
+				System.out.println("Gesamtstatus: " + func.getTableParameterList().getTable("STATUSINFO").getValue("PRC_STAT_H"));
+//			A     Not yet processed
+//			B     Partially processed
+//			C     Completely processed
+			
+			
+				System.out.println("Lieferstatus: " + func.getTableParameterList().getTable("STATUSINFO").getValue("DLV_STAT_H"));
+			//unvollständig 
+			}
 			
 			System.out.println(func.getExportParameterList().getValue("RETURN"));
 			

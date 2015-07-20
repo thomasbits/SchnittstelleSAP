@@ -15,7 +15,7 @@ public class KundeWEB {
 	Kunde kunde1;
 	java.sql.Statement stmt;
 	boolean kundeGefunden = false;
-	
+
 	/**
 	 * Konstruktor
 	 * Instanz der Ablaufsteuerung entgegennehmen
@@ -26,7 +26,7 @@ public class KundeWEB {
 		this.ablaufsteuerung = ablaufsteuerung;
 		kunde1 = new Kunde();
 	}
-	
+
 	/**
 	 * SQL Statement entgegennehmen um Datenbank Querys und Abfragen durchzuführen
 	 * @param stmt
@@ -36,8 +36,8 @@ public class KundeWEB {
 		this.stmt = stmt;
 	}
 
-	
 	/**
+	 * Kunde neu anlegen
 	 * Fragt in der Webshopdatenbank ab, ob sich ein neuer Kunde Registriert hat.(Neu registrierte Kunden haben noch keine SAP-Kundennummer)
 	 */
 	public void abfrageNeueKunden()
@@ -52,13 +52,14 @@ public class KundeWEB {
 			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE SAP_KId IS NULL;");
 			//Abfragen ob Datensatz leer ist
 			if (!results.next()){
-				new Logger("Kein neuer Kunde gefunden.");
+				//new Logger("Kein neuer Kunde gefunden.");
 			}else
 			{
-				new Logger("Neuer Kunde gefunden.");
-				kundeGefunden = true;
 				//Sonst Daten abfragen und in Klasse Kunde1 schreiben	
-				
+				new Logger("Neuer Kunde gefunden.");
+
+				kundeGefunden = true;
+
 				kunde1 = new Kunde();
 				results.first();
 
@@ -77,8 +78,7 @@ public class KundeWEB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		if(kundeGefunden)
 		{
 			//Kunde in das SAP System schreiben
@@ -86,62 +86,16 @@ public class KundeWEB {
 			kundeSAP.createKunde(kunde1);
 			kundeGefunden = false;
 		}
-
-
 	}
 
-	//Schreibt die Übergebene SAP-Nummer in die Webshopdatenbank
-	public void schreibeSAPNummer(String sapNummer)
+	/**
+	 * Kunde löschen
+	 * Es wird in der Datenbank geschaut ob ein Kunde gelöscht werden soll. (Hat sein Benutzerkonto gelöscht) 
+	 * In diesem Fall wird eine Email an einen Mitarbeiter versendet mit der Information das sich dieser Kunde gelöscht und dies im SAP System vermerkt werden muss.
+	 */
+	public void kundenLoeschenDatenbank()
 	{
-		//SAP Nummer in Datenbank schreiben
-		String query1 = "UPDATE kunde set SAP_KId = " + sapNummer + " WHERE Email = \"" + kunde1.getEmail() +"\";";
 
-		//Query ausführen
-		try {
-			stmt.execute(query1);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	
-	//Schreibt die Übergebene SAP-Nummer in die Webshopdatenbank
-		public void schreibeGeloescht()
-		{
-			//SAP Nummer in Datenbank schreiben
-			String query1 = "UPDATE kunde set geloescht = 'ja' WHERE SAP_KId = \"" + kunde1.getSapNummer() +"\";";
-
-			//Query ausführen
-			try {
-				stmt.execute(query1);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		public void schreibeGeaendert()
-		{
-			//SAP Nummer in Datenbank schreiben
-			String query1 = "UPDATE kunde set status = NULL WHERE SAP_KId = \"" + kunde1.getSapNummer() +"\";";
-
-			//Query ausführen
-			try {
-				stmt.execute(query1);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	
-	
-	
-
-	//Kunde löschen
-	public void kundenLoeschenDatenbank()	//Methode umbennenen in kundeLöschen() ???
-	{
-		
 		if (kundeSAP == null) {
 			//Instanz KundeSAP holen
 			kundeSAP = ablaufsteuerung.getInstanceKundeSAP();
@@ -152,7 +106,7 @@ public class KundeWEB {
 			ResultSet results = stmt.executeQuery("SELECT SAP_KId FROM kunde WHERE status = 'l' AND geloescht = 'nein' AND SAP_KId IS NOT NULL;");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
-				
+
 			}else
 			{
 				//Sonst Daten abfragen
@@ -161,7 +115,7 @@ public class KundeWEB {
 				//Versende Email
 				new Logger("Kunde löschen wird durchgeführt.");
 				schreibeGeloescht();
-				System.out.println("Kunde: " + kunde1.getSapNummer());
+				//System.out.println("Kunde: " + kunde1.getSapNummer());
 			}
 
 		} catch (SQLException e) {
@@ -170,8 +124,10 @@ public class KundeWEB {
 		}
 	}
 
-	//Fragt in der Webshopdatenbank ab, ob es geänderte Kundendatensätze gibt und
-	//schreibt diese anschließend ins SAP System
+	/**
+	 * Kunde ändern
+	 * Fragt in der Webshopdatenbank ab, ob es geänderte Kundendatensätze gibt und schreibt diese anschließend ins SAP System
+	 */
 	public void abfrageGeänderteKunden()
 	{
 		if (kundeSAP == null) {
@@ -184,13 +140,13 @@ public class KundeWEB {
 			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE status = 'a' ;");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
-				new Logger("Kein Kunde zum ändern gefunden!");
+				//new Logger("Kein Kunde zum ändern gefunden!");
 				kunde1 = null;
 			}else
 			{
 				//Sonst Daten abfragen und in Klasse Kunde schreiben
 				new Logger("Kunde zum ändern gefunden!");
-				
+
 				results.first();
 
 				kunde1.setSapNummer(results.getString("SAP_KId"));
@@ -216,8 +172,59 @@ public class KundeWEB {
 			new Logger("Kunde ändern wird durchgeführt.");
 			//Status in Datenbank wieder auf Null setzen, da der Kunde erfolgreich geändert wurde.
 			schreibeGeaendert();
-			
-			System.out.println(kunde1.getVorname());		//nur zum testen
+		}
+	}
+
+	/**
+	 * Schreibt die übergebene SAP-Nummer in die Webshopdatenbank
+	 * @param sapNummer
+	 */
+	public void schreibeSAPNummer(String sapNummer)
+	{
+		//SAP Nummer in Datenbank schreiben
+		String query1 = "UPDATE kunde set SAP_KId = " + sapNummer + " WHERE Email = \"" + kunde1.getEmail() +"\";";
+
+		//Query ausführen
+		try {
+			stmt.execute(query1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Schreibt die Übergebene SAP-Nummer in die Webshopdatenbank
+	 */
+	public void schreibeGeloescht()
+	{
+		//SAP Nummer in Datenbank schreiben
+		String query1 = "UPDATE kunde set geloescht = 'ja' WHERE SAP_KId = \"" + kunde1.getSapNummer() +"\";";
+
+		//Query ausführen
+		try {
+			stmt.execute(query1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+	/**
+	 * Schreibt das Feld status nach Kundenänderung wieder auf "NULL"
+	 */
+	public void schreibeGeaendert()
+	{
+		//SAP Nummer in Datenbank schreiben
+		String query1 = "UPDATE kunde set status = NULL WHERE SAP_KId = \"" + kunde1.getSapNummer() +"\";";
+
+		//Query ausführen
+		try {
+			stmt.execute(query1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
