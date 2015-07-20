@@ -1,6 +1,8 @@
 package SAPumbau;
 
 import java.util.*;
+import java.util.logging.Logger;
+
 import javax.activation.CommandMap;
 import javax.activation.MailcapCommandMap;
 import javax.mail.*;
@@ -18,12 +20,12 @@ public class Mail {
 
 
 	public void senden(){
-
+		//private java.util.logging.Logger log = Logger.getLogger(Mail.class.getName());
 		String msgTitle = "Title";
 		String msgBody = "msgBody";
-		String userEmail = "robin@kljb-alhausen.de";
+		String userEmail = "robinhake@web.de";
 		final String username = "sapservice@felixbe.de";
-		final String password = "";
+		final String password = "^Y4jm30t";
 
 		Properties prop = new Properties();
 		prop.put("mail.smtp.auth", "true");
@@ -35,6 +37,7 @@ public class Mail {
 		Session session = Session.getInstance(prop, new Authenticator(){
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username, password);
+				
 			}
 		});
 

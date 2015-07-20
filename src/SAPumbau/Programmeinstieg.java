@@ -101,7 +101,14 @@ public class Programmeinstieg extends Thread {
 				//material.materialListeHolen();
 
 				
-				new Logger("test");
+				//new Logger("test");
+				
+				Mail mail = new Mail();
+				mail.senden();
+				
+				
+				
+				
 				
 			
 				
