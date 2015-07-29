@@ -36,7 +36,7 @@ public class KundenauftragSAP {
  */
 	public void createKundenauftrag(Kundenauftrag auftrag)
 	{
-		
+		//Unvollständigkeitsprotokoll unter v.01 und v.02		
 		try {
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
 			JCoDestination dest = JCoDestinationManager.getDestination("");
@@ -45,6 +45,8 @@ public class KundenauftragSAP {
 			//BAPI auswählen
 			JCoFunction func = repo.getFunction("BAPI_SALESORDER_CREATEFROMDAT2");	//Transaktion VA01
 			
+			
+			
 			//Pflichtfeld
 			JCoStructure header = func.getImportParameterList().getStructure("ORDER_HEADER_IN");
 			header.setValue("DOC_TYPE", "TA");			//Verkaufsbelegart: hier Termninauftrag
@@ -52,27 +54,51 @@ public class KundenauftragSAP {
 			header.setValue("DISTR_CHAN", "IN");		//Vertriebsweg
 			header.setValue("DIVISION", "BI");			//Sparte
 			header.setValue("PURCH_DATE", new Date());
+			header.setValue("PURCH_NO_C", "01");
+//			header.setValue("INCOTERMS1", "CIP");
+//			header.setValue("INCOTERMS2", "Höxter");
 			
 			
 			JCoTable partner = func.getTableParameterList().getTable("ORDER_PARTNERS");
 			partner.appendRow();
-			partner.setValue("PARTN_ROLE", "AG");				//Partnerrolle: hier AuftragGeber
-			partner.setValue("PARTN_NUMB", "0000025026");		//Debitorennummer
+			partner.setValue("PARTN_ROLE", "AG");				//Partnerrolle: hier AuftragGeber. WE: Warenempfänger
+			partner.setValue("PARTN_NUMB", "0000025076");		//Debitorennummer
+			
 			
 			//Nur zum testen
 			JCoTable items = func.getTableParameterList().getTable("ORDER_ITEMS_IN");
 			items.appendRow();
+			items.firstRow();
 			items.setValue("ITM_NUMBER", "1");							//Verkaufsbelegposition
 			items.setValue("MATERIAL", "M02");							//Materialnummer
-			items.setValue("TARGET_QTY", "2");							//Zielmenge in Verkaufsmengeneinheit
+//			items.setValue("TARGET_QTY", "2");							//Zielmenge in Verkaufsmengeneinheit
+//			items.setValue("TARGET_QU", "ST");
+			
+			JCoTable itemsx = func.getTableParameterList().getTable("ORDER_ITEMS_INX");
+			itemsx.appendRow();
+			itemsx.firstRow();
+			itemsx.setValue("ITM_NUMBER", "1");
+			itemsx.setValue("MATERIAL", "X");
+			itemsx.setValue("UPDATEFLAG", "X");
 			
 			
 			JCoTable shedules = func.getTableParameterList().getTable("ORDER_SCHEDULES_IN");
 			shedules.appendRow();	
+			shedules.firstRow();
 			shedules.setValue("ITM_NUMBER", "1");				//Verkaufsbelegposition
 			shedules.setValue("SCHED_LINE", "1");				//Einteilungsnummer
 			shedules.setValue("REQ_QTY", "2");					//Auftragsmenge des Kunden in VME
+			shedules.setValue("REQ_DATE", new Date());
 			
+			JCoTable shedulesx = func.getTableParameterList().getTable("ORDER_SCHEDULES_INX");
+			shedulesx.appendRow();	
+			shedulesx.firstRow();
+			shedulesx.setValue("ITM_NUMBER", "1");				//Verkaufsbelegposition
+			shedulesx.setValue("SCHED_LINE", "1");				//Einteilungsnummer
+			shedulesx.setValue("REQ_QTY", "X");					//Auftragsmenge des Kunden in VME
+			shedulesx.setValue("REQ_DATE", "X");
+			shedulesx.setValue("UPDATEFLAG", "X");
+		
 			/*
 			Iterator iterator = auftrag.getPosition().entrySet().iterator();
 			
@@ -100,6 +126,9 @@ public class KundenauftragSAP {
 			}
 			*/
 			func.getImportParameterList().setValue("TESTRUN", "");		//"X" zum Testen sonst "" oder auskommentieren
+			
+			
+			
 			
 			
 			//Funktion ausführen und commiten

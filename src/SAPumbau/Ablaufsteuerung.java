@@ -76,12 +76,15 @@ public class Ablaufsteuerung implements Runnable {
 
 
 			//Testelement
-/*
+
 			for (i=0; i<10; i++)
 			{
+//				kundeWEB.setStatement(stmt);
+//				kundeWEB.abfrageNeueKunden();
 //				kundeSAP.changeKunde(new Kunde());
-//				auftragSAP.createKundenauftrag(new Kundenauftrag());
-				auftragSAP.getStatus("5");
+//				kundeSAP.createKunde(new Kunde());
+				auftragSAP.createKundenauftrag(new Kundenauftrag());
+//				auftragSAP.getStatus("5");
 //				auftragWEB.setStatement(stmt);
 //				auftragWEB.abfrageNeueBestellungen();
 				threadStop();
@@ -92,10 +95,10 @@ public class Ablaufsteuerung implements Runnable {
 					e.printStackTrace();
 				}
 			}
-*/
+
 			 
 
-
+			/*
 			for (i=0; i<10; i++)
 
 			{
@@ -103,7 +106,7 @@ public class Ablaufsteuerung implements Runnable {
 				kundeWEB.setStatement(stmt);
 
 				//Überprüfen ob neuer Kunde vorhanden
-				/*
+				
 				
 				kundeWEB.abfrageNeueKunden();
 
@@ -125,7 +128,7 @@ public class Ablaufsteuerung implements Runnable {
 				
 				
 				kundeWEB.abfrageGeänderteKunden();
-				*/
+				
 				
 				
 				
@@ -146,7 +149,7 @@ public class Ablaufsteuerung implements Runnable {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
+			}*/
 
 
 		}

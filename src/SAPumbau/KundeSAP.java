@@ -74,7 +74,7 @@ public class KundeSAP {
 			referenceData.setValue("SALESORG", "DN00");
 			referenceData.setValue("DISTR_CHAN", "IN");
 			referenceData.setValue("DIVISION", "BI");
-			referenceData.setValue("REF_CUSTMR", "0000014000");
+			referenceData.setValue("REF_CUSTMR", "0000025075");
 
 			//Daten an das SAP System übergeben
 			JCoContext.begin(dest);
@@ -86,8 +86,8 @@ public class KundeSAP {
 			//Rückgabewert engegennehmen (SAP Kundennummer/Debitor)
 			String sapNr = (String) func.getExportParameterList().getValue("CUSTOMERNO");
 
-			kundeWEB.schreibeSAPNummer(sapNr);
-			new Logger("Kunde angelegt");
+//			kundeWEB.schreibeSAPNummer(sapNr);
+			new Logger("Kunde angelegt -" + sapNr);
 
 		} catch (JCoException e) {
 			// TODO Auto-generated catch block
