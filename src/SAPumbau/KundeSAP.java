@@ -85,15 +85,16 @@ public class KundeSAP {
 
 			//Rückgabewert engegennehmen (SAP Kundennummer/Debitor)
 			String sapNr = (String) func.getExportParameterList().getValue("CUSTOMERNO");
-
+			kunde1.setSapNummer(sapNr);
 //			kundeWEB.schreibeSAPNummer(sapNr);
-			new Logger("Kunde angelegt -" + sapNr);
-
+			
 		} catch (JCoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			new Logger("Verbindung zum SAP System konnte nicht aufgebaut werden.");
 		}
+		
+		
 	}
 
 	//Ändert einen Kunden im SAP-System
@@ -157,7 +158,7 @@ public class KundeSAP {
 			funcCommit.execute(dest);
 			JCoContext.end(dest);
 
-			System.out.println(func.getExportParameterList().getValue("RETURN"));
+			//System.out.println(func.getExportParameterList().getValue("RETURN"));
 
 		}catch (JCoException e) {
 			// TODO Auto-generated catch block
