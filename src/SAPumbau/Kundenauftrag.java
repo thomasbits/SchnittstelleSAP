@@ -1,5 +1,6 @@
 package SAPumbau;
 
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -13,8 +14,9 @@ import java.util.Iterator;
  * @author Thomas
  */
 public class Kundenauftrag {
-	
-	private String bestellNRSAP, bestellNRWEB, verkaufsbelegart, partnerrolle, debitorennummer, status;		//nicht alle notwendig weil immer gleich??
+
+	private String versandart, zahlungsart, bestellNRSAP, bestellNRWEB, verkaufsbelegart, partnerrolle, debitorennummer, status;		//nicht alle notwendig weil immer gleich??
+	private Date bestellDatum;
 	private Hashtable<String, String> position;	
 
 
@@ -22,8 +24,35 @@ public class Kundenauftrag {
 		position = new Hashtable<String, String>();
 	}
 
+
+	public String getZahlungsart() {
+		return zahlungsart;
+	}
+
+	public String getVersandart() {
+		return versandart;
+	}
+
+	public void setVersandart(String versandart) {
+		this.versandart = versandart;
+	}
+
+	public void setZahlungsart(String zahlungsart) {
+		this.zahlungsart = zahlungsart;
+	}
+
+
+	public Date getBestellDatum() {
+		return bestellDatum;
+	}
+
+	public void setBestellDatum(String bestellDatum) {
+		// TODO String auf Date Casten!!
+		this.bestellDatum = bestellDatum;
+	}
+
 	public Hashtable<String, String> getPosition() {
-		
+
 		return position;
 	}
 

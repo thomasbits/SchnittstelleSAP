@@ -53,8 +53,9 @@ public class KundenauftragSAP {
 			header.setValue("SALES_ORG", "DN00");		//Verkaufsorganisation
 			header.setValue("DISTR_CHAN", "IN");		//Vertriebsweg
 			header.setValue("DIVISION", "BI");			//Sparte
-			header.setValue("PURCH_DATE", new Date());
+			header.setValue("PURCH_DATE", new Date());	//Bestelldatum, in WS DB
 			header.setValue("PURCH_NO_C", "01");
+			header.setValue("PYMT_METH",  "");			//Zahlungsmethode, in WS DB
 //			header.setValue("INCOTERMS1", "CIP");
 //			header.setValue("INCOTERMS2", "Höxter");
 			

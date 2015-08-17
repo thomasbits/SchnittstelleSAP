@@ -47,18 +47,23 @@ public class KundenauftragWEB {
 			}else
 			{
 				
-				System.out.println("BestellID:" + results.getString("BestId"));			//nur zum Testen
+//				System.out.println("BestellID:" + results.getString("BestId"));			//nur zum Testen
 				
-				//Sonst Daten abfragen und in instanz auftrag der Klasse Kundenauftrag schreiben	
-				results.first();
-
+				//Sonst Daten abfragen und in die instanz auftrag der Klasse Kundenauftrag schreiben	
+				results.last();
+				
+				
 				auftrag.setDebitorennummer(results.getString("KId"));
 				auftrag.setBestellNRWEB(results.getString("BestId"));
+				auftrag.setBestellDatum(results.getString("Datum"));
+				auftrag.setZahlungsart(results.getString("Zahlungsart"));
+				
+				
 //				auftrag.setStatus(results.getString("Status"));
 				
 				String bestellID = results.getString("BestId");
 				
-//				System.out.println(results.getString("BestId"));
+				System.out.println(bestellID);
 				
 				
 //------------------------Abfragen der Produkte der Bestellung
@@ -74,7 +79,7 @@ public class KundenauftragWEB {
 				}while(!resultsprodukte.isAfterLast());
 				
 //-----------------Testausgabe von Position
-				/*
+				
 				Iterator iterator = auftrag.getPosition().entrySet().iterator();
 				
 
@@ -89,7 +94,7 @@ public class KundenauftragWEB {
 					
 				}
 				
-				*/
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -98,7 +103,7 @@ public class KundenauftragWEB {
 		if(auftrag != null)
 		{
 			//Auftrag in das SAP System schreiben
-			auftragSAP.createKundenauftrag(auftrag);
+//			auftragSAP.createKundenauftrag(auftrag);
 		}
 	}
 	
