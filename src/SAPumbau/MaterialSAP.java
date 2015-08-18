@@ -66,10 +66,12 @@ public class MaterialSAP {
 			{
 				table.setRow(i);
 				Materialliste.add(table.getString("MATERIAL"));
-				System.out.println(table.getString("MATERIAL"));
 			}
 			
-			
+			for(int i = 0; i<Materialliste.size();i++)
+			{
+				System.out.println(Materialliste.get(i));
+			}
 			
 			
 			
