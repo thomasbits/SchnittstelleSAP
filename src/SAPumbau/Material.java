@@ -1,6 +1,14 @@
 package SAPumbau;
-
 import com.sun.jmx.snmp.Timestamp;
+/*
+ * Repräsentiert ein Material/Produkt, mit den zugehörigen getter und setter Methoden
+ */
+
+/**
+ *	Enthält alle Attribute eines Materials, wird zum Austausch zwischen MaterialSAP und MaterialWEB benutzt
+ *  Getter und Setter Klasse
+ * @author Robin
+ */
 
 
 
