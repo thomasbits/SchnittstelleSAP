@@ -26,6 +26,7 @@ public class Ablaufsteuerung implements Runnable {
 	private boolean threadRun = true;
 	private	int i = 0;
 	private DatenbankVerbindung verbindung;
+	private Produktpreise produktp;
 	
 	
 
@@ -39,6 +40,8 @@ public class Ablaufsteuerung implements Runnable {
 		verbindungSAP = new VerbindungSAP();
 		auftragSAP = new KundenauftragSAP(this);
 		auftragWEB = new KundenauftragWEB(this);
+		produktp = new Produktpreise();
+		
 		
 		
 		
@@ -97,6 +100,8 @@ public class Ablaufsteuerung implements Runnable {
 			//Statement von der Datenbank holen
 			java.sql.Statement stmt = verbindung.getStatement();
 
+			
+			produktp.ermittlePreise();
 
 			//Testelement
 /*
@@ -156,8 +161,8 @@ public class Ablaufsteuerung implements Runnable {
 					e.printStackTrace();
 				}
 				*/
-				materialWEB.setStatement(stmt);
-				materialSAP.materialListeHolen();
+//				materialWEB.setStatement(stmt);
+//				materialSAP.materialListeHolen();
 				
 				try {
 					Thread.sleep(10000);
