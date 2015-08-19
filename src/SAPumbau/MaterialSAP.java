@@ -22,14 +22,22 @@ import com.sap.conn.jco.JCoTable;
  */
 public class MaterialSAP {
 
+	Ablaufsteuerung ablaufsteuerung;
+	MaterialWEB materialWEB;
 	private int anzahlMat;
 	private ArrayList<String> Materialliste = new ArrayList<String>();
-	public MaterialSAP() {
+	public MaterialSAP(Ablaufsteuerung ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
+		this.ablaufsteuerung = ablaufsteuerung;
 	}
 
 	public void materialListeHolen()
 	{
+		if (materialWEB == null) {
+			//Instanz KundeSAP holen
+			materialWEB = ablaufsteuerung.getInstanceMaterialWEB();
+		}
+		
 		
 		try {
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
@@ -41,9 +49,9 @@ public class MaterialSAP {
 			//Import Parameter festlegen
 			func.getImportParameterList().setValue("CATALOG","K01");
 			func.getImportParameterList().setValue("VARIANT","01");
+			
 			//JCoStructure personalData = func.getImportParameterList().getStructure("CATALOG");
 			//personalData.setValue("PRODCAT","K01");
-			
 			//JCoStructure referenceData = func.getImportParameterList().getStructure("VARIANT");
 			//referenceData.setValue("VARIANT", "DN00");
 			
@@ -73,8 +81,11 @@ public class MaterialSAP {
 				System.out.println(Materialliste.get(i));
 			}
 			
+			boolean ret = materialWEB.datensatzAbfrage("2");
+			System.out.println("Ergebnis1: "+ String.valueOf(ret));
 			
-			
+			//Wenn retun wert true dann Datum abgleichen
+			// 
 			
 			
 		} catch (JCoException e) {
