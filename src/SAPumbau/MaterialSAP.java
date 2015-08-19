@@ -1,5 +1,11 @@
 package SAPumbau;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import javax.swing.JTable;
+
+import com.sap.conn.jco.JCo;
 import com.sap.conn.jco.JCoContext;
 import com.sap.conn.jco.JCoDestination;
 import com.sap.conn.jco.JCoDestinationManager;
@@ -7,6 +13,7 @@ import com.sap.conn.jco.JCoException;
 import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoRepository;
 import com.sap.conn.jco.JCoStructure;
+import com.sap.conn.jco.JCoTable;
 
 
 /**
@@ -15,12 +22,23 @@ import com.sap.conn.jco.JCoStructure;
  */
 public class MaterialSAP {
 
-	public MaterialSAP() {
+	Ablaufsteuerung ablaufsteuerung;
+	MaterialWEB materialWEB;
+	private int anzahlMat;
+	private ArrayList<String> Materialliste = new ArrayList<String>();
+	public MaterialSAP(Ablaufsteuerung ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
+		this.ablaufsteuerung = ablaufsteuerung;
 	}
 
 	public void materialListeHolen()
 	{
+		if (materialWEB == null) {
+			//Instanz KundeSAP holen
+			materialWEB = ablaufsteuerung.getInstanceMaterialWEB();
+		}
+		
+		
 		try {
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
 			JCoDestination dest = JCoDestinationManager.getDestination("");
@@ -31,9 +49,9 @@ public class MaterialSAP {
 			//Import Parameter festlegen
 			func.getImportParameterList().setValue("CATALOG","K01");
 			func.getImportParameterList().setValue("VARIANT","01");
+			
 			//JCoStructure personalData = func.getImportParameterList().getStructure("CATALOG");
 			//personalData.setValue("PRODCAT","K01");
-			
 			//JCoStructure referenceData = func.getImportParameterList().getStructure("VARIANT");
 			//referenceData.setValue("VARIANT", "DN00");
 			
@@ -46,8 +64,29 @@ public class MaterialSAP {
 			JCoContext.end(dest);
 
 			//Rückgabewert engegennehmen (SAP Kundennummer/Debitor)
-			System.out.println(func.getExportParameterList().getValue("RETURN"));
-			//System.out.println(func.getTableParameterList().getTable("RETURN"));
+			
+			
+			//Materialliste holen:
+			Materialliste.clear();
+			JCoTable table = func.getTableParameterList().getTable("ITEMS");
+			anzahlMat = table.getNumRows();
+			for(int i = 0; i<anzahlMat; i++)
+			{
+				table.setRow(i);
+				Materialliste.add(table.getString("MATERIAL"));
+			}
+			
+			for(int i = 0; i<Materialliste.size();i++)
+			{
+				System.out.println(Materialliste.get(i));
+			}
+			
+			boolean ret = materialWEB.datensatzAbfrage("2");
+			System.out.println("Ergebnis1: "+ String.valueOf(ret));
+			
+			//Wenn retun wert true dann Datum abgleichen
+			// 
+			
 			
 		} catch (JCoException e) {
 			// TODO Auto-generated catch block

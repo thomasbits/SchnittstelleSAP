@@ -55,6 +55,7 @@ public class KundeWEB {
 				//new Logger("Kein neuer Kunde gefunden.");
 			}else
 			{
+				
 				//Sonst Daten abfragen und in Klasse Kunde1 schreiben	
 				new Logger("Neuer Kunde gefunden.");
 
@@ -84,6 +85,7 @@ public class KundeWEB {
 			//Kunde in das SAP System schreiben
 			new Logger("Kunde anlegen wird durchgeführt.");
 			kundeSAP.createKunde(kunde1);
+			schreibeSAPNummer(kunde1.getSapNummer());
 			kundeGefunden = false;
 		}
 	}
@@ -200,8 +202,13 @@ public class KundeWEB {
 	{
 		//SAP Nummer in Datenbank schreiben
 		String query1 = "UPDATE kunde set geloescht = 'ja' WHERE SAP_KId = \"" + kunde1.getSapNummer() +"\";";
-
+		System.out.println("Kunde " + kunde1.getSapNummer() + " wird gelöscht.");
 		//Query ausführen
+		
+		
+		
+		
+		
 		try {
 			stmt.execute(query1);
 		} catch (SQLException e) {
