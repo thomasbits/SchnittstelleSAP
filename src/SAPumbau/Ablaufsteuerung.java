@@ -32,7 +32,7 @@ public class Ablaufsteuerung implements Runnable {
 
 		materialSAP = new MaterialSAP();
 		verbindungSAP = new VerbindungSAP();
-		auftragSAP = new KundenauftragSAP();
+		auftragSAP = new KundenauftragSAP(this);
 		auftragWEB = new KundenauftragWEB(this);
 		
 	}
@@ -50,6 +50,11 @@ public class Ablaufsteuerung implements Runnable {
 	public KundenauftragSAP getInstanceKundenauftragSAP()
 	{
 		return auftragSAP;
+	}
+	
+	public KundenauftragWEB getInstanceKundenauftragWEB()
+	{
+		return auftragWEB;
 	}
 
 	public void threadStop()
@@ -83,12 +88,12 @@ public class Ablaufsteuerung implements Runnable {
 //				kundeWEB.abfrageNeueKunden();
 //				kundeSAP.changeKunde(new Kunde());
 //				kundeSAP.createKunde(new Kunde());
-//				auftragSAP.createKundenauftrag(new Kundenauftrag());
+				auftragSAP.createKundenauftrag(new Kundenauftrag());
 //				auftragSAP.getStatus("5");
 //				auftragWEB.setStatement(stmt);
 				
-				auftragWEB.setStatement(stmt);
-				auftragWEB.abfrageNeueBestellungen();
+//				auftragWEB.setStatement(stmt);
+//				auftragWEB.abfrageNeueBestellungen();
 				threadStop();
 				try {
 					Thread.sleep(500);

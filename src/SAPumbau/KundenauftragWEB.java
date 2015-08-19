@@ -57,13 +57,23 @@ public class KundenauftragWEB {
 				auftrag.setBestellNRWEB(results.getString("BestId"));
 				auftrag.setBestellDatum(results.getString("Datum"));
 				auftrag.setZahlungsart(results.getString("Zahlungsart"));
+				auftrag.setVersandart(results.getString("versandart"));
+				auftrag.setStatus(results.getString("Status"));
+				auftrag.setLierferadresse_geschlecht(results.getString("lieferadresse_geschlecht"));
+				auftrag.setLierferadresse_hausnummer(results.getString("lieferadresse_hausnummer"));
+				auftrag.setLierferadresse_vorname(results.getString("lieferadresse_vorname"));
+				auftrag.setLierferadresse_name(results.getString("lieferadresse_name"));
+				auftrag.setLierferadresse_strasse(results.getString("lieferadresse_strasse"));
+				auftrag.setLierferadresse_plz(results.getString("lieferadresse_plz"));
+				auftrag.setLierferadresse_ort(results.getString("lieferadresse_ort"));
 				
 				
-//				auftrag.setStatus(results.getString("Status"));
+			
 				
 				String bestellID = results.getString("BestId");
 				
-				System.out.println(bestellID);
+			
+				auftrag.ausgabeKundenauftrag();
 				
 				
 //------------------------Abfragen der Produkte der Bestellung
@@ -104,6 +114,20 @@ public class KundenauftragWEB {
 		{
 			//Auftrag in das SAP System schreiben
 //			auftragSAP.createKundenauftrag(auftrag);
+		}
+	}
+	
+	public void setAuftragsStatus(String bestellNR, String status)
+	{
+		//SAP Nummer in Datenbank schreiben
+		String query1 = "UPDATE bestellung set Status = " + status + " WHERE SAP_BestId = \"" + bestellNR +"\";";
+
+		//Query ausführen
+		try {
+			stmt.execute(query1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

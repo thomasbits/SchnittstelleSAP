@@ -19,7 +19,7 @@ public class KundeSAP {
 
 	private Ablaufsteuerung ablaufsteuerung;
 	private KundeWEB kundeWEB;
-
+	
 	public KundeSAP(Ablaufsteuerung ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
 		this.ablaufsteuerung = ablaufsteuerung;

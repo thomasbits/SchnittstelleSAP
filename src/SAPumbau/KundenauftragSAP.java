@@ -25,9 +25,13 @@ import com.sap.conn.jco.JCoTable;
 public class KundenauftragSAP {
 	
 	int i = 0;
+	private Ablaufsteuerung ablaufsteuerung;
+	private KundenauftragWEB auftragWEB;
 	
 
-	public KundenauftragSAP() {
+	public KundenauftragSAP(Ablaufsteuerung ablaufsteuerung) {
+		this.ablaufsteuerung = ablaufsteuerung;
+		
 	}
 
 /**
@@ -46,19 +50,31 @@ public class KundenauftragSAP {
 			JCoFunction func = repo.getFunction("BAPI_SALESORDER_CREATEFROMDAT2");	//Transaktion VA01
 			
 			
-			
-			//Pflichtfeld
+/*			
+			//Testdaten
 			JCoStructure header = func.getImportParameterList().getStructure("ORDER_HEADER_IN");
 			header.setValue("DOC_TYPE", "TA");			//Verkaufsbelegart: hier Termninauftrag
 			header.setValue("SALES_ORG", "DN00");		//Verkaufsorganisation
 			header.setValue("DISTR_CHAN", "IN");		//Vertriebsweg
 			header.setValue("DIVISION", "BI");			//Sparte
 			header.setValue("PURCH_DATE", new Date());	//Bestelldatum, in WS DB
-			header.setValue("PURCH_NO_C", "01");
+			header.setValue("PURCH_NO_C", "01");		//Bestellnummer des Kunden
 			header.setValue("PYMT_METH",  "");			//Zahlungsmethode, in WS DB
 //			header.setValue("INCOTERMS1", "CIP");
 //			header.setValue("INCOTERMS2", "Höxter");
+*/			
 			
+			
+			JCoStructure header = func.getImportParameterList().getStructure("ORDER_HEADER_IN");
+			header.setValue("DOC_TYPE", "TA");									//Verkaufsbelegart: hier Termninauftrag
+			header.setValue("SALES_ORG", "DN00");								//Verkaufsorganisation
+			header.setValue("DISTR_CHAN", "IN");								//Vertriebsweg
+			header.setValue("DIVISION", "BI");									//Sparte
+			header.setValue("PURCH_DATE", auftrag.getBestellDatum());			//Bestelldatum, in WS DB
+			header.setValue("PURCH_NO_C", "01");								//Bestellnummer des Kunden
+			header.setValue("PYMT_METH",  auftrag.getZahlungsart());			//Zahlungsmethode, in WS DB
+//			header.setValue("INCOTERMS1", "CIP");
+//			header.setValue("INCOTERMS2", "Höxter");
 			
 			JCoTable partner = func.getTableParameterList().getTable("ORDER_PARTNERS");
 			partner.appendRow();
@@ -99,7 +115,7 @@ public class KundenauftragSAP {
 			shedulesx.setValue("REQ_QTY", "X");					//Auftragsmenge des Kunden in VME
 			shedulesx.setValue("REQ_DATE", "X");
 			shedulesx.setValue("UPDATEFLAG", "X");
-		
+			
 			/*
 			Iterator iterator = auftrag.getPosition().entrySet().iterator();
 			
@@ -169,6 +185,14 @@ Detailinformationen. Eventuell aufgetretene Fehler werden über den Parameter RET
 	 */
 	public String getStatus(String bestellNRSAP)
 	{
+		if (auftragWEB == null) {
+			//Instanz KundeWEB holen
+			auftragWEB = ablaufsteuerung.getInstanceKundenauftragWEB();
+		}
+		String status = "";
+		
+		
+		
 		// TODO Auftragsstatus abfragen
 		try {
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
@@ -212,6 +236,8 @@ Detailinformationen. Eventuell aufgetretene Fehler werden über den Parameter RET
 			
 			System.out.println(func.getExportParameterList().getValue("RETURN"));
 			
+			status = (String) func.getTableParameterList().getTable("STATUSINFO").getValue("PRC_STAT_H");
+			
 			
 		} catch (JCoException e) {
 			// TODO Auto-generated catch block
@@ -220,7 +246,11 @@ Detailinformationen. Eventuell aufgetretene Fehler werden über den Parameter RET
 
 		}
 		
-		String status ="";
+		auftragWEB.setAuftragsStatus(bestellNRSAP, status);
+		
+		
+		
+		
 		
 		return status;
 	}
