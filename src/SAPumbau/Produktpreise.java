@@ -25,6 +25,8 @@ public class Produktpreise {
 			//Repository holen
 			JCoRepository repo = dest.getRepository();
 			//BAPI auswählen
+			
+			//Materialpreise
 			JCoFunction func = repo.getFunction("BAPI_ADV_MED_GET_ITEMS");
 
 			func.getImportParameterList().setValue("CATALOG", "K01");
@@ -39,9 +41,30 @@ public class Produktpreise {
 			JCoContext.end(dest);
 
 			System.out.println(func.getExportParameterList().getValue("RETURN"));
-			System.out.println(func.getTableParameterList().getTable("ITEMS"));
-			System.out.println(func.getTableParameterList().getTable("TEXTS"));
-			System.out.println(func.getTableParameterList().getTable("PRICES"));
+			System.out.println(func.getTableParameterList().getTable("ITEMS").getValue("MATERIAL"));
+			System.out.println(func.getTableParameterList().getTable("TEXTS").getValue("NAME"));
+			System.out.println(func.getTableParameterList().getTable("TEXTS").getValue("TITLE"));
+			System.out.println(func.getTableParameterList().getTable("PRICES").getValue("CONDVAL"));
+			
+			
+			
+			
+			//Matarialbeschreibung
+			JCoFunction func2 = repo.getFunction("BAPI_ADV_MED_GET_LAYOBJ_DESCR");
+			func2.getImportParameterList().setValue("CATALOG", "K01");
+			func2.getImportParameterList().setValue("VARIANT", "01");
+			func2.getImportParameterList().setValue("AREA", "1");
+			func2.getImportParameterList().setValue("ITEM", "1");
+			
+			//Daten an das SAP System übergeben
+			JCoContext.begin(dest);
+			func2.execute(dest);
+			JCoFunction funcCommit2 = dest.getRepository().getFunction("BAPI_TRANSACTION_COMMIT");
+			funcCommit2.execute(dest);
+			JCoContext.end(dest);			
+			
+			//Auslesen der Materialbeschreibung des Produnktkataloges
+			System.out.println(func2.getTableParameterList().getTable("LINES").getValue("LINE"));
 			
 
 		}catch (JCoException e) {
