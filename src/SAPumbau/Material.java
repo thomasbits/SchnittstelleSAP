@@ -31,20 +31,30 @@ public class Material {
 	private char bauvariante; //"bauvariante" -> Herrenrad h Damenrad d
 	private String marke; //"marke"
 	private String eigenschaften; //"Eigenschaften"
-	
 
+	
 	public Material() {
 		// TODO Auto-generated constructor stub
 	}
 	
+
 	public String getmID() {
 		return mID;
 	}
 	public void setmID(String mID) {
 		this.mID = mID;
 	}
-	public boolean isAdt() {
-		return adt;
+	public String getAdt() {
+		String ret;
+		if(adt)
+		{
+			ret = "ja";
+		}
+		else
+		{
+			ret = "nein";
+		}
+		return ret;
 	}
 	public void setAdt(boolean adt) {
 		this.adt = adt;
@@ -91,7 +101,7 @@ public class Material {
 	public void setvMenge(int vMenge) {
 		this.vMenge = vMenge;
 	}
-	public boolean isGeloescht() {
+	public boolean getGeloescht() {
 		return geloescht;
 	}
 	public void setGeloescht(boolean geloescht) {
@@ -115,8 +125,18 @@ public class Material {
 	public void setGroesse(int groesse) {
 		this.groesse = groesse;
 	}
-	public char getBauvariante() {
-		return bauvariante;
+	public String getBauvariante() {
+		String ret = "";
+		if(bauvariante == 'm')
+		{
+			ret = "Herrenrad";
+		}
+		else if(bauvariante == 'd')
+		{
+			ret = "Damenrad";
+		}
+		
+		return ret;
 	}
 	public void setBauvariante(char bauvariante) {
 		this.bauvariante = bauvariante;

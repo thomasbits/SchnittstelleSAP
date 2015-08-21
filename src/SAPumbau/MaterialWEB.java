@@ -8,7 +8,7 @@ public class MaterialWEB {
 	Ablaufsteuerung ablaufsteuerung;
 	MaterialSAP materialSAP;
 	MaterialWEB materialWEB;
-	Material material;
+	//Material material;
 	java.sql.Statement stmt;
 	
 
@@ -30,6 +30,7 @@ public class MaterialWEB {
 		//Query ob Datensätze ohne SAP Nummer vorhanden sind?
 		ResultSet results;
 		try {
+			System.out.println(id);
 			results = stmt.executeQuery("SELECT * FROM produkte WHERE PId = '"+id+"';");
 
 			//Abfragen ob Datensatz leer ist
@@ -49,7 +50,25 @@ public class MaterialWEB {
 
 		return ret;
 	}
-
+	
+	public void materialAnlegen(Material material)
+	{
+		//SAP Nummer in Datenbank schreiben
+		String query1 = "INSERT INTO produkte(`PId`, `Artikel des Tages`, `Beschreibung`, `bauart`, `Preis`, `Stand`, `Farbe`, `Bezeichnung`, `Verfuegbare Menge`, `Menge Besuche`, `geloescht`, `produktkategorie`, `preis_alt`, `groesse`, `bauvariante`, `marke`, `Eigenschaften`) VALUES ('"+material.getmID()+"','"+material.getAdt()+"',"+material.getBeschreibung()+","+material.getBauart()+","+material.getPreis()+","+material.getStand()+","+material.getFarbe()+","+material.getBezeichnung()+","+material.getvMenge()+",0,`nein`,"+material.getProduktkategorie()+",NULL,"+material.getGroesse()+","+material.getBauvariante()+","+material.getMarke()+","+material.getEigenschaften()+");";
+		System.out.println(query1);
+		//Query ausführen
+		try {
+			stmt.execute(query1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void materialUeberschreiben(Material material)
+	{
+		
+	}
 
 
 
