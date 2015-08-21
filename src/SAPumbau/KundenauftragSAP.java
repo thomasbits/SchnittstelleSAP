@@ -142,7 +142,7 @@ public class KundenauftragSAP {
 				
 				i++;
 			}
-			
+			//Hallo
 			func.getImportParameterList().setValue("TESTRUN", "");		//"X" zum Testen sonst "" oder auskommentieren
 			
 			
