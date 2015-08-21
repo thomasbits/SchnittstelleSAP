@@ -126,7 +126,7 @@ public class Material {
 		this.groesse = groesse;
 	}
 	public String getBauvariante() {
-		String ret = "";
+		String ret = "Herrenrad";
 		if(bauvariante == 'm')
 		{
 			ret = "Herrenrad";
