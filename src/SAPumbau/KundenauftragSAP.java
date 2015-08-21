@@ -72,16 +72,17 @@ public class KundenauftragSAP {
 			header.setValue("DIVISION", "BI");									//Sparte
 			header.setValue("PURCH_DATE", auftrag.getBestellDatum());			//Bestelldatum, in WS DB
 			header.setValue("PURCH_NO_C", "01");								//Bestellnummer des Kunden
-			header.setValue("PYMT_METH",  auftrag.getZahlungsart());			//Zahlungsmethode, in WS DB
-//			header.setValue("INCOTERMS1", "CIP");
-//			header.setValue("INCOTERMS2", "Höxter");
+//			header.setValue("PYMT_METH", auftrag.getZahlungsart());				//Zahlungsmethode, in WS DB
+			header.setValue("PMNTTRMS", "0001");								//Zahlungsbedingungen
+			header.setValue("INCOTERMS1", "CIP");
+			header.setValue("INCOTERMS2", "Höxter");
 			
 			JCoTable partner = func.getTableParameterList().getTable("ORDER_PARTNERS");
 			partner.appendRow();
 			partner.setValue("PARTN_ROLE", "AG");				//Partnerrolle: hier AuftragGeber. WE: Warenempfänger
-			partner.setValue("PARTN_NUMB", "0000025076");		//Debitorennummer
+			partner.setValue("PARTN_NUMB", "0000025076");		//Debitorennummer		Muss noch aus der instanz Auftrag ausgelesen werden!!!!
 			
-			
+/*			
 			//Nur zum testen
 			JCoTable items = func.getTableParameterList().getTable("ORDER_ITEMS_IN");
 			items.appendRow();
@@ -115,8 +116,8 @@ public class KundenauftragSAP {
 			shedulesx.setValue("REQ_QTY", "X");					//Auftragsmenge des Kunden in VME
 			shedulesx.setValue("REQ_DATE", "X");
 			shedulesx.setValue("UPDATEFLAG", "X");
+*/			
 			
-			/*
 			Iterator iterator = auftrag.getPosition().entrySet().iterator();
 			
 			while(iterator.hasNext())
@@ -128,7 +129,7 @@ public class KundenauftragSAP {
 				items.setValue("ITM_NUMBER", i);									//Verkaufsbelegposition
 				items.setValue("MATERIAL", e.getKey());								//Materialnummer
 				items.setValue("TARGET_QTY", e.getValue());							//Zielmenge in Verkaufsmengeneinheit
-			
+				items.setValue("TAX_CLASS1", "19");
 			
 				JCoTable shedules = func.getTableParameterList().getTable("ORDER_SCHEDULES_IN");
 				shedules.appendRow();	
@@ -141,7 +142,7 @@ public class KundenauftragSAP {
 				
 				i++;
 			}
-			*/
+			
 			func.getImportParameterList().setValue("TESTRUN", "");		//"X" zum Testen sonst "" oder auskommentieren
 			
 			

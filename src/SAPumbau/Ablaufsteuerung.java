@@ -41,11 +41,7 @@ public class Ablaufsteuerung implements Runnable {
 		auftragSAP = new KundenauftragSAP(this);
 		auftragWEB = new KundenauftragWEB(this);
 		produktp = new Produktpreise();
-		
-		
-		
-		
-		
+	
 	}
 
 	public KundeWEB getInstanceKundeWEB()
@@ -101,10 +97,10 @@ public class Ablaufsteuerung implements Runnable {
 			java.sql.Statement stmt = verbindung.getStatement();
 
 			
-			produktp.ermittlePreise();
+//			produktp.ermittlePreise();
 
 			//Testelement
-/*
+
 			for (i=0; i<10; i++)
 			{
 //				kundeWEB.setStatement(stmt);
@@ -113,25 +109,25 @@ public class Ablaufsteuerung implements Runnable {
 //				kundeSAP.createKunde(new Kunde());
 //				auftragSAP.createKundenauftrag(new Kundenauftrag());
 //				auftragSAP.getStatus("5");
-//				auftragWEB.setStatement(stmt);
-//				auftragWEB.abfrageNeueBestellungen();
+				auftragWEB.setStatement(stmt);
+				auftragWEB.abfrageNeueBestellungen();
 //				threadStop();
 				try {
-					Thread.sleep(500);
+					Thread.sleep(5000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 
-		*/	
 			
 			
 			
+/*			
 			for (i=0; i<10; i++)
 
 			{
-				/*
+				
 				//Neuer Kunde -> Fertig
 				kundeWEB.setStatement(stmt);
 				kundeWEB.abfrageNeueKunden();
@@ -160,7 +156,7 @@ public class Ablaufsteuerung implements Runnable {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				*/
+				
 //				materialWEB.setStatement(stmt);
 //				materialSAP.materialListeHolen();
 				
@@ -174,7 +170,7 @@ public class Ablaufsteuerung implements Runnable {
 				
 				
 			}
-
+*/
 
 		}
 		
