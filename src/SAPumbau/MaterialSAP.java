@@ -27,6 +27,7 @@ public class MaterialSAP {
 	MaterialWEB materialWEB;
 	private int anzahlMat;
 	private ArrayList<String> materialliste = new ArrayList<String>();
+	private String itemNr;
 
 	public MaterialSAP(Ablaufsteuerung ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
@@ -73,20 +74,23 @@ public class MaterialSAP {
 				table.setRow(i);
 				materialliste.add(table.getString("MATERIAL"));
 			}
-			
-			holeItemNummer("M01");
-			//HAlllo
-			/*
+
+
+
+
 			for(int i = 0; i<materialliste.size();i++)
 			{
 				System.out.println(materialliste.get(i));
 				//############# Überprüfen ob Neuerungen überhautp vorhanden sind müsste hier eingefügt werden
 
+
+				itemNr = holeItemNummer(materialliste.get(i));
 				//Daten aus SAP System holen und in Class.Material schreiben
 				holeMaterialSAP_Verteiler(materialliste.get(i));
-
+				
+				
 				boolean rueck = materialWEB.datensatzAbfrage(materialliste.get(i));
-
+				
 				if(rueck)
 				{
 					//überschreiben
@@ -96,10 +100,10 @@ public class MaterialSAP {
 				{
 					materialWEB.materialAnlegen(material);
 				}
-				
 
+				
 			}
-			*/
+
 		} catch (JCoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -146,6 +150,7 @@ public class MaterialSAP {
 
 	public void holeMaterialSAP_Beschreibung_Bezeichnung(String materialid, Material material)
 	{
+		
 		//Hier wird folgendes aus dem SAP System geholt:
 		//Bezeichnung, Beschreibung
 		try {
@@ -159,7 +164,7 @@ public class MaterialSAP {
 			JCoFunction func = repo.getFunction("BAPI_MATERIAL_GET_ALL");
 
 			//Import Parameter festlegen
-			func.getImportParameterList().setValue("MATERIAL","M01");
+			func.getImportParameterList().setValue("MATERIAL",materialid);
 
 			//Daten an das SAP System übergeben
 			JCoContext.begin(dest);
@@ -205,7 +210,7 @@ public class MaterialSAP {
 			func2.getImportParameterList().setValue("CATALOG", "K01");
 			func2.getImportParameterList().setValue("VARIANT", "01");
 			func2.getImportParameterList().setValue("AREA", "1");
-			func2.getImportParameterList().setValue("ITEM", "1");
+			func2.getImportParameterList().setValue("ITEM", itemNr);
 
 			//Daten an das SAP System übergeben
 			JCoContext.begin(dest);
@@ -215,8 +220,41 @@ public class MaterialSAP {
 			JCoContext.end(dest);			
 
 			//Auslesen der Materialbeschreibung des Produnktkataloges
-			System.out.println(func2.getTableParameterList().getTable("LINES").getValue("LINE"));
+			String ergeb = func2.getTableParameterList().getTable("LINES").getValue("LINE").toString();
+			String[] new1 = ergeb.split("\n");
+			
+			
+			//Material des tages
+			material.setAdt(new1[0]);
+			//Bauart
+			material.setBauart(new1[1]);
+			//Farbe
+			material.setFarbe(new1[2]);
+			//Größe
+			material.setGroesse(new1[3]);
+			//Bauvariante
+			material.setBauvariante(new1[4]);
+			//Marke
+			material.setMarke(new1[5]);
+			
+			//Eigenschaften
+			int i =  6;
+			String eigenschaften = "";
+			while (!new1[i].isEmpty()) {
+				if(i > 6)
+				{
+					eigenschaften = eigenschaften + ", ";
+				}
+				
+				eigenschaften = eigenschaften + new1[i];
+				i++;
+			}
+			
+			
+			System.out.println("-- \n"+ func2.getTableParameterList().getTable("LINES").getValue("LINE").toString() +"\n --");
 
+			
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
