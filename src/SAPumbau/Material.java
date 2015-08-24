@@ -16,7 +16,7 @@ public class Material {
 
 	//In Anführungszeichen stehen die Feldnamen der Datenbank
 	private String mID; //"PId"  MaterialID oder ProdukutID
-	private boolean adt; //"Artikel des Tages"
+	private String adt; //"Artikel des Tages"
 	private String beschreibung; //"Beschreibung" Ausführliche Beschreibung
 	private int bauart; //"bauart" -> Mountainbike, Crossrad, ...
 	private float preis; //"Preis"
@@ -28,7 +28,7 @@ public class Material {
 	private int produktkategorie; //"produktkategorie"
 	private float preisAlt; //"preis_alt"
 	private int groesse; //"groesse"
-	private char bauvariante; //"bauvariante" -> Herrenrad h Damenrad d
+	private String bauvariante; //"bauvariante" -> Herrenrad h Damenrad d
 	private String marke; //"marke"
 	private String eigenschaften; //"Eigenschaften"
 
@@ -45,18 +45,10 @@ public class Material {
 		this.mID = mID;
 	}
 	public String getAdt() {
-		String ret;
-		if(adt)
-		{
-			ret = "ja";
-		}
-		else
-		{
-			ret = "nein";
-		}
-		return ret;
+	
+		return adt;
 	}
-	public void setAdt(boolean adt) {
+	public void setAdt(String adt) {
 		this.adt = adt;
 	}
 	public String getBeschreibung() {
@@ -68,8 +60,16 @@ public class Material {
 	public int getBauart() {
 		return bauart;
 	}
-	public void setBauart(int bauart) {
-		this.bauart = bauart;
+	public void setBauart(String bauart) {
+		if(bauart.length()>1)
+		{
+			this.bauart = 0;
+		}
+		else
+		{
+			this.bauart = Integer.valueOf(bauart);
+		}
+		
 	}
 	public float getPreis() {
 		return preis;
@@ -122,24 +122,29 @@ public class Material {
 	public int getGroesse() {
 		return groesse;
 	}
-	public void setGroesse(int groesse) {
-		this.groesse = groesse;
+	public void setGroesse(String groesse) {
+		
+		if(groesse.length()>2)
+		{
+			this.groesse = 0;
+		}
+		else
+		{
+			this.groesse = Integer.valueOf(groesse);
+		}
 	}
 	public String getBauvariante() {
-		String ret = "";
-		if(bauvariante == 'm')
-		{
-			ret = "Herrenrad";
-		}
-		else if(bauvariante == 'd')
-		{
-			ret = "Damenrad";
-		}
-		
-		return ret;
+		return bauvariante;
 	}
-	public void setBauvariante(char bauvariante) {
-		this.bauvariante = bauvariante;
+	public void setBauvariante(String bauvariante) {
+		if(bauvariante.equals("d"))
+		{
+			this.bauvariante = "Damenrad";
+		}
+		else if(bauvariante.equals("h"))
+		{
+			this.bauvariante = "Herrenrad";
+		}
 	}
 	public String getMarke() {
 		return marke;
