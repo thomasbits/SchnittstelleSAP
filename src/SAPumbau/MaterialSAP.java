@@ -80,7 +80,7 @@ public class MaterialSAP {
 
 			for(int i = 0; i<materialliste.size();i++)
 			{
-				System.out.println(materialliste.get(i));
+				//System.out.println(materialliste.get(i));
 				//############# Überprüfen ob Neuerungen überhautp vorhanden sind müsste hier eingefügt werden
 
 
@@ -100,7 +100,7 @@ public class MaterialSAP {
 				{
 					materialWEB.materialAnlegen(material);
 				}
-
+				
 				
 			}
 
@@ -133,8 +133,10 @@ public class MaterialSAP {
 		holeMaterialSAP_PK(materialid, material);
 
 		//Preis
-
+		holeMaterialSAP_Preise(materialid, material);
+		
 		//Stand
+		//Fällt weg
 
 		//Verfuegbare Menge
 
@@ -224,12 +226,15 @@ public class MaterialSAP {
 			String[] new1 = ergeb.split("\n");
 			
 			
+			
+			
 			//Material des tages
 			material.setAdt(new1[0]);
 			//Bauart
 			material.setBauart(new1[1]);
 			//Farbe
 			material.setFarbe(new1[2]);
+			
 			//Größe
 			material.setGroesse(new1[3]);
 			//Bauvariante
@@ -238,25 +243,29 @@ public class MaterialSAP {
 			material.setMarke(new1[5]);
 			
 			//Eigenschaften
-			int i =  6;
+			
 			String eigenschaften = "";
-			while (!new1[i].isEmpty()) {
+			
+			for(int i = 6; i<new1.length;i++) {
 				if(i > 6)
 				{
 					eigenschaften = eigenschaften + ", ";
 				}
 				
 				eigenschaften = eigenschaften + new1[i];
-				i++;
+				
 			}
 			
+			material.setEigenschaften(eigenschaften);
 			
-			System.out.println("-- \n"+ func2.getTableParameterList().getTable("LINES").getValue("LINE").toString() +"\n --");
+			 
+			//System.out.println("-- \n"+ func2.getTableParameterList().getTable("LINES").getValue("LINE").toString() +"\n --");
 
 			
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 
 	}
@@ -282,9 +291,10 @@ public class MaterialSAP {
 
 
 
-	public void ermittlePreise()
+	public void holeMaterialSAP_Preise(String materialid, Material material)
 	{
 
+		itemNr = holeItemNummer(materialid);
 		//Unvollständigkeitsprotokoll unter v.01 und v.02		
 		try {
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
@@ -304,17 +314,27 @@ public class MaterialSAP {
 			JCoFunction funcCommit = dest.getRepository().getFunction("BAPI_TRANSACTION_COMMIT");
 			funcCommit.execute(dest);
 			JCoContext.end(dest);
+			
+			//Material Bezeichnung filtern
+			JCoTable table = func.getTableParameterList().getTable("PRICES");
+			int anzahlRow = table.getNumRows();
+			ArrayList<Float> preis = new ArrayList<Float>();
+			
+			for(int i = 0; i<=anzahlRow;i++)
+			{
+				preis.add(Float.valueOf(table.getString("CONDVAL")));
+				table.nextRow();
+			}
+			
+			material.setPreis(preis.get(Integer.valueOf(itemNr)-1));
 
-			System.out.println(func.getExportParameterList().getValue("RETURN"));
-			System.out.println(func.getTableParameterList().getTable("ITEMS"));
-			System.out.println(func.getTableParameterList().getTable("TEXTS"));
-			System.out.println(func.getTableParameterList().getTable("PRICES"));
+			
 
 
 		}catch (JCoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("Verbindung konnte nicht aufgebaut werden.");
+			//System.out.println("Verbindung konnte nicht aufgebaut werden.");
 
 		}
 	}
@@ -360,7 +380,7 @@ public class MaterialSAP {
 			funcCommit.execute(dest);
 			JCoContext.end(dest);
 
-			System.out.println(func1.getTableParameterList().getTable("I_CDHDR"));
+			//System.out.println(func1.getTableParameterList().getTable("I_CDHDR"));
 
 
 			//boolean ret = materialWEB.datensatzAbfrage("2");

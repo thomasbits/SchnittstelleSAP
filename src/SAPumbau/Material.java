@@ -18,7 +18,7 @@ public class Material {
 	private String mID; //"PId"  MaterialID oder ProdukutID
 	private String adt; //"Artikel des Tages"
 	private String beschreibung; //"Beschreibung" Ausführliche Beschreibung
-	private int bauart; //"bauart" -> Mountainbike, Crossrad, ...
+	private int bauart = 1; //"bauart" -> Mountainbike, Crossrad, ...
 	private float preis; //"Preis"
 	private Timestamp stand; //"Stand" -> Stand der letzten Aktualisierung
 	private String farbe; //"Farbe"
@@ -39,20 +39,21 @@ public class Material {
 	
 
 	public String getmID() {
-		return mID;
+		
+		return "'"+mID+"'";
 	}
 	public void setmID(String mID) {
 		this.mID = mID;
 	}
 	public String getAdt() {
 	
-		return adt;
+		return "'"+adt+"'";
 	}
 	public void setAdt(String adt) {
 		this.adt = adt;
 	}
 	public String getBeschreibung() {
-		return beschreibung;
+		return "'"+beschreibung+"'";
 	}
 	public void setBeschreibung(String beschreibung) {
 		this.beschreibung = beschreibung;
@@ -84,13 +85,13 @@ public class Material {
 		this.stand = stand;
 	}
 	public String getFarbe() {
-		return farbe;
+		return "'"+farbe+"'";
 	}
 	public void setFarbe(String farbe) {
 		this.farbe = farbe;
 	}
 	public String getBezeichnung() {
-		return bezeichnung;
+		return "'"+bezeichnung+"'";
 	}
 	public void setBezeichnung(String bezeichnung) {
 		this.bezeichnung = bezeichnung;
@@ -134,7 +135,7 @@ public class Material {
 		}
 	}
 	public String getBauvariante() {
-		return bauvariante;
+		return "'"+bauvariante+"'";
 	}
 	public void setBauvariante(String bauvariante) {
 		if(bauvariante.equals("d"))
@@ -147,16 +148,17 @@ public class Material {
 		}
 	}
 	public String getMarke() {
-		return marke;
+		return "'"+marke+"'";
 	}
 	public void setMarke(String marke) {
 		this.marke = marke;
 	}
 	public String getEigenschaften() {
-		return eigenschaften;
+		return "'"+eigenschaften+"'";
 	}
 	public void setEigenschaften(String eigenschaften) {
 		this.eigenschaften = eigenschaften;
+		System.out.println("Eig:" + eigenschaften);
 	}
 
 }
