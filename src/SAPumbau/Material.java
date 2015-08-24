@@ -32,24 +32,29 @@ public class Material {
 	private String marke; //"marke"
 	private String eigenschaften; //"Eigenschaften"
 
-	
+
 	public Material() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 
 	public String getmID() {
-		
+
 		return "'"+mID+"'";
 	}
 	public void setmID(String mID) {
 		this.mID = mID;
 	}
 	public String getAdt() {
-	
+
 		return "'"+adt+"'";
 	}
 	public void setAdt(String adt) {
+		
+		if(adt == "")
+		{
+			adt = "nein";
+		}
 		this.adt = adt;
 	}
 	public String getBeschreibung() {
@@ -59,17 +64,34 @@ public class Material {
 		this.beschreibung = beschreibung;
 	}
 	public int getBauart() {
+		System.out.println("Bauart: " + bauart);
 		return bauart;
 	}
 	public void setBauart(String bauart) {
-		if(bauart.length()>1)
+		
+		
+		int bauartSize = bauart.length();
+		if (bauartSize > 1)
 		{
-			this.bauart = 0;
-		}
-		else
+			char a = bauart.charAt(bauartSize-1);
+			String b = String.valueOf(a);
+			if(!b.matches("[0-9]"))
+			{
+				this.bauart = Integer.valueOf(bauart.substring(0,bauartSize-1));
+			}
+		}else
 		{
-			this.bauart = Integer.valueOf(bauart);
+			if(!bauart.matches("[0-9]"))
+			{
+				this.bauart = 14;
+			}
+			else
+			{
+				this.bauart = Integer.valueOf(bauart);
+			}
+			
 		}
+		
 		
 	}
 	public float getPreis() {
@@ -97,10 +119,11 @@ public class Material {
 		this.bezeichnung = bezeichnung;
 	}
 	public int getvMenge() {
-		return vMenge;
+		return (vMenge +20);
 	}
 	public void setvMenge(int vMenge) {
-		this.vMenge = vMenge;
+		//Damit erstmal Produkte da sind.
+		this.vMenge = vMenge ;
 	}
 	public boolean getGeloescht() {
 		return geloescht;
@@ -124,20 +147,28 @@ public class Material {
 		return groesse;
 	}
 	public void setGroesse(String groesse) {
-		
-		if(groesse.length()>2)
+		groesse = groesse.substring(0,2);
+
+		if(groesse.length()<1)
 		{
 			this.groesse = 0;
 		}
 		else
 		{
-			this.groesse = Integer.valueOf(groesse);
+
+			//this.groesse = Integer.valueOf(groesse);
+
+			String test = groesse;
+			System.out.println("Grosse:---"+ test +"---");
+			this.groesse = Integer.valueOf(test);
 		}
+
 	}
 	public String getBauvariante() {
 		return "'"+bauvariante+"'";
 	}
 	public void setBauvariante(String bauvariante) {
+		bauvariante = bauvariante.substring(0, 1);
 		if(bauvariante.equals("d"))
 		{
 			this.bauvariante = "Damenrad";

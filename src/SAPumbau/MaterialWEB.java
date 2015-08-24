@@ -54,7 +54,7 @@ public class MaterialWEB {
 	public void materialAnlegen(Material material)
 	{
 		//SAP Nummer in Datenbank schreiben
-		String query1 = "INSERT INTO produkte(`PId`, `Artikel des Tages`, `Beschreibung`, `bauart`, `Preis`, `Stand`, `Farbe`, `Bezeichnung`, `Verfuegbare Menge`, `geloescht`, `produktkategorie`, `preis_alt`, `groesse`, `bauvariante`, `marke`, `Eigenschaften`) VALUES ("+material.getmID()+","+material.getAdt()+","+material.getBeschreibung()+",1,"+material.getPreis()+","+material.getStand()+","+material.getFarbe()+","+material.getBezeichnung()+","+material.getvMenge()+",'nein',1,NULL,"+material.getGroesse()+","+material.getBauvariante()+","+material.getMarke()+","+material.getEigenschaften()+");";
+		String query1 = "INSERT INTO produkte(`PId`, `Artikel des Tages`, `Beschreibung`, `bauart`, `Preis`, `Stand`, `Farbe`, `Bezeichnung`, `Verfuegbare Menge`, `geloescht`, `produktkategorie`, `preis_alt`, `groesse`, `bauvariante`, `marke`, `Eigenschaften`) VALUES ("+material.getmID()+","+material.getAdt()+","+material.getBeschreibung()+","+material.getBauart()+","+material.getPreis()+","+material.getStand()+","+material.getFarbe()+","+material.getBezeichnung()+","+material.getvMenge()+",'nein',1,NULL,"+material.getGroesse()+","+material.getBauvariante()+","+material.getMarke()+","+material.getEigenschaften()+");";
 		//String query1 = "INSERT INTO produkte VALUES ("+material.getmID()+","+material.getAdt()+","+material.getBeschreibung()+","+material.getBauart()+","+material.getPreis()+","+material.getStand()+","+material.getFarbe()+","+material.getBezeichnung()+","+material.getvMenge()+",'nein',1,NULL,"+material.getGroesse()+","+material.getBauvariante()+","+material.getMarke()+","+material.getEigenschaften()+");";
 		
 		
