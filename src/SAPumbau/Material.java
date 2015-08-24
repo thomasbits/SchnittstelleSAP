@@ -151,7 +151,7 @@ public class Material {
 
 		if(groesse.length()<1)
 		{
-			this.groesse = 0;
+			this.groesse = 10;
 		}
 		else
 		{
@@ -165,24 +165,34 @@ public class Material {
 
 	}
 	public String getBauvariante() {
-		return "'"+bauvariante+"'";
+		return bauvariante;
 	}
 	public void setBauvariante(String bauvariante) {
 		bauvariante = bauvariante.substring(0, 1);
 		if(bauvariante.equals("d"))
 		{
-			this.bauvariante = "Damenrad";
+			this.bauvariante = "'Damenrad'";
 		}
 		else if(bauvariante.equals("h"))
 		{
-			this.bauvariante = "Herrenrad";
+			this.bauvariante = "'Herrenrad'";
+		}else
+		{
+			this.bauvariante = null;
 		}
 	}
 	public String getMarke() {
-		return "'"+marke+"'";
+		return marke;
 	}
 	public void setMarke(String marke) {
-		this.marke = marke;
+		if(marke == "")
+		{
+			this.marke = null;
+		}else
+		{
+			this.marke = "'"+ marke + "'";
+		}
+		
 	}
 	public String getEigenschaften() {
 		return "'"+eigenschaften+"'";

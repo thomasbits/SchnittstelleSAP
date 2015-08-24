@@ -86,7 +86,10 @@ public class MaterialSAP {
 
 				if(rueck)
 				{
-					//überschreiben
+					material.setPreisAlt(materialWEB.holeMaterialpreisAlt(material));
+					
+					
+					materialWEB.materialAktualisieren(material);
 
 				}
 				else
