@@ -72,42 +72,37 @@ public class KundenauftragWEB {
 				bestellID = results.getString("BestId");
 
 				//Ermitteln der SAP-Kundennummer des Auftraggebers
-				
-					ResultSet kunde = stmt.executeQuery("SELECT SAP_KId from kunde Where KId = " + SAPNr + ";");
 
-					//Abfragen ob Datensatz leer ist?
-					if (!kunde.next()){
-						System.out.println("Result ist empty!!!!");
-						auftrag = null;
-					}else
-					{
+				ResultSet kunde = stmt.executeQuery("SELECT SAP_KId from kunde Where KId = " + SAPNr + ";");
 
-						auftrag.setDebitorennummer(kunde.getString("SAP_KId"));
-					}
-						
-					}
+				//Abfragen ob Datensatz leer ist?
+				if (!kunde.next()){
+					System.out.println("Result ist empty!!!!");
+					auftrag = null;
+				}else
+				{
 
+					auftrag.setDebitorennummer(kunde.getString("SAP_KId"));
+				}
 
-					
+			}
 
+			auftrag.ausgabeKundenauftrag();
 
-					auftrag.ausgabeKundenauftrag();
+			//------------------------Abfragen der Produkte der Bestellung
+			ResultSet resultsprodukte = stmt.executeQuery("SELECT * FROM bestellprodukte WHERE BestId = " + bestellID + ";");
+			resultsprodukte.first();
 
+			do
+			{
+				auftrag.setPosition(resultsprodukte.getString("PId"), resultsprodukte.getString("Menge"));
 
-					//------------------------Abfragen der Produkte der Bestellung
-					ResultSet resultsprodukte = stmt.executeQuery("SELECT * FROM bestellprodukte WHERE BestId = " + bestellID + ";");
-					resultsprodukte.first();
+				resultsprodukte.next();
 
-					do
-					{
-						auftrag.setPosition(resultsprodukte.getString("PId"), resultsprodukte.getString("Menge"));
+			}while(!resultsprodukte.isAfterLast());
 
-						resultsprodukte.next();
-
-					}while(!resultsprodukte.isAfterLast());
-
-					//-----------------Testausgabe von Position
-					/*				
+			//-----------------Testausgabe von Position
+			/*				
 				Iterator iterator = auftrag.getPosition().entrySet().iterator();
 
 
@@ -121,33 +116,33 @@ public class KundenauftragWEB {
 
 
 				}
-					 */				
+			 */				
 
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if(auftrag != null)
-			{
-				//Auftrag in das SAP System schreiben
-				auftragSAP.createKundenauftrag(auftrag);
-			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
-		public void setAuftragsStatus(String bestellNR, String status)
+		if(auftrag != null)
 		{
-			//SAP Nummer in Datenbank schreiben
-			String query1 = "UPDATE bestellung set Status = " + status + " WHERE SAP_BestId = \"" + bestellNR +"\";";
-
-			//Query ausführen
-			try {
-				stmt.execute(query1);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			//Auftrag in das SAP System schreiben
+			auftragSAP.createKundenauftrag(auftrag);
 		}
-
-
 	}
+
+	public void setAuftragsStatus(String bestellNR, String status)
+	{
+		//SAP Nummer in Datenbank schreiben
+		String query1 = "UPDATE bestellung set Status = " + status + " WHERE SAP_BestId = \"" + bestellNR +"\";";
+
+		//Query ausführen
+		try {
+			stmt.execute(query1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+}

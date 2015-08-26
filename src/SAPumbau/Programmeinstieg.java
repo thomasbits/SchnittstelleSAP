@@ -23,7 +23,7 @@ public class Programmeinstieg extends Thread {
 	}
 
 	//Status des Programms
-	public int status = 0;
+	public int status = 1;
 	private Ablaufsteuerung ablaufsteuerung;
 
 	//Main Methode
@@ -42,16 +42,6 @@ public class Programmeinstieg extends Thread {
 		boolean durchlauf = true;
 		do
 		{
-			Scanner scanner = new Scanner(System.in);
-
-			System.out.print("--------\n0-Programm gestartet \n1-Synchronisierung starten \n2-Synchronisierung beenden \n4-Programm beenden\n5-Test \nLetzterStatus: " + status + " -Eingabe: ");
-
-			String eingabe = scanner.nextLine();
-			try {
-				status = Integer.valueOf(eingabe);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
 
 			switch (status) {
 
@@ -105,14 +95,20 @@ public class Programmeinstieg extends Thread {
 				
 				Mail mail = new Mail();
 				mail.senden();
-				
-				
-				
-				
-				
-			
-				
+
 				break;
+				
+			}
+
+			Scanner scanner = new Scanner(System.in);
+
+			System.out.print("--------\n0-Programm gestartet \n1-Synchronisierung starten \n2-Synchronisierung beenden \n4-Programm beenden\n5-Test \nLetzterStatus: " + status + " -Eingabe: ");
+
+			String eingabe = scanner.nextLine();
+			try {
+				status = Integer.valueOf(eingabe);
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
 		}while(durchlauf);
 	}

@@ -38,7 +38,7 @@ public class KundenauftragSAP {
  * 	Legt den übergebnenen Kundenauftrag im SAP-System an
  * @param auftrag Datensatz eines Kundenauftrages, der im SAP-System erstellt werden soll
  */
-	public void createKundenauftrag(Kundenauftrag auftrag)
+	public void createKundenauftrag(Kundenauftrag auftrag)				//!!!!!!!!!!!!!PN00 fehlt!!!!!!!!!!!!!!
 	{
 		//Unvollständigkeitsprotokoll unter v.01 und v.02		
 		try {

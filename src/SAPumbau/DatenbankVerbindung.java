@@ -28,13 +28,17 @@ public class DatenbankVerbindung {
 	private static String dbPort = "3306";
 
 	// Datenbankname
-	private static String database = "webshop";
+//	private static String database = "Webshop";					//Server
+	private static String database = "webshop";					//Benedikt
 
 	// Datenbankuser
-	private static String dbUser = "root";
+//	private static String dbUser = "webshop";					//Server
+	private static String dbUser = "root";						//Benedikt
 
 	// Datenbankpasswort
-	private static String dbPassword = "test1234";
+//	private static String dbPassword = "TestAcc123";			//Server
+//	private static String dbPassword = "Dagobert";				//Benedikt
+	private static String dbPassword = "test1234";				//lokal
 
 	public DatenbankVerbindung() {
 		try {
