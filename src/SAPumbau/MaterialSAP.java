@@ -21,13 +21,13 @@ import com.sap.conn.jco.JCoTable;
 public class MaterialSAP {
 
 	Material material;
-	Ablaufsteuerung ablaufsteuerung;
+	Ablaufsteuerung_Material ablaufsteuerung;
 	MaterialWEB materialWEB;
 	private int anzahlMat;
 	private ArrayList<String> materialliste = new ArrayList<String>();
 	private String itemNr;
 
-	public MaterialSAP(Ablaufsteuerung ablaufsteuerung) {
+	public MaterialSAP(Ablaufsteuerung_Material ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
 		this.ablaufsteuerung = ablaufsteuerung;
 	}
@@ -96,8 +96,6 @@ public class MaterialSAP {
 				{
 					materialWEB.materialAnlegen(material);
 				}
-
-
 			}
 
 		} catch (JCoException e) {

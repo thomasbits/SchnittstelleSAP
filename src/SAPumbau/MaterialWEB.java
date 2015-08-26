@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class MaterialWEB {
 
-	Ablaufsteuerung ablaufsteuerung;
+	Ablaufsteuerung_Material ablaufsteuerung;
 	MaterialSAP materialSAP;
 	MaterialWEB materialWEB;
 	//Material material;
@@ -13,7 +13,7 @@ public class MaterialWEB {
 	
 
 
-	public MaterialWEB(Ablaufsteuerung ablaufsteuerung) {
+	public MaterialWEB(Ablaufsteuerung_Material ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
 		this.ablaufsteuerung = ablaufsteuerung;
 	}
