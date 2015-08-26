@@ -10,8 +10,6 @@ import com.sun.jmx.snmp.Timestamp;
  * @author Robin
  */
 
-
-
 public class Material {
 
 	//In Anführungszeichen stehen die Feldnamen der Datenbank
