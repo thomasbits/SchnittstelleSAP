@@ -15,7 +15,7 @@ import com.sap.conn.jco.JCoException;
  * @author Thomas
  */
 public class Programmeinstieg extends Thread {
-
+		//Änderung
 	public Programmeinstieg() {
 		// TODO Auto-generated constructor stub
 
