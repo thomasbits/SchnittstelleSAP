@@ -33,6 +33,9 @@ public class Programmeinstieg{
 		t_kunde = new  Thread(kunde);
 		t_material = new Thread(material);
 		t_auftrag = new Thread(auftrag);
+		kunde = new Ablaufsteuerung_Kunde();
+		auftrag = new Ablaufsteuerung_Kundenauftrag();
+		material = new Ablaufsteuerung_Material();
 		verbindungSAP = new VerbindungSAP();
 
 		

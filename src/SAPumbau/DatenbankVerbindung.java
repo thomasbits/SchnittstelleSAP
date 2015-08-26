@@ -79,7 +79,7 @@ public class DatenbankVerbindung {
 		} catch (Exception ex) {
 		  //
 		}
-		
+
 		dbHost = properties.getProperty("dbHost");
 		dbPort = properties.getProperty("dbPort");
 		database = properties.getProperty("database");
