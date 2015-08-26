@@ -15,13 +15,13 @@ import java.util.Map;
  */
 public class KundenauftragWEB {
 
-	Ablaufsteuerung ablaufsteuerung;
+	Ablaufsteuerung_Kundenauftrag ablaufsteuerung;
 	Kundenauftrag auftrag;
 	KundenauftragSAP auftragSAP;
 	java.sql.Statement stmt;
 	String bestellID;
 
-	public KundenauftragWEB(Ablaufsteuerung ablaufsteuerung) {
+	public KundenauftragWEB(Ablaufsteuerung_Kundenauftrag ablaufsteuerung) {
 		this.ablaufsteuerung = ablaufsteuerung;
 		auftrag = new Kundenauftrag();
 	}

@@ -25,11 +25,11 @@ import com.sap.conn.jco.JCoTable;
 public class KundenauftragSAP {
 	
 	int i = 0;
-	private Ablaufsteuerung ablaufsteuerung;
+	private Ablaufsteuerung_Kundenauftrag ablaufsteuerung;
 	private KundenauftragWEB auftragWEB;
 	
 
-	public KundenauftragSAP(Ablaufsteuerung ablaufsteuerung) {
+	public KundenauftragSAP(Ablaufsteuerung_Kundenauftrag ablaufsteuerung) {
 		this.ablaufsteuerung = ablaufsteuerung;
 		
 	}
