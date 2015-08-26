@@ -17,12 +17,12 @@ import com.sap.conn.jco.JCoStructure;
  */
 public class KundeSAP {
 
-	private Ablaufsteuerung ablaufsteuerung;
+	private Ablaufsteuerung_Kunde ablaufsteuerung;
 	private KundeWEB kundeWEB;
 	
-	public KundeSAP(Ablaufsteuerung ablaufsteuerung) {
+	public KundeSAP() {
 		// TODO Auto-generated constructor stub
-		this.ablaufsteuerung = ablaufsteuerung;
+		
 	}						  
 
 	//Erstellt einen Kunden im SAP-System und schreibt die SAP-Kundennummer in die Webshopdatenbank
@@ -114,7 +114,7 @@ public class KundeSAP {
 			JCoFunction func = repo.getFunction("BAPI_CUSTOMER_CHANGEFROMDATA1");
 
 			//Kundennummer, dessen Daten geändert werden sollen
-			func.getImportParameterList().setValue("CUSTOMERNO",kunde1.getSapNummer());		//testdaten, später aus kunde1 holen.
+			func.getImportParameterList().setValue("CUSTOMERNO",kunde1.getSapNummer());
 
 			//die Daten, die geändert werden sollen
 			JCoStructure changeData = func.getImportParameterList().getStructure("PI_PERSONALDATA");
@@ -123,7 +123,7 @@ public class KundeSAP {
 			changeData.setValue("LASTNAME",kunde1.getName());
 			changeData.setValue("DATE_BIRTH",kunde1.getGeburtstdatum());
 			changeData.setValue("CITY",kunde1.getOrt());
-			changeData.setValue("POSTL_COD1",kunde1.getPLZ());				//testdaten, später aus kunde1 holen.
+			changeData.setValue("POSTL_COD1",kunde1.getPLZ());				
 			changeData.setValue("STREET",kunde1.getStrasse());
 			changeData.setValue("HOUSE_NO",kunde1.getHausNr());
 			changeData.setValue("E_MAIL",kunde1.getEmail());

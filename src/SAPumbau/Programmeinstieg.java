@@ -14,30 +14,41 @@ import com.sap.conn.jco.JCoException;
  *	Programmstart: Startet den Thread dieser Klasse, in dem dem Benutzer verschiedene Optionen zur Steuerung des Programms geboten werden.
  * @author Thomas
  */
-public class Programmeinstieg extends Thread {
-		//Änderung
+public class Programmeinstieg{
+	
+	//Status des Programms
+	public static int status = 0;
+	private Ablaufsteuerung ablaufsteuerung;
+	private Ablaufsteuerung_Kunde kunde;
+	private Ablaufsteuerung_Kundenauftrag auftrag;
+	private Ablaufsteuerung_Material material;
+	private Thread t_kunde;
+	private Thread t_material;
+	private Thread t_auftrag;
+	private static VerbindungSAP verbindungSAP;
+	private static Programmeinstieg einstieg;
+	
 	public Programmeinstieg() {
 		// TODO Auto-generated constructor stub
+		t_kunde = new  Thread(kunde);
+		t_material = new Thread(material);
+		t_auftrag = new Thread(auftrag);
+		verbindungSAP = new VerbindungSAP();
 
-		ablaufsteuerung = new Ablaufsteuerung();
+		
 	}
-
-	//Status des Programms
-	public int status = 1;
-	private Ablaufsteuerung ablaufsteuerung;
 
 	//Main Methode
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Programmeinstieg einstieg = new Programmeinstieg();
-		einstieg.start();
-		
-		Logger log = new Logger("Programmstart");
-		log.loggerLeeren();
+		einstieg = new Programmeinstieg();
+	
+		einstieg.synchonisiere();
+
 	}
 
 	//Run Methode (Thread)
-	public void run()
+	public void synchonisiere()
 	{
 		boolean durchlauf = true;
 		do
@@ -47,62 +58,57 @@ public class Programmeinstieg extends Thread {
 
 			//Synchronisierung starten
 			case 1:
-				boolean help = true;
-				Thread t = new Thread(ablaufsteuerung);
-				while(help)
+				//SAP Verbindung
+				verbindungSAP.connect();
+				
+				if(t_kunde.isAlive())
 				{
-					if(t.isAlive())
-					{
-						ablaufsteuerung.threadStop();
-					}else
-					{
-						help = false;
-						t.start();
-					}
+					
+				}else{
+					t_kunde.start();
 				}
+				if(t_material.isAlive())
+				{
+
+				}else{
+					t_material.start();
+				}
+				if(t_auftrag.isAlive())
+				{
+
+				}else{
+					t_auftrag.start();
+				}
+
 
 
 				break;
 
 				//Synchronisierung beenden
 			case 2:
-				ablaufsteuerung.threadStop();
-
-
-				break;
-
-				//Synchronisierung beenden
-			case 3:
+				//SAP Verbindung
+				verbindungSAP.connect();
+				sync_ende();
+				
 				break;
 
 				//Programm beenden
+			case 3:
+				sync_ende();
+				System.exit(0);
+
+				break;
+
+				
 			case 4:
-				ablaufsteuerung.threadStop();
-				durchlauf = false;
-				break;
-
-				//Testfunktion
-			case 5:
-				//Mail mail = new Mail();
-				//mail.senden();
-				//VerbindungSAP verbindungSAP = new VerbindungSAP();
-				//verbindungSAP.connect();
-				//MaterialSAP material = new MaterialSAP();
-				//material.materialListeHolen();
-
-				
-				//new Logger("test");
-				
-				Mail mail = new Mail();
-				mail.senden();
+				DatenbankVerbindung verbindung = new DatenbankVerbindung();
 
 				break;
-				
 			}
 
 			Scanner scanner = new Scanner(System.in);
 
-			System.out.print("--------\n0-Programm gestartet \n1-Synchronisierung starten \n2-Synchronisierung beenden \n4-Programm beenden\n5-Test \nLetzterStatus: " + status + " -Eingabe: ");
+			System.out.print("--------\n0-Programm gestartet \n1-Synchronisierung starten \n2-Synchronisierung beenden \n3-Programm beenden\n4-Test \nLetzterStatus: " + status + " -Eingabe: ");
 
 			String eingabe = scanner.nextLine();
 			try {
@@ -111,5 +117,12 @@ public class Programmeinstieg extends Thread {
 				// TODO: handle exception
 			}
 		}while(durchlauf);
+	}
+	
+	private void sync_ende()
+	{
+		auftrag.threadStop();
+		kunde.threadStop();
+		material.threadStop();
 	}
 }

@@ -1,6 +1,6 @@
 package SAPumbau;
 
-
+
 import com.mysql.jdbc.Statement;
 
 /*
@@ -33,13 +33,11 @@ public class Ablaufsteuerung implements Runnable {
 
 	public Ablaufsteuerung() {
 		// TODO Auto-generated constructor stub
-		kundeWEB = new KundeWEB(this);
-		kundeSAP = new KundeSAP(this);
-		materialSAP = new MaterialSAP(this);
-		materialWEB = new MaterialWEB(this);
+//		materialSAP = new MaterialSAP(this);
+//		materialWEB = new MaterialWEB(this);
 		verbindungSAP = new VerbindungSAP();
-		auftragSAP = new KundenauftragSAP(this);
-		auftragWEB = new KundenauftragWEB(this);
+//		auftragSAP = new KundenauftragSAP(this);
+//		auftragWEB = new KundenauftragWEB(this);
 		produktp = new Produktpreise();
 	
 	}

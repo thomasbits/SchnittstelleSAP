@@ -12,6 +12,7 @@ public class KundeWEB {
 	Ablaufsteuerung ablaufsteuerung;
 	KundeSAP kundeSAP;
 	KundeWEB kundeWEB;
+	
 	Kunde kunde1;
 	java.sql.Statement stmt;
 	boolean kundeGefunden = false;
@@ -21,9 +22,9 @@ public class KundeWEB {
 	 * Instanz der Ablaufsteuerung entgegennehmen
 	 * @param ablaufsteuerung
 	 */
-	public KundeWEB(Ablaufsteuerung ablaufsteuerung) {
+	public KundeWEB() {
 		// TODO Auto-generated constructor stub
-		this.ablaufsteuerung = ablaufsteuerung;
+		kundeSAP = new KundeSAP();
 		kunde1 = new Kunde();
 	}
 

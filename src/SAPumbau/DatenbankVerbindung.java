@@ -1,11 +1,15 @@
 package SAPumbau;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 /*
  * Klasse Datenbankverbindung: Stellt die Verbindung zur Datenbank des Webshops her.
@@ -42,11 +46,12 @@ public class DatenbankVerbindung {
 
 	public DatenbankVerbindung() {
 		try {
-			//Hallo
 			// Datenbanktreiber für ODBC Schnittstellen laden.
 			// Für verschiedene ODBC-Datenbanken muss dieser Treiber
 			// nur einmal geladen werden.
 			Class.forName("com.mysql.jdbc.Driver");
+			
+			getConnectionProperties();
 
 			// Verbindung zur ODBC-Datenbank 'sakila' herstellen.
 			// Es wird die JDBC-ODBC-Brücke verwendet.
@@ -62,6 +67,27 @@ public class DatenbankVerbindung {
 			System.out.println("Connect nicht moeglich");
 			System.out.println(e);
 		}
+	}
+	
+	private void getConnectionProperties()
+	{
+		File propertiesFile = new File("./resources/connection.properties");
+		Properties properties = new Properties();
+		
+		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(propertiesFile))) {
+		  properties.load(bis);
+		} catch (Exception ex) {
+		  //
+		}
+		
+		dbHost = properties.getProperty("dbHost");
+		dbPort = properties.getProperty("dbPort");
+		database = properties.getProperty("database");
+		dbUser = properties.getProperty("dbUser");
+		dbPassword = properties.getProperty("dbPassword");
+		
+//		System.out.println(dbHost + dbPort + database + dbUser + dbPassword);			//Zum Testen
+		
 	}
 
 	public static Connection getInstance()
