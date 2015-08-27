@@ -9,6 +9,7 @@ import java.sql.SQLException;
  */
 public class KundeWEB {
 
+	private Report report = new Report(this.getClass().toString());
 	Ablaufsteuerung ablaufsteuerung;
 	KundeSAP kundeSAP;
 	KundeWEB kundeWEB;
@@ -58,7 +59,7 @@ public class KundeWEB {
 			{
 				
 				//Sonst Daten abfragen und in Klasse Kunde1 schreiben	
-				new Logger("Neuer Kunde gefunden.");
+				report.set("Neuer Kunde gefunden.");
 
 				kundeGefunden = true;
 
@@ -84,7 +85,7 @@ public class KundeWEB {
 		if(kundeGefunden)
 		{
 			//Kunde in das SAP System schreiben
-			new Logger("Kunde anlegen wird durchgeführt.");
+			report.set("Kunde anlegen wird durchgeführt.");
 			kundeSAP.createKunde(kunde1);
 			schreibeSAPNummer(kunde1.getSapNummer());
 			kundeGefunden = false;
@@ -116,7 +117,7 @@ public class KundeWEB {
 				results.first();
 				kunde1.setSapNummer(results.getString("SAP_KId"));
 				//Versende Email
-				new Logger("Kunde löschen wird durchgeführt.");
+				report.set("Kunde löschen wird durchgeführt.");
 				schreibeGeloescht();
 				//System.out.println("Kunde: " + kunde1.getSapNummer());
 			}
@@ -148,7 +149,7 @@ public class KundeWEB {
 			}else
 			{
 				//Sonst Daten abfragen und in Klasse Kunde schreiben
-				new Logger("Kunde zum ändern gefunden!");
+				report.set("Kunde zum ändern gefunden!");
 
 				results.first();
 
@@ -172,7 +173,7 @@ public class KundeWEB {
 		{
 			//Änderungen in das SAP System schreiben
 			kundeSAP.changeKunde(kunde1);
-			new Logger("Kunde ändern wird durchgeführt.");
+			report.set("Kunde ändern wird durchgeführt.");
 			//Status in Datenbank wieder auf Null setzen, da der Kunde erfolgreich geändert wurde.
 			schreibeGeaendert();
 		}

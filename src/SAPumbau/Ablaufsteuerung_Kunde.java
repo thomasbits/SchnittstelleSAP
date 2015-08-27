@@ -31,7 +31,6 @@ public class Ablaufsteuerung_Kunde implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
 		threadRun = true;
 		while(threadRun)
 		{

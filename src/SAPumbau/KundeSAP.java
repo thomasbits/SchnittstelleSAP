@@ -17,6 +17,7 @@ import com.sap.conn.jco.JCoStructure;
  */
 public class KundeSAP {
 
+	private Report report = new Report(this.getClass().toString());
 	private Ablaufsteuerung_Kunde ablaufsteuerung;
 	private KundeWEB kundeWEB;
 	
@@ -91,7 +92,7 @@ public class KundeSAP {
 		} catch (JCoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			new Logger("Verbindung zum SAP System konnte nicht aufgebaut werden.");
+			report.set("Verbindung zum SAP System konnte nicht aufgebaut werden.");
 		}
 		
 		

@@ -17,6 +17,7 @@ import com.sap.conn.jco.JCoException;
 public class Programmeinstieg{
 	
 	//Status des Programms
+	private Report report = new Report(this.getClass().toString());
 	public static int status = 0;
 	private Ablaufsteuerung ablaufsteuerung;
 	private Ablaufsteuerung_Kunde kunde;
@@ -52,6 +53,8 @@ public class Programmeinstieg{
 	//Run Methode (Thread)
 	public void synchonisiere()
 	{
+		report.setEmpty();
+		report.set("Programm wurde gestartet!");
 		boolean durchlauf = true;
 		do
 		{
@@ -110,7 +113,7 @@ public class Programmeinstieg{
 
 			Scanner scanner = new Scanner(System.in);
 
-			System.out.print("--------\n0-Programm gestartet \n1-Synchronisierung starten \n2-Synchronisierung beenden \n3-Programm beenden\n4-Test \nLetzterStatus: " + status + " -Eingabe: ");
+			System.out.print("--------\n0-Programm gestartet \n1-Synchronisierung starten \n2-Synchronisierung beenden \n3-Programm beenden\n4-Test \nLetzterStatus: " + status + "\nEingabe: ");
 
 			String eingabe = scanner.nextLine();
 			try {

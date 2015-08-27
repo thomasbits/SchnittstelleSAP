@@ -15,11 +15,17 @@ import java.util.Date;
  * @author Robin
  *
  */
-public class Logger {
+public class Report {
 
 	PrintWriter pWriter = null;
 	DateFormat df;
-	public Logger(String text) {
+	String klasse;
+	public Report(String klasse)
+	{
+		this.klasse = klasse;
+	}
+	
+	public void set(String text) {
 		// TODO Auto-generated constructor stub
 
 		//Aktuelle Zeit auslesen.
@@ -29,7 +35,7 @@ public class Logger {
 
 		try {
 			pWriter = new PrintWriter(new BufferedWriter(new FileWriter("Log_SAP_Schnittstelle.txt",true)));
-			pWriter.println(formatter.format(currentTime) + ": " + text);
+			pWriter.println(formatter.format(currentTime) + "("+ klasse +"): " + text);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally {
@@ -45,7 +51,7 @@ public class Logger {
 	 * Logdatei wird geleert.
 	 * Zu beginn des Programms muss die Logdatei einmal geleert werden.
 	 */
-	public void loggerLeeren()
+	public void setEmpty()
 	{
 		//Aktuelle Zeit auslesen.
 		SimpleDateFormat formatter = new SimpleDateFormat(
@@ -53,7 +59,7 @@ public class Logger {
 		Date currentTime = new Date();
 
 		try {
-			pWriter = new PrintWriter(new BufferedWriter(new FileWriter("Log_SAP_Schnittstelle.txt",false)));
+			pWriter = new PrintWriter(new BufferedWriter(new FileWriter("LOG_SAP_Schnittstelle.txt",false)));
 			pWriter.println("Programmstart(" +formatter.format(currentTime) + "): ");
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
