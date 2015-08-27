@@ -36,6 +36,7 @@ public class Ablaufsteuerung_Kundenauftrag implements Runnable {
 
 				while(threadRun)
 				{
+					System.out.println("Thread Auftrag läuft!!!!");
 					//Datenbankverbindung aufbauen
 					verbindung = new DatenbankVerbindung();
 					//Statement von der Datenbank holen

@@ -19,7 +19,7 @@ public class Programmeinstieg{
 	//Status des Programms
 	private Report report = new Report(this.getClass().toString());
 	public static int status = 0;
-	private Ablaufsteuerung ablaufsteuerung;
+//	private Ablaufsteuerung ablaufsteuerung;			//Kann weg
 	private Ablaufsteuerung_Kunde kunde;
 	private Ablaufsteuerung_Kundenauftrag auftrag;
 	private Ablaufsteuerung_Material material;
@@ -31,12 +31,13 @@ public class Programmeinstieg{
 	
 	public Programmeinstieg() {
 		// TODO Auto-generated constructor stub
-		t_kunde = new  Thread(kunde);
-		t_material = new Thread(material);
-		t_auftrag = new Thread(auftrag);
+
 		kunde = new Ablaufsteuerung_Kunde();
 		auftrag = new Ablaufsteuerung_Kundenauftrag();
 		material = new Ablaufsteuerung_Material();
+		t_kunde = new  Thread(kunde);
+		t_material = new Thread(material);
+		t_auftrag = new Thread(auftrag);
 		verbindungSAP = new VerbindungSAP();
 
 		
@@ -68,16 +69,17 @@ public class Programmeinstieg{
 				
 				if(t_kunde.isAlive())
 				{
-					
+					System.out.println("Thread Kunde läuft");
 				}else{
 					t_kunde.start();
+					System.out.println("Thread Kunde gestartet");
 				}
-				if(t_material.isAlive())
-				{
-
-				}else{
-					t_material.start();
-				}
+//				if(t_material.isAlive())
+//				{
+//
+//				}else{
+//					t_material.start();
+//				}
 				if(t_auftrag.isAlive())
 				{
 

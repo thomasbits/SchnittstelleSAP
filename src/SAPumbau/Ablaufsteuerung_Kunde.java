@@ -9,7 +9,7 @@ public class Ablaufsteuerung_Kunde implements Runnable{
 	
 	public Ablaufsteuerung_Kunde() {
 		// TODO Auto-generated constructor stub
-		kundeWEB = new KundeWEB();
+		kundeWEB = new KundeWEB(this);
 	}
 	
 	public KundeWEB getInstanceKundeWEB()
@@ -31,17 +31,19 @@ public class Ablaufsteuerung_Kunde implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
+		
 		threadRun = true;
 		while(threadRun)
 		{
-			
+			System.out.println("Thread Kunde läuft!!!!");
 			//Datenbankverbindung aufbauen
-			verbindung = new DatenbankVerbindung();				//immer eine neue instanz inhalt von konstruktor in methode verschieben und die aufrufen???
+			verbindung = new DatenbankVerbindung();	
 			//Statement von der Datenbank holen
 			java.sql.Statement stmt = verbindung.getStatement();
 			
 		for (int i=0; i<15; i++)
 		{
+			
 			//Neuer Kunde -> Fertig
 			kundeWEB.setStatement(stmt);
 			kundeWEB.abfrageNeueKunden();

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class KundeWEB {
 
 	private Report report = new Report(this.getClass().toString());
-	Ablaufsteuerung ablaufsteuerung;
+	Ablaufsteuerung_Kunde ablaufsteuerung;
 	KundeSAP kundeSAP;
 	KundeWEB kundeWEB;
 	
@@ -23,9 +23,10 @@ public class KundeWEB {
 	 * Instanz der Ablaufsteuerung entgegennehmen
 	 * @param ablaufsteuerung
 	 */
-	public KundeWEB() {
+	public KundeWEB(Ablaufsteuerung_Kunde ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
-		kundeSAP = new KundeSAP();
+		this.ablaufsteuerung = ablaufsteuerung;
+		kundeSAP = new KundeSAP(ablaufsteuerung);
 		kunde1 = new Kunde();
 	}
 
@@ -44,6 +45,7 @@ public class KundeWEB {
 	 */
 	public void abfrageNeueKunden()
 	{
+		
 		if (kundeSAP == null) {
 			//Instanz KundeSAP holen
 			kundeSAP = ablaufsteuerung.getInstanceKundeSAP();
@@ -55,6 +57,7 @@ public class KundeWEB {
 			//Abfragen ob Datensatz leer ist
 			if (!results.next()){
 				//new Logger("Kein neuer Kunde gefunden.");
+			
 			}else
 			{
 				
@@ -197,9 +200,8 @@ public class KundeWEB {
 		}
 	}
 
-	/**
-	 * Schreibt die Übergebene SAP-Nummer in die Webshopdatenbank
-	 */
+	
+	//Kann weg
 	public void schreibeGeloescht()
 	{
 		//SAP Nummer in Datenbank schreiben
@@ -207,10 +209,7 @@ public class KundeWEB {
 		System.out.println("Kunde " + kunde1.getSapNummer() + " wird gelöscht.");
 		//Query ausführen
 		
-		
-		
-		
-		
+
 		try {
 			stmt.execute(query1);
 		} catch (SQLException e) {

@@ -33,6 +33,7 @@ public class KundenauftragWEB {
 
 	public void abfrageNeueBestellungen()
 	{
+
 		if (auftragSAP == null) {
 			//Instanz KundeSAP holen
 			auftragSAP = ablaufsteuerung.getInstanceKundenauftragSAP();
@@ -130,9 +131,47 @@ public class KundenauftragWEB {
 		}
 	}
 
-	public void setAuftragsStatus(String bestellNR, String status)
+	public void setSAPNr(String SAPNr, String WSNr)
 	{
 		//SAP Nummer in Datenbank schreiben
+		String query1 = "UPDATE bestellung set SAP_BestId = " + SAPNr + " WHERE BestId = \"" + WSNr +"\";";
+
+		//Query ausführen
+		try {
+			stmt.execute(query1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void getAuftragsNr()
+	{
+		if (auftragSAP == null) {
+			//Instanz KundeSAP holen
+			auftragSAP = ablaufsteuerung.getInstanceKundenauftragSAP();
+		}
+		
+		try {
+			ResultSet auftragsnr = stmt.executeQuery("SELECT SAP_BestId from bestellung Where Status !='Auftrag erhalten';");
+
+			while(auftragsnr.next())
+			{
+				auftragSAP.getStatus(auftragsnr.getString("SAP_BestId"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+	}
+
+
+
+	public void setAuftragsStatus(String bestellNR, String status)
+	{
+		//Status in Datenbank schreiben
 		String query1 = "UPDATE bestellung set Status = " + status + " WHERE SAP_BestId = \"" + bestellNR +"\";";
 
 		//Query ausführen

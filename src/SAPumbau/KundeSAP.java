@@ -21,9 +21,9 @@ public class KundeSAP {
 	private Ablaufsteuerung_Kunde ablaufsteuerung;
 	private KundeWEB kundeWEB;
 	
-	public KundeSAP() {
+	public KundeSAP(Ablaufsteuerung_Kunde ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
-		
+		this.ablaufsteuerung = ablaufsteuerung;
 	}						  
 
 	//Erstellt einen Kunden im SAP-System und schreibt die SAP-Kundennummer in die Webshopdatenbank

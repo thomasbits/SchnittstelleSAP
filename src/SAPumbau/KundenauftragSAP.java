@@ -143,7 +143,7 @@ public class KundenauftragSAP {
 				i++;
 			}
 			//Hallo
-			func.getImportParameterList().setValue("TESTRUN", "");		//"X" zum Testen sonst "" oder auskommentieren
+			func.getImportParameterList().setValue("TESTRUN", "X");		//"X" zum Testen sonst "" oder auskommentieren
 			
 			
 			
@@ -162,7 +162,7 @@ public class KundenauftragSAP {
 			
 			System.out.println("Salesdocument: " + func.getExportParameterList().getValue("SALESDOCUMENT"));
 			
-			
+			auftragWEB.setSAPNr((String) func.getExportParameterList().getValue("SALESDOCUMENT"), auftrag.getBestellNRWEB());
 			
 
 		} catch (JCoException e) {
@@ -184,8 +184,10 @@ Mit dieser Methode können Sie sich zu einem bestimmten Kundenauftrag Information
 Preise beschaffen.Dazu müssen Sie über den Parameter SALESDOCUMENT die entsprechende Belegnummer angeben. Sie erhalten dann über die Struktur STATUSINFO die oben geannten 
 Detailinformationen. Eventuell aufgetretene Fehler werden über den Parameter RETURN zurückgegeben.
 	 */
-	public String getStatus(String bestellNRSAP)
+	public void getStatus(String bestellNRSAP)
 	{
+		String statusSAP="";
+		
 		if (auftragWEB == null) {
 			//Instanz KundeWEB holen
 			auftragWEB = ablaufsteuerung.getInstanceKundenauftragWEB();
@@ -203,10 +205,9 @@ Detailinformationen. Eventuell aufgetretene Fehler werden über den Parameter RET
 			//BAPI auswählen
 			JCoFunction func = repo.getFunction("BAPI_SALESORDER_GETSTATUS");	//Transaktion
 			
-			func.getImportParameterList().setValue("SALESDOCUMENT", "0000000002");	//Auftragsnummer des Auftrages
+			func.getImportParameterList().setValue("SALESDOCUMENT", bestellNRSAP);	//Auftragsnummer des Auftrages
 		
 
-			
 			//Funktion ausführen und commiten
 			JCoContext.begin(dest);
 			func.execute(dest);
@@ -221,23 +222,42 @@ Detailinformationen. Eventuell aufgetretene Fehler werden über den Parameter RET
 				System.out.println("Auftrag nicht vorhanden!");
 			}else
 			{
-				System.out.println("Doc_Date: " + func.getTableParameterList().getTable("STATUSINFO").getValue("DOC_DATE"));
-			
-				System.out.println("Doc_Number: " + func.getTableParameterList().getTable("STATUSINFO").getValue("DOC_NUMBER"));	
-			
-				System.out.println("Gesamtstatus: " + func.getTableParameterList().getTable("STATUSINFO").getValue("PRC_STAT_H"));
-//			A     Not yet processed
-//			B     Partially processed
-//			C     Completely processed
-			
-			
-				System.out.println("Lieferstatus: " + func.getTableParameterList().getTable("STATUSINFO").getValue("DLV_STAT_H"));
-			//unvollständig 
+				statusSAP = (String) func.getTableParameterList().getTable("STATUSINFO").getValue("PRC_STAT_H");
+				
+				if(statusSAP.equals("A"))
+				{
+					status = "Auftrag wird geprüft";
+				}else if(statusSAP.equals("B"))
+				{
+					status = "Auftrag in Bearbeitung";
+				}else if(statusSAP.equals("C"))
+				{
+					status = "Auftrag abgeschlossen";
+				}else		//Was dann???
+				{
+					status = "Status unbekannt";
+				}
+				
+				auftragWEB.setAuftragsStatus(bestellNRSAP, status);
+				
+//				
+//				System.out.println("Doc_Date: " + func.getTableParameterList().getTable("STATUSINFO").getValue("DOC_DATE"));
+//			
+//				System.out.println("Doc_Number: " + func.getTableParameterList().getTable("STATUSINFO").getValue("DOC_NUMBER"));	
+//			
+//				System.out.println("Gesamtstatus: " + func.getTableParameterList().getTable("STATUSINFO").getValue("PRC_STAT_H"));
+////			A     Not yet processed
+////			B     Partially processed
+////			C     Completely processed
+//			
+//			
+//				System.out.println("Lieferstatus: " + func.getTableParameterList().getTable("STATUSINFO").getValue("DLV_STAT_H"));
+//			//unvollständig 
 			}
 			
-			System.out.println(func.getExportParameterList().getValue("RETURN"));
+//			System.out.println(func.getExportParameterList().getValue("RETURN"));
 			
-			status = (String) func.getTableParameterList().getTable("STATUSINFO").getValue("PRC_STAT_H");
+			
 			
 			
 		} catch (JCoException e) {
@@ -247,12 +267,9 @@ Detailinformationen. Eventuell aufgetretene Fehler werden über den Parameter RET
 
 		}
 		
-		auftragWEB.setAuftragsStatus(bestellNRSAP, status);
+
 		
 		
-		
-		
-		
-		return status;
+
 	}
 }
