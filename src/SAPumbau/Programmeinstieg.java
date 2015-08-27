@@ -47,7 +47,6 @@ public class Programmeinstieg{
 		einstieg = new Programmeinstieg();
 	
 		einstieg.synchonisiere();
-
 	}
 
 	//Run Methode (Thread)
