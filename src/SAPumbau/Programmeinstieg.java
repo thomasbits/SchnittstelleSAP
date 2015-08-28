@@ -34,22 +34,22 @@ public class Programmeinstieg{
 		// TODO Auto-generated constructor stub
 
 		//Datenbankverbindung aufbauen
-		verbindung = new DatenbankVerbindung();	
+//		verbindung = new DatenbankVerbindung();	
 		//Statement von der Datenbank holen
-		java.sql.Statement stmt = verbindung.getStatement();
+//		java.sql.Statement stmt = verbindung.getStatement();
 		
 		
 		kunde = new Ablaufsteuerung_Kunde();
 		auftrag = new Ablaufsteuerung_Kundenauftrag();
 		material = new Ablaufsteuerung_Material();
 		
-		kunde.setStatement(stmt);
+//		kunde.setStatement(stmt);
 		t_kunde = new  Thread(kunde);
 		
-		material.setStatement(stmt);
+//		material.setStatement(stmt);
 		t_material = new Thread(material);
 		
-		auftrag.setStatement(stmt);
+//		auftrag.setStatement(stmt);
 		t_auftrag = new Thread(auftrag);
 		
 		verbindungSAP = new VerbindungSAP();

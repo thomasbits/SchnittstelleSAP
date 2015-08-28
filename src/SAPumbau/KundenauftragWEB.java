@@ -20,10 +20,15 @@ public class KundenauftragWEB {
 	KundenauftragSAP auftragSAP;
 	java.sql.Statement stmt;
 	String bestellID;
+	private DatenbankVerbindung verbindung;
 
 	public KundenauftragWEB(Ablaufsteuerung_Kundenauftrag ablaufsteuerung) {
 		this.ablaufsteuerung = ablaufsteuerung;
 		auftrag = new Kundenauftrag();
+		//Datenbankverbindung aufbauen
+		verbindung = new DatenbankVerbindung();	
+//		//Statement von der Datenbank holen
+//		java.sql.Statement stmt = verbindung.getStatement();
 	}
 
 	public void setStatement(java.sql.Statement stmt)
@@ -41,7 +46,7 @@ public class KundenauftragWEB {
 
 		try {
 			//Query ob Datensätze ohne SAP Nummer vorhanden sind?
-			ResultSet results = stmt.executeQuery("SELECT * FROM bestellung WHERE SAP_BestID IS NULL;");
+			ResultSet results = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM bestellung WHERE SAP_BestID IS NULL;");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
 				System.out.println("Result ist empty!!!!");
@@ -74,7 +79,7 @@ public class KundenauftragWEB {
 
 				//Ermitteln der SAP-Kundennummer des Auftraggebers
 
-				ResultSet kunde = stmt.executeQuery("SELECT SAP_KId from kunde Where KId = " + SAPNr + ";");
+				ResultSet kunde = verbindung.getInstance().createStatement().executeQuery("SELECT SAP_KId from kunde Where KId = " + SAPNr + ";");
 
 				//Abfragen ob Datensatz leer ist?
 				if (!kunde.next()){
@@ -91,7 +96,7 @@ public class KundenauftragWEB {
 			auftrag.ausgabeKundenauftrag();
 
 			//------------------------Abfragen der Produkte der Bestellung
-			ResultSet resultsprodukte = stmt.executeQuery("SELECT * FROM bestellprodukte WHERE BestId = " + bestellID + ";");
+			ResultSet resultsprodukte = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM bestellprodukte WHERE BestId = " + bestellID + ";");
 			resultsprodukte.first();
 
 			do
@@ -138,7 +143,7 @@ public class KundenauftragWEB {
 
 		//Query ausführen
 		try {
-			stmt.execute(query1);
+			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -153,7 +158,7 @@ public class KundenauftragWEB {
 		}
 		
 		try {
-			ResultSet auftragsnr = stmt.executeQuery("SELECT SAP_BestId from bestellung Where Status !='Auftrag erhalten';");
+			ResultSet auftragsnr = verbindung.getInstance().createStatement().executeQuery("SELECT SAP_BestId from bestellung Where Status !='Auftrag erhalten';");
 
 			while(auftragsnr.next())
 			{
@@ -176,7 +181,7 @@ public class KundenauftragWEB {
 
 		//Query ausführen
 		try {
-			stmt.execute(query1);
+			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

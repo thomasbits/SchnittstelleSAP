@@ -10,12 +10,13 @@ public class MaterialWEB {
 	MaterialWEB materialWEB;
 	//Material material;
 	java.sql.Statement stmt;
-	
+	private DatenbankVerbindung verbindung;
 
 
 	public MaterialWEB(Ablaufsteuerung_Material ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
 		this.ablaufsteuerung = ablaufsteuerung;
+		verbindung = new DatenbankVerbindung();
 	}
 
 	public void setStatement(java.sql.Statement stmt)
@@ -31,7 +32,7 @@ public class MaterialWEB {
 		ResultSet results;
 		try {
 			System.out.println(id);
-			results = stmt.executeQuery("SELECT * FROM produkte WHERE PId = '"+id+"';");
+			results = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM produkte WHERE PId = '"+id+"';");
 
 			//Abfragen ob Datensatz leer ist
 			if (!results.next())
@@ -60,7 +61,7 @@ public class MaterialWEB {
 				System.out.println(query1);
 				//Query ausführen
 				try {
-					stmt.execute(query1);
+					verbindung.getInstance().createStatement().execute(query1);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -77,7 +78,7 @@ public class MaterialWEB {
 				System.out.println(query1);
 				//Query ausführen
 				try {
-					stmt.execute(query1);
+					verbindung.getInstance().createStatement().execute(query1);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -89,7 +90,7 @@ public class MaterialWEB {
 		float preisAlt = 0;
 		try {
 			//Query ob Datensätze ohne SAP Nummer vorhanden sind?
-			ResultSet results = stmt.executeQuery("SELECT Preis FROM produkte WHERE PId = "+material.getmID()+";");
+			ResultSet results = verbindung.getInstance().createStatement().executeQuery("SELECT Preis FROM produkte WHERE PId = "+material.getmID()+";");
 			//Abfragen ob Datensatz leer ist
 			if (!results.next()){
 				

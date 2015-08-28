@@ -13,6 +13,7 @@ public class KundeWEB {
 	Ablaufsteuerung_Kunde ablaufsteuerung;
 	KundeSAP kundeSAP;
 	KundeWEB kundeWEB;
+	private DatenbankVerbindung verbindung;
 	
 	Kunde kunde1;
 	java.sql.Statement stmt;
@@ -28,6 +29,8 @@ public class KundeWEB {
 		this.ablaufsteuerung = ablaufsteuerung;
 		kundeSAP = new KundeSAP(ablaufsteuerung);
 		kunde1 = new Kunde();
+		//Datenbankverbindung aufbauen
+		verbindung = new DatenbankVerbindung();	
 	}
 
 	/**
@@ -53,7 +56,7 @@ public class KundeWEB {
 
 		try {
 			//Query ob Datensätze ohne SAP Nummer vorhanden sind?
-			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE SAP_KId IS NULL;");
+			ResultSet results = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM kunde WHERE SAP_KId IS NULL;");
 			//Abfragen ob Datensatz leer ist
 			if (!results.next()){
 				//new Logger("Kein neuer Kunde gefunden.");
@@ -110,7 +113,7 @@ public class KundeWEB {
 		kunde1 = new Kunde();
 		try {
 			//Query ob Datensätze ohne SAP Nummer vorhanden sind?
-			ResultSet results = stmt.executeQuery("SELECT SAP_KId FROM kunde WHERE status = 'l' AND geloescht = 'nein' AND SAP_KId IS NOT NULL;");
+			ResultSet results = verbindung.getInstance().createStatement().executeQuery("SELECT SAP_KId FROM kunde WHERE status = 'l' AND geloescht = 'nein' AND SAP_KId IS NOT NULL;");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
 
@@ -144,7 +147,7 @@ public class KundeWEB {
 
 		try {
 			//Query ob Datensätze mit Änderungen vorhanden sind?
-			ResultSet results = stmt.executeQuery("SELECT * FROM kunde WHERE status = 'a' ;");
+			ResultSet results = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM kunde WHERE status = 'a' ;");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
 				//new Logger("Kein Kunde zum ändern gefunden!");
@@ -193,7 +196,7 @@ public class KundeWEB {
 
 		//Query ausführen
 		try {
-			stmt.execute(query1);
+			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -211,7 +214,7 @@ public class KundeWEB {
 		
 
 		try {
-			stmt.execute(query1);
+			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -229,7 +232,7 @@ public class KundeWEB {
 
 		//Query ausführen
 		try {
-			stmt.execute(query1);
+			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
