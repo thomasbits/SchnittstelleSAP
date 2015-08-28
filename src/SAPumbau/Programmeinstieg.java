@@ -28,17 +28,32 @@ public class Programmeinstieg{
 	private Thread t_auftrag;
 	private static VerbindungSAP verbindungSAP;
 	private static Programmeinstieg einstieg;
+	private DatenbankVerbindung verbindung;
 	
 	public Programmeinstieg() {
 		// TODO Auto-generated constructor stub
 
+		//Datenbankverbindung aufbauen
+		verbindung = new DatenbankVerbindung();	
+		//Statement von der Datenbank holen
+		java.sql.Statement stmt = verbindung.getStatement();
+		
+		
 		kunde = new Ablaufsteuerung_Kunde();
 		auftrag = new Ablaufsteuerung_Kundenauftrag();
 		material = new Ablaufsteuerung_Material();
+		
+		kunde.setStatement(stmt);
 		t_kunde = new  Thread(kunde);
+		
+		material.setStatement(stmt);
 		t_material = new Thread(material);
+		
+		auftrag.setStatement(stmt);
 		t_auftrag = new Thread(auftrag);
+		
 		verbindungSAP = new VerbindungSAP();
+
 
 		
 	}
@@ -59,7 +74,7 @@ public class Programmeinstieg{
 		boolean durchlauf = true;
 		do
 		{
-
+			
 			switch (status) {
 
 			//Synchronisierung starten
@@ -74,12 +89,12 @@ public class Programmeinstieg{
 					t_kunde.start();
 					System.out.println("Thread Kunde gestartet");
 				}
-//				if(t_material.isAlive())
-//				{
-//
-//				}else{
-//					t_material.start();
-//				}
+				if(t_material.isAlive())
+				{
+
+				}else{
+					t_material.start();
+				}
 				if(t_auftrag.isAlive())
 				{
 

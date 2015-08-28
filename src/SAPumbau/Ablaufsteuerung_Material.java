@@ -6,6 +6,7 @@ public class Ablaufsteuerung_Material implements Runnable{
 	private MaterialWEB materialWEB;
 	private boolean threadRun = true;
 	private DatenbankVerbindung verbindung;
+	private java.sql.Statement stmt;
 
 	public Ablaufsteuerung_Material() {
 		// TODO Auto-generated constructor stub
@@ -21,6 +22,11 @@ public class Ablaufsteuerung_Material implements Runnable{
 	public MaterialSAP getInstanceMaterialSAP()
 	{
 		return materialSAP;
+	}
+	
+	public void setStatement(java.sql.Statement stmt2)
+	{
+		this.stmt = stmt2;
 	}
 
 	public void threadStop()

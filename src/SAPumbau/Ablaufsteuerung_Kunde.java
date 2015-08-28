@@ -1,11 +1,14 @@
 package SAPumbau;
 
+import com.mysql.jdbc.Statement;
+
 public class Ablaufsteuerung_Kunde implements Runnable{
 	
 	private KundeWEB kundeWEB;
 	private KundeSAP kundeSAP;
 	private boolean threadRun = true;
 	private DatenbankVerbindung verbindung;
+	private java.sql.Statement stmt;
 	
 	public Ablaufsteuerung_Kunde() {
 		// TODO Auto-generated constructor stub
@@ -22,6 +25,10 @@ public class Ablaufsteuerung_Kunde implements Runnable{
 		return kundeSAP;
 	}
 
+	public void setStatement(java.sql.Statement stmt2)
+	{
+		this.stmt = stmt2;
+	}
 	
 	public void threadStop()
 	{
@@ -37,9 +44,9 @@ public class Ablaufsteuerung_Kunde implements Runnable{
 		{
 			System.out.println("Thread Kunde läuft!!!!");
 			//Datenbankverbindung aufbauen
-			verbindung = new DatenbankVerbindung();	
-			//Statement von der Datenbank holen
-			java.sql.Statement stmt = verbindung.getStatement();
+//			verbindung = new DatenbankVerbindung();	
+//			//Statement von der Datenbank holen
+//			java.sql.Statement stmt = verbindung.getStatement();
 			
 		for (int i=0; i<15; i++)
 		{

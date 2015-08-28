@@ -6,6 +6,7 @@ public class Ablaufsteuerung_Kundenauftrag implements Runnable {
 	private KundenauftragWEB auftragWEB;
 	private boolean threadRun = true;
 	private DatenbankVerbindung verbindung;
+	private java.sql.Statement stmt;
 	
 	public Ablaufsteuerung_Kundenauftrag() {
 		// TODO Auto-generated constructor stub
@@ -24,6 +25,11 @@ public class Ablaufsteuerung_Kundenauftrag implements Runnable {
 		return auftragWEB;
 	}
 
+	public void setStatement(java.sql.Statement stmt2)
+	{
+		this.stmt = stmt2;
+	}
+	
 	public void threadStop()
 	{
 		threadRun = false;
@@ -38,9 +44,9 @@ public class Ablaufsteuerung_Kundenauftrag implements Runnable {
 				{
 					System.out.println("Thread Auftrag läuft!!!!");
 					//Datenbankverbindung aufbauen
-					verbindung = new DatenbankVerbindung();
-					//Statement von der Datenbank holen
-					java.sql.Statement stmt = verbindung.getStatement();
+//					verbindung = new DatenbankVerbindung();
+//					//Statement von der Datenbank holen
+//					java.sql.Statement stmt = verbindung.getStatement();
 
 					for(int i = 0;i<15;i++)
 					{
