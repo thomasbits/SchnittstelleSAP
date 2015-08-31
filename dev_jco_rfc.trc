@@ -263,3 +263,701 @@ COUNTER     404879
     error group: 102
     key: RFC_ERROR_COMMUNICATION
 
+
+**** Error file opened at 20150828 121842 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Fri Aug 28 12:18:42,634<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:18:45 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576354
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:18:42,742<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:18:45 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576357
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:18:42,804<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:18:45 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576360
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:18:47,827<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:18:50 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576363
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:18:47,877<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:18:50 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576366
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:18:52,901<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:18:55 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576369
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:18:52,968<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:18:55 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576373
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:18:57,976<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:19:00 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576415
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:18:58,028<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:19:00 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576418
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:19:03,049<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:19:05 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576424
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:19:03,103<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:19:05 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576430
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:19:08,111<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:19:10 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576436
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:19:08,175<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:19:10 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576442
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:19:13,196<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:19:15 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576448
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:19:13,250<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:19:15 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576451
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+
+**** Error file opened at 20150828 122236 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Fri Aug 28 12:22:36,657<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:22:39 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576593
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:22:36,755<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:22:39 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576596
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:22:36,817<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:22:39 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576599
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:22:41,933<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:22:44 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576603
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:22:42,087<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:22:44 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576607
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:22:47,015<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:22:49 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576610
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:22:47,159<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:22:49 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576614
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+
+**** Error file opened at 20150828 122755 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Fri Aug 28 12:27:55,641<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:27:57 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576867
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:27:55,916<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:27:58 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576871
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:27:56,213<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:27:58 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576874
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:28:01,345<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:28:03 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576884
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:28:01,846<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:28:04 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576888
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+
+**** Error file opened at 20150828 122828 Central European Summer Time Rel 3.0.10 (2013-08-08) [720.440]
+Error:  >Fri Aug 28 12:28:28,146<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:28:30 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576923
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:28:28,250<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:28:30 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576926
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+
+Error:  >Fri Aug 28 12:28:28,328<    RfcException: [null]
+    message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=<Java Rfc client> ASHOST=R52Z SYSNR=52 SAPROUTER=/H/remote.hcc.uni-magdeburg.de/S/3299 PCS=1
+
+LOCATION    SAProuter 39.2 (SP4) on 'f00'
+ERROR       partner '141.44.39.126:3352' not reached
+TIME        Fri Aug 28 12:28:30 2015
+RELEASE     710
+COMPONENT   NI (network interface)
+VERSION     39
+RC          -92
+MODULE      nixxi.cpp
+LINE        3140
+DETAIL      NiPConnect2: 141.44.39.126:3352
+SYSTEM CALL connect
+ERRNO       239
+ERRNO TEXT  Connection refused
+COUNTER     576929
+
+    Return code: RFC_FAILURE(1)
+    error group: 102
+    key: RFC_ERROR_COMMUNICATION
+

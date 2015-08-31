@@ -89,23 +89,25 @@ public class KundenauftragWEB {
 				{
 
 					auftrag.setDebitorennummer(kunde.getString("SAP_KId"));
+					
+					//------------------------Abfragen der Produkte der Bestellung
+					ResultSet resultsprodukte = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM bestellprodukte WHERE BestId = " + bestellID + ";");
+					resultsprodukte.first();
+
+					do
+					{
+						auftrag.setPosition(resultsprodukte.getString("PId"), resultsprodukte.getString("Menge"));
+
+						resultsprodukte.next();
+
+					}while(!resultsprodukte.isAfterLast());
 				}
 
 			}
 
 //			auftrag.ausgabeKundenauftrag();
 
-			//------------------------Abfragen der Produkte der Bestellung
-			ResultSet resultsprodukte = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM bestellprodukte WHERE BestId = " + bestellID + ";");
-			resultsprodukte.first();
-
-			do
-			{
-				auftrag.setPosition(resultsprodukte.getString("PId"), resultsprodukte.getString("Menge"));
-
-				resultsprodukte.next();
-
-			}while(!resultsprodukte.isAfterLast());
+			
 
 			//-----------------Testausgabe von Position
 			/*				
