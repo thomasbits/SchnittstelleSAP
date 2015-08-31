@@ -7,13 +7,11 @@ import com.sap.conn.jco.JCoException;
 import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoRepository;
 import com.sap.conn.jco.JCoStructure;
-/*
- * Stellt die nötigen Methoden bereit, um einen Kunden im SAP-System zu erstellen und zu bearbeiten.
- */
+
 
 /**
- * @author Thomas
  *	Die Klasse KundeSAP stellt Methoden bereit, um Kunden im SAP-System zu Erstellen und zu Ändern
+ * @author Thomas
  */
 public class KundeSAP {
 
@@ -21,14 +19,17 @@ public class KundeSAP {
 	private Ablaufsteuerung_Kunde ablaufsteuerung;
 	private KundeWEB kundeWEB;
 	
+	/**
+	 * Konstruktor 
+	 * @param ablaufsteuerung
+	 */
 	public KundeSAP(Ablaufsteuerung_Kunde ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
 		this.ablaufsteuerung = ablaufsteuerung;
 	}						  
 
-	//Erstellt einen Kunden im SAP-System und schreibt die SAP-Kundennummer in die Webshopdatenbank
-
 	/**
+	 * Erstellt den übergebenen Kunden im SAP-System und schreibt die zugeteilte SAP-Numer in die WebDB
 	 * @param kunde1 Kunde der im SAP-System erstellt werden soll
 	 */
 	public void createKunde(Kunde kunde1)
@@ -60,17 +61,7 @@ public class KundeSAP {
 			personalData.setValue("CURRENCY","EUR");
 			personalData.setValue("COUNTRY","DE");
 
-			/*
-			 *The reference customer should be created bearing in mind that its sole
-			 *purpose is to provide data for customers that are created via the BAPI.
-			 *That is, the reference customer is not an operative customer in the
-			 *business sense. As a result, the customer should be created with a
-			 *separate account group with internal number assignment. In addition, 
-			 *the reference customer must exist in the organizational data that is transferred 
-			 *to the BAPI.
-			 */
 			//Referezkunde, wird für das anlegen eines neuen Kunden benötigt
-			//muss im SAP System noch erstellt werden
 			JCoStructure referenceData = func.getImportParameterList().getStructure("PI_COPYREFERENCE");
 			referenceData.setValue("SALESORG", "DN00");
 			referenceData.setValue("DISTR_CHAN", "IN");
@@ -87,20 +78,17 @@ public class KundeSAP {
 			//Rückgabewert engegennehmen (SAP Kundennummer/Debitor)
 			String sapNr = (String) func.getExportParameterList().getValue("CUSTOMERNO");
 			kunde1.setSapNummer(sapNr);
-//			kundeWEB.schreibeSAPNummer(sapNr);
 			
 		} catch (JCoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			report.set("Verbindung zum SAP System konnte nicht aufgebaut werden.");
+			report.set(e.toString());
 		}
-		
-		
 	}
 
-	//Ändert einen Kunden im SAP-System
+
 
 	/**
+	 * Ändert die Daten des übergebenen Kunden im SAP-System
 	 * @param kunde1 Kunde der im SAP-System geändert werden soll
 	 * @return Returns true, wenn das ändern Erfolgreich war
 	 */
@@ -159,12 +147,11 @@ public class KundeSAP {
 			funcCommit.execute(dest);
 			JCoContext.end(dest);
 
-			//System.out.println(func.getExportParameterList().getValue("RETURN"));
+			report.set(func.getExportParameterList().getValue("RETURN").toString());
 
 		}catch (JCoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Verbindung konnte nicht aufgebaut werden.");
+			report.set("Verbindung konnte nicht aufgebaut werden.");
+			report.set(e.toString());
 			return false;
 		}
 		return true;

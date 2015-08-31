@@ -4,8 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * @author Thomas and Robin
  *	Stellt die benötigten Methoden bereit, um den Datensatz eines Kunden aus der Webshopdatenbank abzufragen
+ *  @author Thomas and Robin
  */
 public class KundeWEB {
 

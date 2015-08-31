@@ -1,29 +1,28 @@
 package SAPumbau;
 
-import com.sap.conn.jco.JCoDestination;
 import com.sap.conn.jco.JCoDestinationManager;
 import com.sap.conn.jco.JCoException;
 
-//Klasse für die SAP Verbindung
 
 /**
- * @author Thomas
  * Stellt die Methoden bereit, um eine Verbindung zum SAP-System aufzubauen
+ * @author Thomas und Robin
  */
 public class VerbindungSAP {
 
+	private Report report = new Report(this.getClass().toString());
 	private Provider des;
-	private JCoDestination dest;
 	
+	/**
+	 * Konstruktor Erstellt eine neue Instanz der Klasse Provider
+	 */
 	public VerbindungSAP() {
-	//Konstruktor
-	// Neue Instanz des Providers (Verbindungsdaten)
 		des = new Provider();
 	}
-
-	
+	/**
+	 * Stellt eine Verbindung mit dem SAP-System her
+	 */
 	public void connect() {
-		// TODO Auto-generated method stub
 
 		//Logindaten setzen
 		des.setLoginData(); 
@@ -38,12 +37,12 @@ public class VerbindungSAP {
 		try
 		{
 			JCoDestinationManager.getDestination("").ping();
-			//System.out.println("Erfolgreich verbunden");
+			report.set("Verbindung mit dem SAP-System hergestellt");
 		}
 		catch (JCoException e)
 		{
 			e.printStackTrace();
-			System.out.println("Keine erfolgreiche Verbindung zum SAP System!");
+			System.out.println("Keine Verbindung zum SAP System!");
 		}
 	}
 }

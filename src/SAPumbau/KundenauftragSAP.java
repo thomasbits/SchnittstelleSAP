@@ -1,6 +1,5 @@
 package SAPumbau;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -13,39 +12,37 @@ import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoRepository;
 import com.sap.conn.jco.JCoStructure;
 import com.sap.conn.jco.JCoTable;
-/*
- * Schreibt die Daten zu einem Kundenauftrag in das SAP-System.
- * Holt den aktuellen Stand eines Kundenauftrages aus dem SAP-System um ihn an den Webshop weiterzuleiten
- */
+
 
 /**
  *	Stellt die benötigten Methoden bereit, um einen Kundenauftrag im SAP-System anzulegen und den aktuellen Status abzufragen
  * @author Thomas
  */
 public class KundenauftragSAP {
-	
+
+	private Report report = new Report(this.getClass().toString());
 	int i = 0;
 	private Ablaufsteuerung_Kundenauftrag ablaufsteuerung;
 	private KundenauftragWEB auftragWEB;
-	
+
 
 	public KundenauftragSAP(Ablaufsteuerung_Kundenauftrag ablaufsteuerung) {
 		this.ablaufsteuerung = ablaufsteuerung;
-		
+
 	}
 
-/**
- * 	Legt den übergebnenen Kundenauftrag im SAP-System an
- * @param auftrag Datensatz eines Kundenauftrages, der im SAP-System erstellt werden soll
- */
+	/**
+	 * 	Legt den übergebnenen Kundenauftrag im SAP-System an
+	 * @param auftrag Datensatz eines Kundenauftrages, der im SAP-System erstellt werden soll
+	 */
 	public void createKundenauftrag(Kundenauftrag auftrag)				//!!!!!!!!!!!!!PN00 fehlt!!!!!!!!!!!!!!
 	{
-		
+
 		if (auftragWEB == null) {
 			//Instanz KundeWEB holen
 			auftragWEB = ablaufsteuerung.getInstanceKundenauftragWEB();
 		}
-		
+
 		//Unvollständigkeitsprotokoll unter v.01 und v.02		
 		try {
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
@@ -54,9 +51,8 @@ public class KundenauftragSAP {
 			JCoRepository repo = dest.getRepository();
 			//BAPI auswählen
 			JCoFunction func = repo.getFunction("BAPI_SALESORDER_CREATEFROMDAT2");	//Transaktion VA01
-			
-			
-/*			
+
+			/*			
 			//Testdaten
 			JCoStructure header = func.getImportParameterList().getStructure("ORDER_HEADER_IN");
 			header.setValue("DOC_TYPE", "TA");			//Verkaufsbelegart: hier Termninauftrag
@@ -68,9 +64,9 @@ public class KundenauftragSAP {
 			header.setValue("PYMT_METH",  "");			//Zahlungsmethode, in WS DB
 //			header.setValue("INCOTERMS1", "CIP");
 //			header.setValue("INCOTERMS2", "Höxter");
-*/			
-			
-			
+			 */			
+
+
 			JCoStructure header = func.getImportParameterList().getStructure("ORDER_HEADER_IN");
 			header.setValue("DOC_TYPE", "TA");									//Verkaufsbelegart: hier Termninauftrag
 			header.setValue("SALES_ORG", "DN00");								//Verkaufsorganisation
@@ -78,17 +74,17 @@ public class KundenauftragSAP {
 			header.setValue("DIVISION", "BI");									//Sparte
 			header.setValue("PURCH_DATE", auftrag.getBestellDatum());			//Bestelldatum, in WS DB
 			header.setValue("PURCH_NO_C", "01");								//Bestellnummer des Kunden
-//			header.setValue("PYMT_METH", auftrag.getZahlungsart());				//Zahlungsmethode, in WS DB
+			//			header.setValue("PYMT_METH", auftrag.getZahlungsart());				//Zahlungsmethode, in WS DB
 			header.setValue("PMNTTRMS", "0001");								//Zahlungsbedingungen
 			header.setValue("INCOTERMS1", "CIP");
 			header.setValue("INCOTERMS2", "Höxter");
-			
+
 			JCoTable partner = func.getTableParameterList().getTable("ORDER_PARTNERS");
 			partner.appendRow();
 			partner.setValue("PARTN_ROLE", "AG");				//Partnerrolle: hier AuftragGeber. WE: Warenempfänger
 			partner.setValue("PARTN_NUMB", "0000025076");		//Debitorennummer		Muss noch aus der instanz Auftrag ausgelesen werden!!!!
-			
-/*			
+
+			/*			
 			//Nur zum testen
 			JCoTable items = func.getTableParameterList().getTable("ORDER_ITEMS_IN");
 			items.appendRow();
@@ -97,15 +93,15 @@ public class KundenauftragSAP {
 			items.setValue("MATERIAL", "M02");							//Materialnummer
 //			items.setValue("TARGET_QTY", "2");							//Zielmenge in Verkaufsmengeneinheit
 //			items.setValue("TARGET_QU", "ST");
-			
+
 			JCoTable itemsx = func.getTableParameterList().getTable("ORDER_ITEMS_INX");
 			itemsx.appendRow();
 			itemsx.firstRow();
 			itemsx.setValue("ITM_NUMBER", "1");
 			itemsx.setValue("MATERIAL", "X");
 			itemsx.setValue("UPDATEFLAG", "X");
-			
-			
+
+
 			JCoTable shedules = func.getTableParameterList().getTable("ORDER_SCHEDULES_IN");
 			shedules.appendRow();	
 			shedules.firstRow();
@@ -113,7 +109,7 @@ public class KundenauftragSAP {
 			shedules.setValue("SCHED_LINE", "1");				//Einteilungsnummer
 			shedules.setValue("REQ_QTY", "2");					//Auftragsmenge des Kunden in VME
 			shedules.setValue("REQ_DATE", new Date());
-			
+
 			JCoTable shedulesx = func.getTableParameterList().getTable("ORDER_SCHEDULES_INX");
 			shedulesx.appendRow();	
 			shedulesx.firstRow();
@@ -122,90 +118,80 @@ public class KundenauftragSAP {
 			shedulesx.setValue("REQ_QTY", "X");					//Auftragsmenge des Kunden in VME
 			shedulesx.setValue("REQ_DATE", "X");
 			shedulesx.setValue("UPDATEFLAG", "X");
-*/			
-			
+			 */			
+
 			Iterator iterator = auftrag.getPosition().entrySet().iterator();
-			
+
 			while(iterator.hasNext())
 			{	
 				Map.Entry e = (Map.Entry)iterator.next();
-				
+
 				JCoTable items = func.getTableParameterList().getTable("ORDER_ITEMS_IN");
 				items.appendRow();
 				items.setValue("ITM_NUMBER", i);									//Verkaufsbelegposition
 				items.setValue("MATERIAL", e.getKey());								//Materialnummer
 				items.setValue("TARGET_QTY", e.getValue());							//Zielmenge in Verkaufsmengeneinheit
 				items.setValue("TAX_CLASS1", "19");
-			
+
 				JCoTable shedules = func.getTableParameterList().getTable("ORDER_SCHEDULES_IN");
 				shedules.appendRow();	
 				shedules.setValue("ITM_NUMBER", i);							//Verkaufsbelegposition
 				shedules.setValue("SCHED_LINE", "1");						//Einteilungsnummer
 				shedules.setValue("REQ_QTY", e.getValue());					//Auftragsmenge des Kunden in VME
-				
-//				System.out.println(e.getKey());
-//				System.out.println(e.getValue());
-				
+
+				//				System.out.println(e.getKey());
+				//				System.out.println(e.getValue());
+
 				i++;
 			}
-			
-//			func.getImportParameterList().setValue("TESTRUN", "X");		//"X" zum Testen sonst "" oder auskommentieren
-			
-			
-			
-			
-			
+
+			//			func.getImportParameterList().setValue("TESTRUN", "X");		//"X" zum Testen sonst "" oder auskommentieren
+
+
+
+
+
 			//Funktion ausführen und commiten
 			JCoContext.begin(dest);
 			func.execute(dest);
 			JCoFunction funcCommit = dest.getRepository().getFunction("BAPI_TRANSACTION_COMMIT");
 			funcCommit.execute(dest);
 			JCoContext.end(dest);
-			
-			
-			System.out.println(func.getTableParameterList().getTable("RETURN"));
-			System.out.println("Salesdocument: " + func.getExportParameterList().getValue("SALESDOCUMENT"));
-			
+
+
+			report.set(func.getTableParameterList().getTable("RETURN").toString());
+			report.set("Kundenauftrag angelegt: " + func.getExportParameterList().getValue("SALESDOCUMENT"));
+
 			try{
-			//Fehler, weil aktuell keine Auftrgsnummer zurückgegeben wird
-			auftragWEB.setSAPNr( Integer.valueOf((String) func.getExportParameterList().getValue("SALESDOCUMENT")), Integer.valueOf(auftrag.getBestellNRWEB()));
-			
+				//Fehler, weil aktuell keine Auftrgsnummer zurückgegeben wird
+				auftragWEB.setSAPNr( Integer.valueOf((String) func.getExportParameterList().getValue("SALESDOCUMENT")), Integer.valueOf(auftrag.getBestellNRWEB()));
+
 			} catch (NumberFormatException e) {
-//				e.printStackTrace();
-				System.out.println("Kundenauftrag wurde nicht angelegt");
+
 			}
 
 		} catch (JCoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Verbindung konnte nicht aufgebaut werden.");
-
+			report.set(e.toString());
 		}
-		
+
 	}
-/**
- * Fragt den aktuellen Status eines Kundenauftrages im SAP-System ab
- * @param bestellNRSAP Auftragsnummer, des Auftrages, dessen Status abgefragt werden soll
- * @return Gibt den aktuellen Status in Form eines Strings zurück
- */
-	/*
-	 * Funktionalität
-Mit dieser Methode können Sie sich zu einem bestimmten Kundenauftrag Informationen hinsichtlich der Verfügbarkeitssituation, des Bearbeitungsstatus (z.B. Lieferstatus) und der 
-Preise beschaffen.Dazu müssen Sie über den Parameter SALESDOCUMENT die entsprechende Belegnummer angeben. Sie erhalten dann über die Struktur STATUSINFO die oben geannten 
-Detailinformationen. Eventuell aufgetretene Fehler werden über den Parameter RETURN zurückgegeben.
+	/**
+	 * Fragt den aktuellen Status eines Kundenauftrages im SAP-System ab
+	 * @param bestellNRSAP Auftragsnummer, des Auftrages, dessen Status abgefragt werden soll
+	 * @return Gibt den aktuellen Status in Form eines Strings zurück
 	 */
 	public void getStatus(String bestellNRSAP)
 	{
 		String statusSAP="";
-		
+
 		if (auftragWEB == null) {
 			//Instanz KundeWEB holen
 			auftragWEB = ablaufsteuerung.getInstanceKundenauftragWEB();
 		}
 		String status = "";
-		
-		
-		
+
+
+
 		// TODO Auftragsstatus abfragen
 		try {
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
@@ -214,9 +200,9 @@ Detailinformationen. Eventuell aufgetretene Fehler werden über den Parameter RET
 			JCoRepository repo = dest.getRepository();
 			//BAPI auswählen
 			JCoFunction func = repo.getFunction("BAPI_SALESORDER_GETSTATUS");	//Transaktion
-			
+
 			func.getImportParameterList().setValue("SALESDOCUMENT", bestellNRSAP);	//Auftragsnummer des Auftrages
-		
+
 
 			//Funktion ausführen und commiten
 			JCoContext.begin(dest);
@@ -224,16 +210,16 @@ Detailinformationen. Eventuell aufgetretene Fehler werden über den Parameter RET
 			JCoFunction funcCommit = dest.getRepository().getFunction("BAPI_TRANSACTION_COMMIT");
 			funcCommit.execute(dest);
 			JCoContext.end(dest);
-			
+
 			JCoTable statusinfo = func.getTableParameterList().getTable("STATUSINFO");
-			
+
 			if (statusinfo.isEmpty())
 			{
-				System.out.println("Auftrag nicht vorhanden!");
+				report.set("Auftrag " + bestellNRSAP + " nicht vorhanden!");
 			}else
 			{
 				statusSAP = (String) func.getTableParameterList().getTable("STATUSINFO").getValue("PRC_STAT_H");
-				
+
 				if(statusSAP.equals("A"))
 				{
 					status = "Auftrag wird geprüft";
@@ -247,39 +233,18 @@ Detailinformationen. Eventuell aufgetretene Fehler werden über den Parameter RET
 				{
 					status = "Status unbekannt";
 				}
-				
+
 				auftragWEB.setAuftragsStatus(bestellNRSAP, status);
-				
-//				
-//				System.out.println("Doc_Date: " + func.getTableParameterList().getTable("STATUSINFO").getValue("DOC_DATE"));
-//			
-//				System.out.println("Doc_Number: " + func.getTableParameterList().getTable("STATUSINFO").getValue("DOC_NUMBER"));	
-//			
-//				System.out.println("Gesamtstatus: " + func.getTableParameterList().getTable("STATUSINFO").getValue("PRC_STAT_H"));
-////			A     Not yet processed
-////			B     Partially processed
-////			C     Completely processed
-//			
-//			
-//				System.out.println("Lieferstatus: " + func.getTableParameterList().getTable("STATUSINFO").getValue("DLV_STAT_H"));
-//			//unvollständig 
+
 			}
-			
-//			System.out.println(func.getExportParameterList().getValue("RETURN"));
-			
-			
-			
-			
+
+
+
+
+
+
 		} catch (JCoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Verbindung konnte nicht aufgebaut werden.");
-
+			report.set(e.toString());
 		}
-		
-
-		
-		
-
 	}
 }
