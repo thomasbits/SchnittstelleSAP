@@ -1,25 +1,23 @@
 package SAPumbau;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import javax.swing.JTable;
-import com.sap.conn.jco.JCo;
 import com.sap.conn.jco.JCoContext;
 import com.sap.conn.jco.JCoDestination;
 import com.sap.conn.jco.JCoDestinationManager;
 import com.sap.conn.jco.JCoException;
 import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoRepository;
-import com.sap.conn.jco.JCoStructure;
 import com.sap.conn.jco.JCoTable;
 
 /**
+ * 
  * @author Thomas and Robin
  *
  */
 
 public class MaterialSAP {
 
+	private Report report = new Report(this.getClass().toString());
 	Material material;
 	Ablaufsteuerung_Material ablaufsteuerung;
 	MaterialWEB materialWEB;

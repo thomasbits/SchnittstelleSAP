@@ -24,7 +24,6 @@ public class Programmeinstieg{
 	 * Erstellt Threads der Klassen. Erstellt eine Instanz der Klasse (Verbindung SAP)
 	 */
 	
-	//Hallo
 	public Programmeinstieg() {
 
 		kunde = new Ablaufsteuerung_Kunde();
@@ -45,6 +44,7 @@ public class Programmeinstieg{
 	 */
 	public static void main(String[] args) {
 
+		
 		einstieg = new Programmeinstieg();	//Programeinstieg instanziieren
 		einstieg.synchonisiere();			//Synchronisierung starten (Threads starten)
 	}
@@ -54,6 +54,7 @@ public class Programmeinstieg{
 	 */
 	public void synchonisiere()
 	{
+		report.setNew();
 		report.set("Programm wurde gestartet!");	//In den Report/Logger schreiben
 		boolean durchlauf = true;
 		do

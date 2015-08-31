@@ -4,7 +4,7 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-/**
+/** 
  * Diese Klasse sollte dazu verwendet werden eine Email zu versenden wenn ein Kunde sein Account gelöscht hat. Wenn ein Kunde im SAP System gelsöcht werden soll, kann er nur zum löschen vermerkt werden. Da dies durch ein Mitarbeiter durchgeführt werden muss, weil es durch die Schnittstelle nicht Realiserbar ist, sollte eine Email an einen Mitarbeiter versendet werden.
  * Da es im Webshop keine Möglichkeit zum löschen eines Kundenaccount gibt ist diese Klasse stillgelegt.
  * @author Robin & Thomas

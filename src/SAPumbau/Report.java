@@ -8,7 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/** 
+/**
  * Logger Klasse
  * Sie stellt eine LogDatei anbindung zur Verfügung, in die jederzeit über den Konstruktor ein String übergeben werden kann.
  * Dieser String wird über den Konstruktor mit Datum und Uhrzeit in die Logdatei geschrieben.
@@ -57,7 +57,7 @@ public class Report {
 	 * Logdatei wird geleert.
 	 * Zu beginn des Programms muss die Logdatei einmal geleert werden.
 	 */
-	public void setEmpty()
+	public void setNew()
 	{
 		//Aktuelle Zeit auslesen.
 		SimpleDateFormat formatter = new SimpleDateFormat(
@@ -66,7 +66,7 @@ public class Report {
 
 		try {
 			pWriter = new PrintWriter(new BufferedWriter(new FileWriter("LOG_SAP_Schnittstelle.txt",false)));
-			pWriter.println("Programmstart(" +formatter.format(currentTime) + "): "); //Datei leeren und neuen Programmstart dokumentieren.
+			pWriter.println("\n\nProgrammstart(" +formatter.format(currentTime) + "):"); //Datei leeren und neuen Programmstart dokumentieren.
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally {
