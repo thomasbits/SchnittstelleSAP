@@ -40,6 +40,12 @@ public class KundenauftragSAP {
  */
 	public void createKundenauftrag(Kundenauftrag auftrag)				//!!!!!!!!!!!!!PN00 fehlt!!!!!!!!!!!!!!
 	{
+		
+		if (auftragWEB == null) {
+			//Instanz KundeWEB holen
+			auftragWEB = ablaufsteuerung.getInstanceKundenauftragWEB();
+		}
+		
 		//Unvollständigkeitsprotokoll unter v.01 und v.02		
 		try {
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
@@ -137,12 +143,12 @@ public class KundenauftragSAP {
 				shedules.setValue("SCHED_LINE", "1");						//Einteilungsnummer
 				shedules.setValue("REQ_QTY", e.getValue());					//Auftragsmenge des Kunden in VME
 				
-				System.out.println(e.getKey());
-				System.out.println(e.getValue());
+//				System.out.println(e.getKey());
+//				System.out.println(e.getValue());
 				
 				i++;
 			}
-			//Hallo
+			
 			func.getImportParameterList().setValue("TESTRUN", "X");		//"X" zum Testen sonst "" oder auskommentieren
 			
 			
@@ -157,13 +163,17 @@ public class KundenauftragSAP {
 			JCoContext.end(dest);
 			
 			
-			System.out.println(func.getTableParameterList().getTable("RETURN"));
+//			System.out.println(func.getTableParameterList().getTable("RETURN"));
+//			System.out.println("Salesdocument: " + func.getExportParameterList().getValue("SALESDOCUMENT"));
 			
+			try{
+			//Fehler, weil aktuell keine Auftrgsnummer zurückgegeben wird
+			auftragWEB.setSAPNr( Integer.valueOf((String) func.getExportParameterList().getValue("SALESDOCUMENT")), Integer.valueOf(auftrag.getBestellNRWEB()));
 			
-			System.out.println("Salesdocument: " + func.getExportParameterList().getValue("SALESDOCUMENT"));
-			
-			auftragWEB.setSAPNr((String) func.getExportParameterList().getValue("SALESDOCUMENT"), auftrag.getBestellNRWEB());
-			
+			} catch (NumberFormatException e) {
+//				e.printStackTrace();
+				System.out.println("Kundenauftrag wurde nicht angelegt");
+			}
 
 		} catch (JCoException e) {
 			// TODO Auto-generated catch block

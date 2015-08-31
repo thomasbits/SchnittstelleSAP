@@ -93,7 +93,7 @@ public class KundenauftragWEB {
 
 			}
 
-			auftrag.ausgabeKundenauftrag();
+//			auftrag.ausgabeKundenauftrag();
 
 			//------------------------Abfragen der Produkte der Bestellung
 			ResultSet resultsprodukte = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM bestellprodukte WHERE BestId = " + bestellID + ";");
@@ -136,11 +136,12 @@ public class KundenauftragWEB {
 		}
 	}
 
-	public void setSAPNr(String SAPNr, String WSNr)
+	public void setSAPNr(int SAPNr, int WSNr)
 	{
+		
 		//SAP Nummer in Datenbank schreiben
-		String query1 = "UPDATE bestellung set SAP_BestId = " + SAPNr + " WHERE BestId = \"" + WSNr +"\";";
-
+		String query1 = "UPDATE bestellung set SAP_BestId = '" + SAPNr + "' WHERE BestId = '" + WSNr +"';";
+//		String query1 = "UPDATE kunde set SAP_KId = " + sapNummer + " WHERE Email = \"" + kunde1.getEmail() +"\";";
 		//Query ausführen
 		try {
 			verbindung.getInstance().createStatement().execute(query1);
