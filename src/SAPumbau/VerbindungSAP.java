@@ -26,7 +26,7 @@ public class VerbindungSAP {
 		// TODO Auto-generated method stub
 
 		//Logindaten setzen
-		des.setLoginData("JCO_BITS", "init1234"); 
+		des.setLoginData(); 
 		//Abfragen ob der DestinationDataProvider registriert ist, wenn nicht wird neu registiert
 		if(com.sap.conn.jco.ext.Environment.isDestinationDataProviderRegistered())
 		{

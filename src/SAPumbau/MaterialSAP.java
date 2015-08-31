@@ -71,6 +71,7 @@ public class MaterialSAP {
 			{
 				table.setRow(i);
 				materialliste.add(table.getString("MATERIAL"));
+				System.out.println("#########: " + table.getString("MATERIAL"));
 			}
 
 			for(int i = 0; i<materialliste.size();i++)
