@@ -61,7 +61,7 @@ public class Report {
 	{
 		//Aktuelle Zeit auslesen.
 		SimpleDateFormat formatter = new SimpleDateFormat(
-				"yyyy.MM.dd - HH:mm:ss");
+				"yyyy.MM.dd - HH:mm:ss ");
 		Date currentTime = new Date();
 
 		try {
