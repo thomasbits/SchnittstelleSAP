@@ -1,5 +1,8 @@
 package SAPumbau;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Properties;
 
 import com.sap.conn.jco.ext.DestinationDataEventListener;
@@ -15,32 +18,58 @@ import com.sap.conn.jco.ext.DestinationDataProvider;
  */
 public class Provider implements DestinationDataProvider{
 
-	private String JCO_ASHOST;
-	private String JCO_SYSNR;		
-	private String JCO_CLIENT;
-	
-	private String JCO_USER;
-	private String JCO_PASSWD;
-	private String JCO_LANG;
+	private String JCO_ashost;
+	private String JCO_r3name;		
+	private String JCO_sysnr;
+	private String JCO_client;
+	private String JCO_lang;
+	private String JCO_user;
+	private String JCO_passwd;
+
 	
 	private final Properties properties;
 	
 	public Provider() {
 		// TODO Auto-generated constructor stub
+		getConnectionProperties();
 		
 		properties = new Properties();
-		properties.setProperty(DestinationDataProvider.JCO_ASHOST, "/H/remote.hcc.uni-magdeburg.de/S/3299/H/R52Z");
-		properties.setProperty(DestinationDataProvider.JCO_R3NAME, "R52");
-		properties.setProperty(DestinationDataProvider.JCO_SYSNR, "52");
-		properties.setProperty(DestinationDataProvider.JCO_CLIENT, "204");
-		properties.setProperty(DestinationDataProvider.JCO_LANG, "de");
+		properties.setProperty(DestinationDataProvider.JCO_ASHOST, JCO_ashost);
+		properties.setProperty(DestinationDataProvider.JCO_R3NAME, JCO_r3name);
+		properties.setProperty(DestinationDataProvider.JCO_SYSNR, JCO_sysnr);
+		properties.setProperty(DestinationDataProvider.JCO_CLIENT, JCO_client);
+		properties.setProperty(DestinationDataProvider.JCO_LANG,JCO_lang);
 		
 	}
 
-	public void setLoginData(String username, String pwd)
+	private void getConnectionProperties()
 	{
-		properties.setProperty(DestinationDataProvider.JCO_USER, username);
-		properties.setProperty(DestinationDataProvider.JCO_PASSWD, pwd);
+		File propertiesFile = new File("./resources/connection.properties");
+		Properties properties = new Properties();
+		
+		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(propertiesFile))) {
+		  properties.load(bis);
+		} catch (Exception ex) {
+		  //
+		}
+
+		JCO_ashost = properties.getProperty("JCO_ashost");
+		JCO_r3name = properties.getProperty("JCO_r3name");
+		JCO_sysnr = properties.getProperty("JCO_sysnr");
+		JCO_client = properties.getProperty("JCO_client");
+		JCO_lang = properties.getProperty("JCO_lang");
+		JCO_user = properties.getProperty("JCO_user");
+		JCO_passwd = properties.getProperty("JCO_passwd");
+		
+//		System.out.println(dbHost + dbPort + database + dbUser + dbPassword);			//Zum Testen
+		
+	}
+	
+	
+	public void setLoginData()
+	{
+		properties.setProperty(DestinationDataProvider.JCO_USER, JCO_user);
+		properties.setProperty(DestinationDataProvider.JCO_PASSWD, JCO_passwd);
 	}
 	
 	@Override
