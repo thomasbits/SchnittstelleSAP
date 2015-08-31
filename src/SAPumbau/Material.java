@@ -31,9 +31,7 @@ public class Material {
 
 
 	public Material() {
-		// TODO Auto-generated constructor stub
 	}
-
 
 	public String getmID() {
 
@@ -61,12 +59,10 @@ public class Material {
 		this.beschreibung = beschreibung;
 	}
 	public int getBauart() {
-		System.out.println("Bauart: " + bauart);
 		return bauart;
 	}
 	public void setBauart(String bauart) {
-		
-		
+		//Spezielles filtern des String da ein Zeilwechsel mit übergeben wird, aber nicht immer
 		int bauartSize = bauart.length();
 		if (bauartSize > 1)
 		{
@@ -86,10 +82,7 @@ public class Material {
 			{
 				this.bauart = Integer.valueOf(bauart);
 			}
-			
 		}
-		
-		
 	}
 	public float getPreis() {
 		return preis;
@@ -113,7 +106,6 @@ public class Material {
 		return (vMenge +20);
 	}
 	public void setvMenge(int vMenge) {
-		//Damit erstmal Produkte da sind.
 		this.vMenge = vMenge ;
 	}
 	public boolean getGeloescht() {
@@ -139,18 +131,13 @@ public class Material {
 	}
 	public void setGroesse(String groesse) {
 		groesse = groesse.substring(0,2);
-
 		if(groesse.length()<1)
 		{
 			this.groesse = 10;
 		}
 		else
 		{
-
-			//this.groesse = Integer.valueOf(groesse);
-
 			String test = groesse;
-			System.out.println("Grosse:---"+ test +"---");
 			this.groesse = Integer.valueOf(test);
 		}
 
@@ -159,6 +146,7 @@ public class Material {
 		return bauvariante;
 	}
 	public void setBauvariante(String bauvariante) {
+		//Anpassen der übergabewerte an die Datenbank
 		bauvariante = bauvariante.substring(0, 1);
 		if(bauvariante.equals("d"))
 		{
@@ -190,7 +178,6 @@ public class Material {
 	}
 	public void setEigenschaften(String eigenschaften) {
 		this.eigenschaften = eigenschaften;
-		System.out.println("Eig:" + eigenschaften);
 	}
 
 }

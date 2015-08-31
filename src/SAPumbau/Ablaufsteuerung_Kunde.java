@@ -1,8 +1,7 @@
 package SAPumbau;
 /**
  * Klasse Ablaufsteuerung_Kunde, implementiert die Schnittstelle Runnable. Steuert die Synchronisierung der Kundendaten zwischen dem SAP-System und der Webshop-DB
- * @author Thomas
- *
+ * @author Thomas & Robin
  */
 public class Ablaufsteuerung_Kunde implements Runnable{
 
@@ -15,7 +14,6 @@ public class Ablaufsteuerung_Kunde implements Runnable{
 	 * Konstruktor: erstellet eine Instanz von KundeWEB
 	 */
 	public Ablaufsteuerung_Kunde() {
-		// TODO Auto-generated constructor stub
 		kundeWEB = new KundeWEB(this);
 	}
 	/**
