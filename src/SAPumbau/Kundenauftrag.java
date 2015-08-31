@@ -12,15 +12,18 @@ import java.util.Iterator;
 
 /**
  * Enth‰lt alle Attribute eines Kundenauftrages, dient zum Austausch der Daten zwischen KundenauftragSAP und KundenauftragWEB
+ * bietet Getter und Setter Methoden um die Datenfelder zu sethen bzw. deren Werte auszulesen.
  * @author Thomas
  */
 public class Kundenauftrag {
 
-	private String versandart, zahlungsart, bestellNRSAP, bestellNRWEB, verkaufsbelegart, partnerrolle, debitorennummer, status, bestellDatum;		//nicht alle notwendig weil immer gleich??
-
+	private String versandart, zahlungsart, bestellNRSAP, bestellNRWEB, debitorennummer, status, bestellDatum;
 	private String lierferadresse_geschlecht, lierferadresse_vorname, lierferadresse_name, lierferadresse_strasse, lierferadresse_hausnummer, lierferadresse_plz, lierferadresse_ort;
-	private Hashtable<String, String> position;	
+	private Hashtable<String, String> position;	//enth‰lt alle Positionen einer Bestellung
 
+	/**
+	 * Gibt die aktuellen Daten der Instanz auf der Konsole aus. Nur zum Testen implementiert
+	 */
 	public void ausgabeKundenauftrag(){
 		System.out.println("Versandart: " + versandart + "\n" + "Zahlungsart: " + zahlungsart + "\n" + "BestellNR-SAP: " + bestellNRSAP + "\n" + "BestellNR-WEB: " + bestellNRWEB + "\n" + "Debitorennummer: " + debitorennummer + "\n" + "Status: " + status + "\n" + "Datum: " + bestellDatum + "\n" + "Liefer_Geschlecht: " + lierferadresse_geschlecht + "\n" + "Liefer_Vorname: " + lierferadresse_vorname + "\n" + "Liefer_Name: " + lierferadresse_name + "\n" + "Liefer_Straﬂe: " + lierferadresse_strasse + "\n" + "Liefer_Hausnummer: " + lierferadresse_hausnummer + "\n" + "Liefer_PLZ: " + lierferadresse_plz + "\n" + "Liefer_Ort: " + lierferadresse_ort);
 	}
