@@ -1,5 +1,5 @@
 package SAPumbau;
-import com.sun.jmx.snmp.Timestamp;
+
 /*
  * Repräsentiert ein Material/Produkt, mit den zugehörigen getter und setter Methoden
  */
@@ -18,7 +18,6 @@ public class Material {
 	private String beschreibung; //"Beschreibung" Ausführliche Beschreibung
 	private int bauart = 1; //"bauart" -> Mountainbike, Crossrad, ...
 	private float preis; //"Preis"
-	private Timestamp stand; //"Stand" -> Stand der letzten Aktualisierung
 	private String farbe; //"Farbe"
 	private String bezeichnung; //"Bezeichnung"
 	private int vMenge; //Verfuegbare Menge
@@ -97,12 +96,6 @@ public class Material {
 	}
 	public void setPreis(float preis) {
 		this.preis = preis;
-	}
-	public Timestamp getStand() {
-		return stand;
-	}
-	public void setStand(Timestamp stand) {
-		this.stand = stand;
 	}
 	public String getFarbe() {
 		return "'"+farbe+"'";
