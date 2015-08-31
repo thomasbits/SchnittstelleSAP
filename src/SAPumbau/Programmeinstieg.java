@@ -2,24 +2,14 @@ package SAPumbau;
 
 import java.util.Scanner;
 
-import com.mysql.jdbc.Statement;
-import com.sap.conn.jco.JCoDestinationManager;
-import com.sap.conn.jco.JCoException;
-
-/*
- * Klasse Programmeinstieg; nimmt die Benutzereingaben entgegen und soll dem Benutzer verscheidene Konfigurationsmöglichkeiten bieten.
- */
-
 /**
- *	Programmstart: Startet den Thread dieser Klasse, in dem dem Benutzer verschiedene Optionen zur Steuerung des Programms geboten werden.
- * @author Thomas
+ *	Programmstart: Startet beim Programmstart alle Threads(Kunde, Auftrag, Material) und nimmt Benutzereingaben entgegen, um die Synchronisierung zu starten, beenden sowie um das Programms zu beenden.
+ * @author Thomas & Robin
  */
 public class Programmeinstieg{
-	
-	//Status des Programms
-	private Report report = new Report(this.getClass().toString());
-	public static int status = 0;
-//	private Ablaufsteuerung ablaufsteuerung;			//Kann weg
+
+	private Report report = new Report(this.getClass().toString()); //Report instanziieren (Logger)
+	public static int status = 1;	//Status des Programms
 	private Ablaufsteuerung_Kunde kunde;
 	private Ablaufsteuerung_Kundenauftrag auftrag;
 	private Ablaufsteuerung_Material material;
@@ -28,119 +18,110 @@ public class Programmeinstieg{
 	private Thread t_auftrag;
 	private static VerbindungSAP verbindungSAP;
 	private static Programmeinstieg einstieg;
-	private DatenbankVerbindung verbindung;
-	
-	public Programmeinstieg() {
-		// TODO Auto-generated constructor stub
 
-		//Datenbankverbindung aufbauen
-//		verbindung = new DatenbankVerbindung();	
-		//Statement von der Datenbank holen
-//		java.sql.Statement stmt = verbindung.getStatement();
-		
-		
+	/**
+	 * Konstruktor Programmeinstieg bildes Instanzen der Klassen(Ablaufsteuerung_Kunde, Ablaufsteuerung_Kundenauftrag, Ablaufsteuerung_Material)
+	 * Erstellt Threads der Klassen. Erstellt eine Instanz der Klasse (Verbindung SAP)
+	 */
+	public Programmeinstieg() {
+
 		kunde = new Ablaufsteuerung_Kunde();
 		auftrag = new Ablaufsteuerung_Kundenauftrag();
 		material = new Ablaufsteuerung_Material();
-		
-//		kunde.setStatement(stmt);
+
+		//Threads instanziieren
 		t_kunde = new  Thread(kunde);
-		
-//		material.setStatement(stmt);
 		t_material = new Thread(material);
-		
-//		auftrag.setStatement(stmt);
 		t_auftrag = new Thread(auftrag);
-		
+
 		verbindungSAP = new VerbindungSAP();
-
-
-		
 	}
 
-	//Main Methode
+	/**
+	 * Main - Methode: Instanziierung der Klasse Programmeinstieg und ausführen der Methode "synchonisiere".
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		einstieg = new Programmeinstieg();
-	
-		einstieg.synchonisiere();
+
+		einstieg = new Programmeinstieg();	//Programeinstieg instanziieren
+		einstieg.synchonisiere();			//Synchronisierung starten (Threads starten)
 	}
 
-	//Run Methode (Thread)
+	/**
+	 * Diese Methode steuert die einzelen Threads. Ob diese gestartet oder beendet werden sollen. Diese Entscheidung werden von Benutzereingaben entgegen genommen.
+	 */
 	public void synchonisiere()
 	{
-		report.setEmpty();
-		report.set("Programm wurde gestartet!");
+		report.set("Programm wurde gestartet!");	//In den Report/Logger schreiben
 		boolean durchlauf = true;
 		do
 		{
-			
 			switch (status) {
 
-			//Synchronisierung starten
 			case 1:
+				//Synchronisierung starten - wird automatisch gestartet beim Programmstart
 				//SAP Verbindung
 				verbindungSAP.connect();
-				
+
+				//Abfragen je Thread ob dieser läuft. Wenn nicht wird er gestartet.
 				if(t_kunde.isAlive())
 				{
-					System.out.println("Thread Kunde läuft");
+
 				}else{
 					t_kunde.start();
-					System.out.println("Thread Kunde gestartet");
+					report.set("Thread Kunde gestartet");
 				}
 				if(t_material.isAlive())
 				{
 
 				}else{
 					t_material.start();
+					report.set("Thread Material gestartet");
 				}
 				if(t_auftrag.isAlive())
 				{
 
 				}else{
 					t_auftrag.start();
+					report.set("Thread Kundenauftrag gestartet");
 				}
-
-
-
 				break;
 
-				//Synchronisierung beenden
 			case 2:
-				//SAP Verbindung
+				//Synchronisierung beenden
 				verbindungSAP.connect();
 				sync_ende();
-				
 				break;
 
-				//Programm beenden
 			case 3:
+				//Programm beenden
 				sync_ende();
 				System.exit(0);
-
 				break;
 
-				
 			case 4:
-				DatenbankVerbindung verbindung = new DatenbankVerbindung();
-
+				report.set("Testcase wurde ausgeführt");
 				break;
 			}
 
+			//Scanner für das auslesen der Eingabe erstellen.
 			Scanner scanner = new Scanner(System.in);
-
+			//Möglichkeiten der Auswahl dem Benutzer anzeigen
 			System.out.print("--------\n0-Programm gestartet \n1-Synchronisierung starten \n2-Synchronisierung beenden \n3-Programm beenden\n4-Test \nLetzterStatus: " + status + "\nEingabe: ");
-
+			//Nächste Zeile auslesen
 			String eingabe = scanner.nextLine();
 			try {
 				status = Integer.valueOf(eingabe);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-		}while(durchlauf);
+		}while(durchlauf);	//Das Programm läuft so lange bis der Nutzer es beendet. Der Benutzer kann jederzeit Eingaben tätigen.
 	}
-	
+
+	/**
+	 * Diese Methode ruft die "threadStop" Methoden der einzelnen Threads auf um diese zu beenden.
+	 * Wird z.B. zum Programmende oder zum stoppen der Synchronisieung benötigt.
+	 */
 	private void sync_ende()
 	{
 		auftrag.threadStop();
