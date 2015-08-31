@@ -89,12 +89,12 @@ public class Programmeinstieg{
 					t_kunde.start();
 					System.out.println("Thread Kunde gestartet");
 				}
-//				if(t_material.isAlive())
-//				{
-//
-//				}else{
-//					t_material.start();
-//				}
+				if(t_material.isAlive())
+				{
+
+				}else{
+					t_material.start();
+				}
 				if(t_auftrag.isAlive())
 				{
 

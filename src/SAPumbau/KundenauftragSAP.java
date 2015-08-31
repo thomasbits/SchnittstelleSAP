@@ -149,7 +149,7 @@ public class KundenauftragSAP {
 				i++;
 			}
 			
-			func.getImportParameterList().setValue("TESTRUN", "X");		//"X" zum Testen sonst "" oder auskommentieren
+//			func.getImportParameterList().setValue("TESTRUN", "X");		//"X" zum Testen sonst "" oder auskommentieren
 			
 			
 			
@@ -163,8 +163,8 @@ public class KundenauftragSAP {
 			JCoContext.end(dest);
 			
 			
-//			System.out.println(func.getTableParameterList().getTable("RETURN"));
-//			System.out.println("Salesdocument: " + func.getExportParameterList().getValue("SALESDOCUMENT"));
+			System.out.println(func.getTableParameterList().getTable("RETURN"));
+			System.out.println("Salesdocument: " + func.getExportParameterList().getValue("SALESDOCUMENT"));
 			
 			try{
 			//Fehler, weil aktuell keine Auftrgsnummer zurückgegeben wird
