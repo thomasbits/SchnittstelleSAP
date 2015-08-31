@@ -1,14 +1,6 @@
 package SAPumbau;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Iterator;
-/*
- * Repräsentiert einen Kundenauftrag mit den zugehörigen Methoden
- */
 
 /**
  * Enthält alle Attribute eines Kundenauftrages, dient zum Austausch der Daten zwischen KundenauftragSAP und KundenauftragWEB

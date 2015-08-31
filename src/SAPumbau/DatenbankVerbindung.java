@@ -5,19 +5,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-/*
- * Klasse Datenbankverbindung: Stellt die Verbindung zur Datenbank des Webshops her.
- */
 
 /**
  *	Stellt die Methoden zur Verbindung zur Webshopdatenbank bereit.
- * @author Thomas
+ * @author Thomas und Robin
  */
 public class DatenbankVerbindung {
 

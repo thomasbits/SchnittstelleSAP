@@ -35,9 +35,9 @@ public class KundenauftragWEB {
 		verbindung = new DatenbankVerbindung();
 	}
 
-/**
- * Fragt ab, ob sich in der WebDB ein neuer Kundenauftrag befindet. Neue Aufträge werden anschließend ins SAP-System übertragen
- */
+	/**
+	 * Fragt ab, ob sich in der WebDB ein neuer Kundenauftrag befindet. Neue Aufträge werden anschließend ins SAP-System übertragen
+	 */
 	public void abfrageNeueBestellungen()
 	{
 
@@ -49,15 +49,14 @@ public class KundenauftragWEB {
 		try {
 			//Query ob Datensätze ohne SAP Nummer vorhanden sind
 			ResultSet results = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM bestellung WHERE SAP_BestID IS NULL;");
-			//Abfragen ob Datensatz leer ist?
+			//Abfragen ob Datensatz leer ist
 			if (!results.next()){
-				report.set("Keine neue Bestellung");
 				auftrag = null;
 			}else
 			{
 
 				report.set("Neuer Auftrag:" + results.getString("BestId"));
-				
+
 				//Sonst Daten abfragen und in die instanz auftrag der Klasse Kundenauftrag schreiben	
 				results.last();
 
@@ -83,7 +82,7 @@ public class KundenauftragWEB {
 
 				ResultSet kunde = verbindung.getInstance().createStatement().executeQuery("SELECT SAP_KId from kunde Where KId = " + SAPNr + ";");
 
-				//Abfragen ob Datensatz leer ist?
+				//Abfragen ob Datensatz leer ist
 				if (!kunde.next()){
 					System.out.println("Result ist empty!!!!");
 					auftrag = null;
@@ -105,33 +104,11 @@ public class KundenauftragWEB {
 					}while(!resultsprodukte.isAfterLast());
 				}
 
-			}
-
-			//			auftrag.ausgabeKundenauftrag();
-
-
-
-			//-----------------Testausgabe von Position
-			/*				
-				Iterator iterator = auftrag.getPosition().entrySet().iterator();
-
-
-
-				while(iterator.hasNext())
-				{	
-					Map.Entry e = (Map.Entry)iterator.next();
-
-					System.out.println(e.getKey());
-					System.out.println(e.getValue());
-
-
-				}
-			 */				
+			}			
 
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			report.set(e.toString());
 		}
 		if(auftrag != null)
 		{
@@ -139,22 +116,27 @@ public class KundenauftragWEB {
 			auftragSAP.createKundenauftrag(auftrag);
 		}
 	}
-
+	/**
+	 * Schreibt die Übergebene SAP-Nummer in die WebDB
+	 * @param SAPNr SAP-Nummer
+	 * @param WSNr Kundennummer in der WebDB
+	 */
 	public void setSAPNr(int SAPNr, int WSNr)
 	{
-
 		//SAP Nummer in Datenbank schreiben
 		String query1 = "UPDATE bestellung set SAP_BestId = '" + SAPNr + "' WHERE BestId = '" + WSNr +"';";
-		//		String query1 = "UPDATE kunde set SAP_KId = " + sapNummer + " WHERE Email = \"" + kunde1.getEmail() +"\";";
+
 		//Query ausführen
 		try {
 			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			report.set(e.toString());
 		}
 	}
 
+	/**
+	 * Holt die Auftragsnummern aus der WebDB um deren Status zu aktualisieren
+	 */
 	public void getAuftragsNr()
 	{
 		if (auftragSAP == null) {
@@ -163,22 +145,25 @@ public class KundenauftragWEB {
 		}
 
 		try {
-			ResultSet auftragsnr = verbindung.getInstance().createStatement().executeQuery("SELECT SAP_BestId from bestellung Where Status !='Auftrag erhalten';");
+			ResultSet auftragsnr = verbindung.getInstance().createStatement().executeQuery("SELECT SAP_BestId from bestellung Where Status !='Auftrag abgeschlossen';");
 
 			while(auftragsnr.next())
 			{
 				auftragSAP.getStatus(auftragsnr.getString("SAP_BestId"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			report.set(e.toString());
 		}
 
 
 	}
 
 
-
+	/**
+	 * Schreibt den aktuellen Status in die WebDB
+	 * @param bestellNR	Auftragsnummer
+	 * @param status	aktueller Status
+	 */
 	public void setAuftragsStatus(String bestellNR, String status)
 	{
 		//Status in Datenbank schreiben
@@ -188,10 +173,7 @@ public class KundenauftragWEB {
 		try {
 			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			report.set(e.toString());
 		}
 	}
-
-
 }
