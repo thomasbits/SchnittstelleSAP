@@ -10,14 +10,15 @@ import com.sap.conn.jco.ext.DestinationDataProvider;
 
 /*
  * Stellt die Daten für eine Verbindung bereit
-*/
+ */
 
 /**
- * @author Thomas
  * Stellt die Daten für die Verbindung zum SAP-System bereit, enthält außerdem die Methode zum setzen der Logindaten.
+ * @author Thomas
  */
 public class Provider implements DestinationDataProvider{
 
+	private Report report = new Report(this.getClass().toString()); //Report instanziieren (Logger)
 	private String JCO_ashost;
 	private String JCO_r3name;		
 	private String JCO_sysnr;
@@ -25,34 +26,35 @@ public class Provider implements DestinationDataProvider{
 	private String JCO_lang;
 	private String JCO_user;
 	private String JCO_passwd;
-
-	
 	private final Properties properties;
-	
+
+	/**
+	 * Im Konstruktor werden die Properties gesetzt die vorher über getConnectionProperties() aus einer extra Datei geholt werden
+	 */
 	public Provider() {
-		// TODO Auto-generated constructor stub
 		getConnectionProperties();
-		
+
 		properties = new Properties();
 		properties.setProperty(DestinationDataProvider.JCO_ASHOST, JCO_ashost);
 		properties.setProperty(DestinationDataProvider.JCO_R3NAME, JCO_r3name);
 		properties.setProperty(DestinationDataProvider.JCO_SYSNR, JCO_sysnr);
 		properties.setProperty(DestinationDataProvider.JCO_CLIENT, JCO_client);
 		properties.setProperty(DestinationDataProvider.JCO_LANG,JCO_lang);
-		
 	}
 
+	/**
+	 * getConnectionProperties holt die Logindaten aus einer Extra Datei
+	 */
 	private void getConnectionProperties()
 	{
 		File propertiesFile = new File("./resources/connection.properties");
 		Properties properties = new Properties();
-		
-		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(propertiesFile))) {
-		  properties.load(bis);
-		} catch (Exception ex) {
-		  //
-		}
 
+		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(propertiesFile))) {
+			properties.load(bis);
+		} catch (Exception ex) {
+			report.set(ex.toString());
+		}
 		JCO_ashost = properties.getProperty("JCO_ashost");
 		JCO_r3name = properties.getProperty("JCO_r3name");
 		JCO_sysnr = properties.getProperty("JCO_sysnr");
@@ -60,18 +62,17 @@ public class Provider implements DestinationDataProvider{
 		JCO_lang = properties.getProperty("JCO_lang");
 		JCO_user = properties.getProperty("JCO_user");
 		JCO_passwd = properties.getProperty("JCO_passwd");
-		
-//		System.out.println(dbHost + dbPort + database + dbUser + dbPassword);			//Zum Testen
-		
 	}
-	
-	
+
+	/**
+	 * Setzen der Logindaten
+	 */
 	public void setLoginData()
 	{
 		properties.setProperty(DestinationDataProvider.JCO_USER, JCO_user);
 		properties.setProperty(DestinationDataProvider.JCO_PASSWD, JCO_passwd);
 	}
-	
+
 	@Override
 	public Properties getDestinationProperties(String destinationName) {
 		// TODO Auto-generated method stub
@@ -82,7 +83,7 @@ public class Provider implements DestinationDataProvider{
 	public void setDestinationDataEventListener(
 			DestinationDataEventListener eventListener) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -90,5 +91,4 @@ public class Provider implements DestinationDataProvider{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

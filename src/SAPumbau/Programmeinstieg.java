@@ -97,6 +97,7 @@ public class Programmeinstieg{
 				//Programm beenden
 				sync_ende();
 				System.exit(0);
+				report.set("Programm wurde beendet");
 				break;
 
 			case 4:
@@ -113,7 +114,7 @@ public class Programmeinstieg{
 			try {
 				status = Integer.valueOf(eingabe);
 			} catch (Exception e) {
-				// TODO: handle exception
+				report.set(e.toString());
 			}
 		}while(durchlauf);	//Das Programm läuft so lange bis der Nutzer es beendet. Der Benutzer kann jederzeit Eingaben tätigen.
 	}

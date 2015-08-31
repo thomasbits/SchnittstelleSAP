@@ -13,7 +13,6 @@ import java.util.Date;
  * Sie stellt eine LogDatei anbindung zur Verfügung, in die jederzeit über den Konstruktor ein String übergeben werden kann.
  * Dieser String wird über den Konstruktor mit Datum und Uhrzeit in die Logdatei geschrieben.
  * @author Robin
- *
  */
 public class Report {
 
@@ -21,31 +20,29 @@ public class Report {
 	DateFormat df;
 	String klasse;
 	String datumDatei;
+
+	/**
+	 * Der Konstruktor der Klasse Report nimmt einen String entgegen indem der Klassennahme der Klasse steht inder die Klasse(Report) instanziert wird.
+	 * @param klasse
+	 */
 	public Report(String klasse)
 	{
 		this.klasse = klasse;
-		Date currentTime1 = new Date();
-		SimpleDateFormat formatter1 = new SimpleDateFormat(
-				"yyyyMMdd_HHmmss");
-		
-		datumDatei = formatter1.format(currentTime1);
 	}
-	
-	public void set(String text) {
-		// TODO Auto-generated constructor stub
 
-		//Aktuelle Zeit auslesen.
-		
-		SimpleDateFormat formatter = new SimpleDateFormat(
-				"yyyy.MM.dd-HH:mm:ss");
+	/**
+	 * Die "set" Methode bekommt einen String übergeben und schreibt diesen mit Uhrzeit und Datum in die LogDatei.
+	 * @param text
+	 */
+	public void set(String text) {
+
+		//Aktuelle Zeit auslesen und Format festlegen
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss");
 		Date currentTime = new Date();
-		
-		
-		
+
 		try {
-			pWriter = new PrintWriter(new BufferedWriter(new FileWriter("Log_SAP_Schnittstelle"+datumDatei+".txt",true)));
-			
-			pWriter.println(formatter.format(currentTime) + "("+ klasse +"): " + text);
+			pWriter = new PrintWriter(new BufferedWriter(new FileWriter("Log_SAP_Schnittstelle.txt",true))); //Dateiauswählen
+			pWriter.println(formatter.format(currentTime) + "("+ klasse +"): " + text);	//In Datei schreiben
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally {
@@ -55,7 +52,6 @@ public class Report {
 			}
 		}
 	}
-
 
 	/**
 	 * Logdatei wird geleert.
@@ -70,7 +66,7 @@ public class Report {
 
 		try {
 			pWriter = new PrintWriter(new BufferedWriter(new FileWriter("LOG_SAP_Schnittstelle.txt",false)));
-			pWriter.println("Programmstart(" +formatter.format(currentTime) + "): ");
+			pWriter.println("Programmstart(" +formatter.format(currentTime) + "): "); //Datei leeren und neuen Programmstart dokumentieren.
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally {
