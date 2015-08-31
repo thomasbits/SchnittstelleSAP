@@ -23,6 +23,8 @@ public class Programmeinstieg{
 	 * Konstruktor Programmeinstieg bildes Instanzen der Klassen(Ablaufsteuerung_Kunde, Ablaufsteuerung_Kundenauftrag, Ablaufsteuerung_Material)
 	 * Erstellt Threads der Klassen. Erstellt eine Instanz der Klasse (Verbindung SAP)
 	 */
+	
+	//Hallo
 	public Programmeinstieg() {
 
 		kunde = new Ablaufsteuerung_Kunde();

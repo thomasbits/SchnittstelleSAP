@@ -8,7 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
+/** 
  * Logger Klasse
  * Sie stellt eine LogDatei anbindung zur Verfügung, in die jederzeit über den Konstruktor ein String übergeben werden kann.
  * Dieser String wird über den Konstruktor mit Datum und Uhrzeit in die Logdatei geschrieben.

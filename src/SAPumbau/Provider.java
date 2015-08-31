@@ -29,7 +29,7 @@ public class Provider implements DestinationDataProvider{
 	private final Properties properties;
 
 	/**
-	 * Im Konstruktor werden die Properties gesetzt die vorher über getConnectionProperties() aus einer extra Datei geholt werden
+	 *  Im Konstruktor werden die Properties gesetzt die vorher über getConnectionProperties() aus einer extra Datei geholt werden
 	 */
 	public Provider() {
 		getConnectionProperties();
