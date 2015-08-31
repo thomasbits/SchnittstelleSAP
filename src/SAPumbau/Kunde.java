@@ -1,12 +1,11 @@
 package SAPumbau;
-/*
- * Repräsentiert einen Kunden, mit den zugehörigen getter und setter Methoden
- */
+
+ 
 
 /**
  *	Enthält alle Attribute eines Kunden, wird zum Austausch zwischen KundeSAP und KundeWEB benutzt
- *  Getter und Setter Klasse
- * @author Thomas and Robin
+ *  bietet Getter und Setter Methoden um die Datenfelder zu sethen bzw. deren Werte auszulesen
+ * @author Thomas
  */
 public class Kunde {
 	

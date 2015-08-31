@@ -5,66 +5,61 @@ import java.sql.SQLException;
 
 /**
  * @author Thomas and Robin
- *	Stellt die benötigten Methoden bereit, um den Datensatz eines Kunden aus der Webshopdatenbank abzufragen und ihn um SAP System anzulegen, löschen oder ändern
+ *	Stellt die benötigten Methoden bereit, um den Datensatz eines Kunden aus der Webshopdatenbank abzufragen
  */
 public class KundeWEB {
 
 	private Report report = new Report(this.getClass().toString());
-	Ablaufsteuerung_Kunde ablaufsteuerung;
-	KundeSAP kundeSAP;
-	KundeWEB kundeWEB;
+	private Ablaufsteuerung_Kunde ablaufsteuerung;
+	private KundeSAP kundeSAP;
 	private DatenbankVerbindung verbindung;
-	
-	Kunde kunde1;
-	java.sql.Statement stmt;
+
+	private Kunde kunde1;
 	boolean kundeGefunden = false;
 
 	/**
-	 * Konstruktor
-	 * Instanz der Ablaufsteuerung entgegennehmen
-	 * @param ablaufsteuerung
+	 * Konstruktor: Ertellt Instanzen der Klassen Kunde und DatenbankVerbindung
+	 * @param ablaufsteuerung Instanz der Klasse Ablaufsteuerung_Kunde
 	 */
 	public KundeWEB(Ablaufsteuerung_Kunde ablaufsteuerung) {
-		// TODO Auto-generated constructor stub
+
 		this.ablaufsteuerung = ablaufsteuerung;
-		kundeSAP = new KundeSAP(ablaufsteuerung);
+
 		kunde1 = new Kunde();
-		//Datenbankverbindung aufbauen
+
 		verbindung = new DatenbankVerbindung();	
 	}
 
 	/**
-	 * SQL Statement entgegennehmen um Datenbank Querys und Abfragen durchzuführen
-	 * @param stmt
+	 * Stellt eine neue Verbindung zur WebDB her
 	 */
-	public void setStatement(java.sql.Statement stmt)
+	public void neueVerbindungDB()
 	{
-		this.stmt = stmt;
+		verbindung.schliesseVerbindung();
+		verbindung = new DatenbankVerbindung();
 	}
 
 	/**
-	 * Kunde neu anlegen
 	 * Fragt in der Webshopdatenbank ab, ob sich ein neuer Kunde Registriert hat.(Neu registrierte Kunden haben noch keine SAP-Kundennummer)
 	 */
 	public void abfrageNeueKunden()
 	{
-		
+
 		if (kundeSAP == null) {
 			//Instanz KundeSAP holen
 			kundeSAP = ablaufsteuerung.getInstanceKundeSAP();
 		}
 
 		try {
-			//Query ob Datensätze ohne SAP Nummer vorhanden sind?
+			//Query ob Datensätze ohne SAP Nummer vorhanden sind
 			ResultSet results = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM kunde WHERE SAP_KId IS NULL;");
 			//Abfragen ob Datensatz leer ist
 			if (!results.next()){
-				//new Logger("Kein neuer Kunde gefunden.");
-			
+				//				report.set("Kein neuer Kunde gefunden!");
+
 			}else
 			{
-				
-				//Sonst Daten abfragen und in Klasse Kunde1 schreiben	
+				//Sonst Daten abfragen und in die Instanz kunde1 der Klasse Kunde schreiben	
 				report.set("Neuer Kunde gefunden.");
 
 				kundeGefunden = true;
@@ -84,8 +79,7 @@ public class KundeWEB {
 
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			report.set(e.toString());
 		}
 
 		if(kundeGefunden)
@@ -99,9 +93,8 @@ public class KundeWEB {
 	}
 
 	/**
-	 * Kunde löschen
 	 * Es wird in der Datenbank geschaut ob ein Kunde gelöscht werden soll. (Hat sein Benutzerkonto gelöscht) 
-	 * In diesem Fall wird eine Email an einen Mitarbeiter versendet mit der Information das sich dieser Kunde gelöscht und dies im SAP System vermerkt werden muss.
+	 * In diesem Fall wird eine Email an einen Mitarbeiter versendet mit der Information das sich dieser Kunde gelöscht hat und dies im SAP System vermerkt werden muss.
 	 */
 	public void kundenLoeschenDatenbank()
 	{
@@ -123,14 +116,12 @@ public class KundeWEB {
 				results.first();
 				kunde1.setSapNummer(results.getString("SAP_KId"));
 				//Versende Email
-				report.set("Kunde löschen wird durchgeführt.");
+				report.set("Kunde löschen wird durchgeführt." + results.getString("SAP_KId"));
 				schreibeGeloescht();
-				//System.out.println("Kunde: " + kunde1.getSapNummer());
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			report.set(e.toString());
 		}
 	}
 
@@ -146,18 +137,18 @@ public class KundeWEB {
 		}
 
 		try {
-			//Query ob Datensätze mit Änderungen vorhanden sind?
+			//Query ob Datensätze mit Änderungen vorhanden sind
 			ResultSet results = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM kunde WHERE status = 'a' ;");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
-				//new Logger("Kein Kunde zum ändern gefunden!");
+				//				report.set("Kein Kunde zum ändern gefunden!");
 				kunde1 = null;
 			}else
 			{
 				//Sonst Daten abfragen und in Klasse Kunde schreiben
-				report.set("Kunde zum ändern gefunden!");
-
 				results.first();
+
+				report.set("Kunde zum ändern gefunden!" + results.getString("SAP_KId"));
 
 				kunde1.setSapNummer(results.getString("SAP_KId"));
 				kunde1.setVorname(results.getString("vorname"));
@@ -172,14 +163,13 @@ public class KundeWEB {
 
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			report.set(e.toString());
 		}
 		if(kunde1 != null)
 		{
 			//Änderungen in das SAP System schreiben
 			kundeSAP.changeKunde(kunde1);
-			report.set("Kunde ändern wird durchgeführt.");
+			report.set("Kunde ändern wird durchgeführt." + kunde1.getSapNummer());
 			//Status in Datenbank wieder auf Null setzen, da der Kunde erfolgreich geändert wurde.
 			schreibeGeaendert();
 		}
@@ -187,7 +177,7 @@ public class KundeWEB {
 
 	/**
 	 * Schreibt die übergebene SAP-Nummer in die Webshopdatenbank
-	 * @param sapNummer
+	 * @param sapNummer SAP-Nummer
 	 */
 	public void schreibeSAPNummer(String sapNummer)
 	{
@@ -198,26 +188,25 @@ public class KundeWEB {
 		try {
 			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			report.set(e.toString());
 		}
 	}
 
-	
-	//Kann weg
+
+	/**
+	 * Kennzeichnet den Kunden in der WebDB als gelöscht
+	 */
 	public void schreibeGeloescht()
 	{
 		//SAP Nummer in Datenbank schreiben
 		String query1 = "UPDATE kunde set geloescht = 'ja' WHERE SAP_KId = \"" + kunde1.getSapNummer() +"\";";
-		System.out.println("Kunde " + kunde1.getSapNummer() + " wird gelöscht.");
-		//Query ausführen
+		report.set("Kunde " + kunde1.getSapNummer() + " wird gelöscht.");
 		
-
+		//Query ausführen
 		try {
 			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			report.set(e.toString());
 		}
 	}
 
@@ -234,8 +223,7 @@ public class KundeWEB {
 		try {
 			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			report.set(e.toString());
 		}
 	}
 }

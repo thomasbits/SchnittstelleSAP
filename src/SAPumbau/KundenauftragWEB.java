@@ -2,12 +2,6 @@ package SAPumbau;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-/*
- * Holt die Daten zu einem Kundenauftrag aus der Datenbank des Webshops um sie anschließend an das SAP-System weiterzuleiten
- * Schreibt den aktuellen Stand eines Kundenauftrages in die Datenbank des Webshops
- */
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  *	Stellt die benötigten Methoden bereit, um einen Kundenauftrag aus der Webshopdatenbank abzufragen und den Status zu aktualiesieren
@@ -15,27 +9,35 @@ import java.util.Map;
  */
 public class KundenauftragWEB {
 
-	Ablaufsteuerung_Kundenauftrag ablaufsteuerung;
-	Kundenauftrag auftrag;
-	KundenauftragSAP auftragSAP;
-	java.sql.Statement stmt;
-	String bestellID;
+	private Report report = new Report(this.getClass().toString());
+	private Ablaufsteuerung_Kundenauftrag ablaufsteuerung;
+	private Kundenauftrag auftrag;
+	private KundenauftragSAP auftragSAP;
+	private String bestellID;
 	private DatenbankVerbindung verbindung;
 
+	/**
+	 * Erstellt eine Instanz der Klasse Kundenauftrag
+	 * @param ablaufsteuerung Instanz der Klasse Ablaufsteuerung_Kundenauftrag
+	 */
 	public KundenauftragWEB(Ablaufsteuerung_Kundenauftrag ablaufsteuerung) {
 		this.ablaufsteuerung = ablaufsteuerung;
 		auftrag = new Kundenauftrag();
-		//Datenbankverbindung aufbauen
+
 		verbindung = new DatenbankVerbindung();	
-//		//Statement von der Datenbank holen
-//		java.sql.Statement stmt = verbindung.getStatement();
 	}
-
-	public void setStatement(java.sql.Statement stmt)
+	/**
+	 * Stellt eine neue Verbindung zur WebDB her
+	 */
+	public void neueVerbindungDB()
 	{
-		this.stmt = stmt;
+		verbindung.schliesseVerbindung();
+		verbindung = new DatenbankVerbindung();
 	}
 
+/**
+ * Fragt ab, ob sich in der WebDB ein neuer Kundenauftrag befindet. Neue Aufträge werden anschließend ins SAP-System übertragen
+ */
 	public void abfrageNeueBestellungen()
 	{
 
@@ -45,17 +47,17 @@ public class KundenauftragWEB {
 		}
 
 		try {
-			//Query ob Datensätze ohne SAP Nummer vorhanden sind?
+			//Query ob Datensätze ohne SAP Nummer vorhanden sind
 			ResultSet results = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM bestellung WHERE SAP_BestID IS NULL;");
 			//Abfragen ob Datensatz leer ist?
 			if (!results.next()){
-				System.out.println("Result ist empty!!!!");
+				report.set("Keine neue Bestellung");
 				auftrag = null;
 			}else
 			{
 
-				//				System.out.println("BestellID:" + results.getString("BestId"));			//nur zum Testen
-
+				report.set("Neuer Auftrag:" + results.getString("BestId"));
+				
 				//Sonst Daten abfragen und in die instanz auftrag der Klasse Kundenauftrag schreiben	
 				results.last();
 
@@ -89,23 +91,25 @@ public class KundenauftragWEB {
 				{
 
 					auftrag.setDebitorennummer(kunde.getString("SAP_KId"));
+
+					//------------------------Abfragen der Produkte der Bestellung
+					ResultSet resultsprodukte = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM bestellprodukte WHERE BestId = " + bestellID + ";");
+					resultsprodukte.first();
+
+					do
+					{
+						auftrag.setPosition(resultsprodukte.getString("PId"), resultsprodukte.getString("Menge"));
+
+						resultsprodukte.next();
+
+					}while(!resultsprodukte.isAfterLast());
 				}
 
 			}
 
-//			auftrag.ausgabeKundenauftrag();
+			//			auftrag.ausgabeKundenauftrag();
 
-			//------------------------Abfragen der Produkte der Bestellung
-			ResultSet resultsprodukte = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM bestellprodukte WHERE BestId = " + bestellID + ";");
-			resultsprodukte.first();
 
-			do
-			{
-				auftrag.setPosition(resultsprodukte.getString("PId"), resultsprodukte.getString("Menge"));
-
-				resultsprodukte.next();
-
-			}while(!resultsprodukte.isAfterLast());
 
 			//-----------------Testausgabe von Position
 			/*				
@@ -138,10 +142,10 @@ public class KundenauftragWEB {
 
 	public void setSAPNr(int SAPNr, int WSNr)
 	{
-		
+
 		//SAP Nummer in Datenbank schreiben
 		String query1 = "UPDATE bestellung set SAP_BestId = '" + SAPNr + "' WHERE BestId = '" + WSNr +"';";
-//		String query1 = "UPDATE kunde set SAP_KId = " + sapNummer + " WHERE Email = \"" + kunde1.getEmail() +"\";";
+		//		String query1 = "UPDATE kunde set SAP_KId = " + sapNummer + " WHERE Email = \"" + kunde1.getEmail() +"\";";
 		//Query ausführen
 		try {
 			verbindung.getInstance().createStatement().execute(query1);
@@ -157,7 +161,7 @@ public class KundenauftragWEB {
 			//Instanz KundeSAP holen
 			auftragSAP = ablaufsteuerung.getInstanceKundenauftragSAP();
 		}
-		
+
 		try {
 			ResultSet auftragsnr = verbindung.getInstance().createStatement().executeQuery("SELECT SAP_BestId from bestellung Where Status !='Auftrag erhalten';");
 

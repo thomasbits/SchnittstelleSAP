@@ -1,35 +1,46 @@
 package SAPumbau;
 
+/**
+ * Klasse Ablaufsteuerung_Kundenauftrag, implementiert die Schnittstelle Runnable. Steuert die Synchronisierung der Kundendatenauftragsdaten zwischen dem SAP-System und der Webshop-DB
+ * @author Thomas
+ */
 public class Ablaufsteuerung_Kundenauftrag implements Runnable {
 
+	private Report report = new Report(this.getClass().toString());
 	private KundenauftragSAP auftragSAP;
 	private KundenauftragWEB auftragWEB;
 	private boolean threadRun = true;
-	private DatenbankVerbindung verbindung;
-	private java.sql.Statement stmt;
-	
+
+	/**
+	 * Konstruktor: erstellet Instanzen von KundenauftragWEB und KundenauftragSAP
+	 */
 	public Ablaufsteuerung_Kundenauftrag() {
 		// TODO Auto-generated constructor stub
-		auftragSAP = new KundenauftragSAP(this);
+//		auftragSAP = new KundenauftragSAP(this);
 		auftragWEB = new KundenauftragWEB(this);
 		
 	}
 
+	/**
+	 * 
+	 * @return Gibt die Instanz der Klasse KundenauftragSAP zurück.
+	 */
 	public KundenauftragSAP getInstanceKundenauftragSAP()
 	{
 		return auftragSAP;
 	}
-	
+	/**
+	 * 
+	 * @return Gibt die Instanz der Klasse KundenauftragWEB zurück.
+	 */
 	public KundenauftragWEB getInstanceKundenauftragWEB()
 	{
 		return auftragWEB;
 	}
 
-	public void setStatement(java.sql.Statement stmt2)
-	{
-		this.stmt = stmt2;
-	}
-	
+	/**
+	 * Stoppt den Thread. Setzt dazu die Variable threadRun auf false, was die while Schleife in der Runmethode nach dem aktuellen Durchlauf beendet.
+	 */
 	public void threadStop()
 	{
 		threadRun = false;
@@ -37,30 +48,24 @@ public class Ablaufsteuerung_Kundenauftrag implements Runnable {
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		
 				threadRun = true;
 
-				while(threadRun)
+				while(threadRun)			//Synchronisiere solange die Variable threadRun ture ist. Notwendig um zu verhinder das die Synchronisierung unvollständig beendet wird.
 				{
-					System.out.println("Thread Auftrag läuft!!!!");
-					//Datenbankverbindung aufbauen
-//					verbindung = new DatenbankVerbindung();
-//					//Statement von der Datenbank holen
-//					java.sql.Statement stmt = verbindung.getStatement();
-
-					for(int i = 0;i<15;i++)
+		
+					for(int i = 0;i<15;i++)		//Führe die Schritte zur Synchronisierung 15 mal aus, anschließend baue eine neue Verbindung zur WebDB auf
 					{
-						
-						auftragWEB.setStatement(stmt);
+
 						auftragWEB.abfrageNeueBestellungen();
 						
 						try {
 							Thread.sleep(5000);
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							report.set(e.toString());
 						}
 					}
+					auftragWEB.neueVerbindungDB();
 				}
 	}
 }
