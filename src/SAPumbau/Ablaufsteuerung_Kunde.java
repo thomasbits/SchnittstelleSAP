@@ -15,6 +15,7 @@ public class Ablaufsteuerung_Kunde implements Runnable{
 	 */
 	public Ablaufsteuerung_Kunde() {
 		kundeWEB = new KundeWEB(this);
+		kundeSAP = new KundeSAP(this);
 	}
 	/**
 	 * 
