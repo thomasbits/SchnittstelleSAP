@@ -10,11 +10,9 @@ import com.sap.conn.jco.JCoRepository;
 import com.sap.conn.jco.JCoTable;
 
 /**
- * 
- * @author Thomas and Robin
- *
+ * Die Klasse MaterialSAP beinhaltet Methoden zur Synchronisierung von Materialen/Produkten auf der SAP Seite.
+ * @author  Robin
  */
-
 public class MaterialSAP {
 
 	private Report report = new Report(this.getClass().toString());
@@ -25,11 +23,18 @@ public class MaterialSAP {
 	private ArrayList<String> materialliste = new ArrayList<String>();
 	private String itemNr;
 
+	/**
+	 * Konstruktor zum entgegennehmen der Instanz von Ablaufsteuerung_Material
+	 * @param ablaufsteuerung
+	 */
 	public MaterialSAP(Ablaufsteuerung_Material ablaufsteuerung) {
 		// TODO Auto-generated constructor stub
 		this.ablaufsteuerung = ablaufsteuerung;
 	}
 
+	/**
+	 * Holt eine Lister aller Materialien aus dem SAP System. Anhand eines Produktkataloges
+	 */
 	public void materialListeHolen()
 	{
 		if (materialWEB == null) {
@@ -38,7 +43,6 @@ public class MaterialSAP {
 		}
 
 		try {
-
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
 			JCoDestination dest = JCoDestinationManager.getDestination("");
 			//Repository holen
@@ -58,23 +62,20 @@ public class MaterialSAP {
 			funcCommit.execute(dest);
 			JCoContext.end(dest);
 
-			//Rückgabewert engegennehmen (SAP Kundennummer/Debitor)
-
-
 			//Materialliste holen:
 			materialliste.clear();
 			JCoTable table = func.getTableParameterList().getTable("ITEMS");
 			anzahlMat = table.getNumRows();
+			String materialtext = "Materialien: ";
 			for(int i = 0; i<anzahlMat; i++)
 			{
 				table.setRow(i);
 				materialliste.add(table.getString("MATERIAL"));
-				System.out.println("#########: " + table.getString("MATERIAL"));
+				materialtext = materialtext + table.getString("MATERIAL");
 			}
-
+			report.set(materialtext);
 			for(int i = 0; i<materialliste.size();i++)
 			{
-				//System.out.println(materialliste.get(i));
 				//############# Überprüfen ob Neuerungen überhautp vorhanden sind müsste hier eingefügt werden
 
 				itemNr = holeItemNummer(materialliste.get(i));
@@ -86,10 +87,7 @@ public class MaterialSAP {
 				if(rueck)
 				{
 					material.setPreisAlt(materialWEB.holeMaterialpreisAlt(material));
-					
-					
 					materialWEB.materialAktualisieren(material);
-
 				}
 				else
 				{
@@ -98,21 +96,22 @@ public class MaterialSAP {
 			}
 
 		} catch (JCoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
+			report.set(e.toString());
 		}
 	}
 
+	/**
+	 * Methode die das holen der einzelnen Informationen für ein Material aufteilt und auf weitere Methoden verteilt.
+	 * @param materialid
+	 * @return
+	 */
 	public Material holeMaterialSAP_Verteiler(String materialid)
 	{
 		if (materialWEB == null) {
 			//Instanz KundeSAP holen
 			materialWEB = ablaufsteuerung.getInstanceMaterialWEB();
 		}
-
 		material = new Material();
-
 
 		//PiD
 		material.setmID(materialid);	
@@ -127,18 +126,6 @@ public class MaterialSAP {
 
 		//Preis
 		holeMaterialSAP_Preise(materialid, material);
-
-		//Stand
-		//Fällt weg
-
-		//Verfuegbare Menge
-
-		//geloescht
-
-		//produktkategorie
-
-		//preis_alt
-
 
 		return material;
 	}
@@ -182,7 +169,7 @@ public class MaterialSAP {
 			material.setBeschreibung(beschreibung);
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			report.set(e.toString());
 		}
 
 
@@ -222,7 +209,6 @@ public class MaterialSAP {
 
 			if(rows != 0)
 			{
-				System.out.println("Rows: " + rows );
 				String ergeb = func2.getTableParameterList().getTable("LINES").getValue("LINE").toString();
 				String[] new1 = ergeb.split("\n");
 
@@ -279,17 +265,10 @@ public class MaterialSAP {
 					eigenschaften = eigenschaften + new1[i];
 
 				}
-
 				material.setEigenschaften(eigenschaften);
-
 			}
-			//System.out.println("-- \n"+ func2.getTableParameterList().getTable("LINES").getValue("LINE").toString() +"\n --");
-
-
-
 		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			report.set(e.toString());
 		}
 
 	}
@@ -357,9 +336,7 @@ public class MaterialSAP {
 
 		}catch (JCoException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			//System.out.println("Verbindung konnte nicht aufgebaut werden.");
-
+			report.set(e.toString());
 		}
 	}
 
@@ -404,16 +381,11 @@ public class MaterialSAP {
 			funcCommit.execute(dest);
 			JCoContext.end(dest);
 
-			//System.out.println(func1.getTableParameterList().getTable("I_CDHDR"));
 
-
-			//boolean ret = materialWEB.datensatzAbfrage("2");
-			//System.out.println("Ergebnis1: "+ String.valueOf(ret));
 
 
 		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			report.set(e.toString());
 		}
 
 	}
