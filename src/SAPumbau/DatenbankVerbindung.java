@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
 
 
@@ -16,8 +15,8 @@ import java.util.Properties;
  */
 public class DatenbankVerbindung {
 
-	public static Statement stmt;
-
+	private Report report = new Report(this.getClass().toString());
+	
 	private static Connection conn = null;
 
 	// Hostname
@@ -39,6 +38,9 @@ public class DatenbankVerbindung {
 //	private static String dbPassword = "Dagobert";				//Benedikt
 	private static String dbPassword = "test1234";				//lokal
 
+	/**
+	 * Konstruktor Lädt den Datenbanktreiber und erstellt eine Verbindung zur Datenbank
+	 */
 	public DatenbankVerbindung() {
 		try {
 			// Datenbanktreiber für ODBC Schnittstellen laden.
@@ -46,6 +48,7 @@ public class DatenbankVerbindung {
 			// nur einmal geladen werden.
 			Class.forName("com.mysql.jdbc.Driver");
 			
+			//Verbindungsdaten aus der Konfigurationsdatei lesen
 			getConnectionProperties();
 
 			// Verbindung zur ODBC-Datenbank 'sakila' herstellen.
@@ -54,16 +57,17 @@ public class DatenbankVerbindung {
 					+ dbPort + "/" + database + "?" + "user=" + dbUser + "&"
 					+ "password=" + dbPassword);
 
-			stmt = conn.createStatement();
 		} catch (ClassNotFoundException e) {
-			System.out.println("Treiber nicht gefunden");
-			System.out.println(e);
+			report.set("Treiber nicht gefunden");
+			report.set(e.toString());
 		} catch (SQLException e) {
-			System.out.println("Connect nicht moeglich");
-			System.out.println(e);
+			report.set("Connect nicht moeglich");
+			report.set(e.toString());
 		}
 	}
-	
+	/**
+	 * Liest die Verbindungs- und Zugangsdaten aus der Konfigurationsdatei
+	 */
 	private void getConnectionProperties()
 	{
 		File propertiesFile = new File("./resources/connection.properties");
@@ -72,7 +76,7 @@ public class DatenbankVerbindung {
 		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(propertiesFile))) {
 		  properties.load(bis);
 		} catch (Exception ex) {
-		  //
+		  report.set(ex.toString());
 		}
 
 		dbHost = properties.getProperty("dbHost");
@@ -84,29 +88,28 @@ public class DatenbankVerbindung {
 //		System.out.println(dbHost + dbPort + database + dbUser + dbPassword);			//Zum Testen
 		
 	}
-
-	public static Connection getInstance()
+	/**
+	 * Gibt eine Verbindung zur Datenbak zurück
+	 * @return
+	 */
+	public Connection getInstance()
 	{
 		if(conn == null)
 			new DatenbankVerbindung();
 		return conn;
 	}
-
-	public static Statement getStatement()
-	{
-		return stmt;
-	}
-
+	/**
+	 * Schließt die Datenbankverbindung
+	 */
 	public void schliesseVerbindung()
 	{
 		try 
 		{
-			stmt.close();
 			conn.close();
 		}
 		catch (SQLException sqle) 
 		{
-			System.out.println(sqle.toString());
+			report.set(sqle.toString());
 		}
 	}
 }

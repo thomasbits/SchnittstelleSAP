@@ -16,7 +16,7 @@ public class Ablaufsteuerung_Kundenauftrag implements Runnable {
 	 */
 	public Ablaufsteuerung_Kundenauftrag() {
 		// TODO Auto-generated constructor stub
-//		auftragSAP = new KundenauftragSAP(this);
+		auftragSAP = new KundenauftragSAP(this);
 		auftragWEB = new KundenauftragWEB(this);
 		
 	}

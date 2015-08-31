@@ -1,9 +1,7 @@
 package SAPumbau;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
 import com.sap.conn.jco.JCoContext;
 import com.sap.conn.jco.JCoDestination;
 import com.sap.conn.jco.JCoDestinationManager;
