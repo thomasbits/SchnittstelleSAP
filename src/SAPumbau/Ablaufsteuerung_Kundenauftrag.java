@@ -10,15 +10,16 @@ public class Ablaufsteuerung_Kundenauftrag implements Runnable {
 	private KundenauftragSAP auftragSAP;
 	private KundenauftragWEB auftragWEB;
 	private boolean threadRun = true;
+	private Programmeinstieg programm;
 
 	/**
 	 * Konstruktor: erstellet Instanzen von KundenauftragWEB und KundenauftragSAP
 	 */
-	public Ablaufsteuerung_Kundenauftrag() {
+	public Ablaufsteuerung_Kundenauftrag(Programmeinstieg einstieg) {
 		// TODO Auto-generated constructor stub
 		auftragSAP = new KundenauftragSAP(this);
 		auftragWEB = new KundenauftragWEB(this);
-		
+		this.programm = einstieg;
 	}
 
 	/**
@@ -66,6 +67,11 @@ public class Ablaufsteuerung_Kundenauftrag implements Runnable {
 						}
 					}
 					auftragWEB.neueVerbindungDB();
+					if(!programm.prüferSAPVerbindung())
+					{
+						System.out.println("Programm beendet!");
+						System.exit(1);			//Fehler 1: in die Doku: Keine Verbindung zum SAP-System
+					}
 				}
 	}
 }

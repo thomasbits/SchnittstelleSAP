@@ -22,7 +22,7 @@ public class VerbindungSAP {
 	/**
 	 * Stellt eine Verbindung mit dem SAP-System her
 	 */
-	public void connect() {
+	public boolean connect() {
 
 		//Logindaten setzen
 		des.setLoginData(); 
@@ -41,9 +41,11 @@ public class VerbindungSAP {
 		}
 		catch (JCoException e)
 		{
-			e.printStackTrace();
-			System.out.println("Keine Verbindung zum SAP System!");
+			report.set(e.toString());
+			System.out.println("\nKeine Verbindung zum SAP System!");
+			return false;
 		}
+		return true;
 	}
 }
 

@@ -2,6 +2,9 @@ package SAPumbau;
 
 import java.util.Scanner;
 
+import com.sap.conn.jco.JCoDestinationManager;
+import com.sap.conn.jco.JCoException;
+
 /**
  *	Programmstart: Startet beim Programmstart alle Threads(Kunde, Auftrag, Material) und nimmt Benutzereingaben entgegen, um die Synchronisierung zu starten, beenden sowie um das Programms zu beenden.
  * @author Thomas & Robin
@@ -26,9 +29,9 @@ public class Programmeinstieg{
 	
 	public Programmeinstieg() {
 
-		kunde = new Ablaufsteuerung_Kunde();
-		auftrag = new Ablaufsteuerung_Kundenauftrag();
-		material = new Ablaufsteuerung_Material();
+		kunde = new Ablaufsteuerung_Kunde(this);
+		auftrag = new Ablaufsteuerung_Kundenauftrag(this);
+		material = new Ablaufsteuerung_Material(this);
 
 		//Threads instanziieren
 		t_kunde = new  Thread(kunde);
@@ -64,7 +67,11 @@ public class Programmeinstieg{
 			case 1:
 				//Synchronisierung starten - wird automatisch gestartet beim Programmstart
 				//SAP Verbindung
-				verbindungSAP.connect();
+				if(!verbindungSAP.connect())
+				{
+					status = 3;
+				}else
+				{
 
 				//Abfragen je Thread ob dieser läuft. Wenn nicht wird er gestartet.
 				if(t_kunde.isAlive())
@@ -87,6 +94,7 @@ public class Programmeinstieg{
 				}else{
 					t_auftrag.start();
 					report.set("Thread Kundenauftrag gestartet");
+				}
 				}
 				break;
 
@@ -131,5 +139,22 @@ public class Programmeinstieg{
 		auftrag.threadStop();
 		kunde.threadStop();
 		material.threadStop();
+	}
+	
+	public boolean prüferSAPVerbindung()
+	{
+		//Testen der Verbindung
+				try
+				{
+					JCoDestinationManager.getDestination("").ping();
+					report.set("Verbindung mit dem SAP-System hergestellt");
+				}
+				catch (JCoException e)
+				{
+					report.set(e.toString());
+					System.out.println("\nKeine Verbindung zum SAP System!");
+					return false;
+				}
+				return true;
 	}
 }

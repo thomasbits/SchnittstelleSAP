@@ -10,13 +10,15 @@ public class Ablaufsteuerung_Material implements Runnable{
 	private MaterialSAP materialSAP;
 	private MaterialWEB materialWEB;
 	private boolean threadRun = true;
+	private Programmeinstieg programm;
 
 	/**
 	 * Konstruktor: erstellet eine Instanz von MateriaSAP und MaterialWEB
 	 */
-	public Ablaufsteuerung_Material() {
+	public Ablaufsteuerung_Material(Programmeinstieg einstieg) {
 		materialSAP = new MaterialSAP(this);
 		materialWEB = new MaterialWEB(this);
+		this.programm = einstieg;
 	}
 
 	/**
@@ -64,6 +66,11 @@ public class Ablaufsteuerung_Material implements Runnable{
 			}
 			//Verbindung zur Datenbank neu aufbauen
 			materialWEB.neueVerbindungDB();
+			if(!programm.prüferSAPVerbindung())
+			{
+				System.out.println("Programm beendet!");
+				System.exit(1);			//Fehler 1: in die Doku: Keine Verbindung zum SAP-System
+			}
 		}
 	}
 }

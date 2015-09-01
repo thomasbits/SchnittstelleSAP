@@ -9,13 +9,15 @@ public class Ablaufsteuerung_Kunde implements Runnable{
 	private KundeWEB kundeWEB;
 	private KundeSAP kundeSAP;
 	private boolean threadRun = true;
+	private Programmeinstieg programm;
 
 	/**
 	 * Konstruktor: erstellet eine Instanz von KundeWEB
 	 */
-	public Ablaufsteuerung_Kunde() {
+	public Ablaufsteuerung_Kunde(Programmeinstieg einstieg) {
 		kundeWEB = new KundeWEB(this);
 		kundeSAP = new KundeSAP(this);
+		this.programm = einstieg;
 	}
 	/**
 	 * 
@@ -80,7 +82,12 @@ public class Ablaufsteuerung_Kunde implements Runnable{
 					report.set(e.toString());
 				}
 			}
-			kundeWEB.neueVerbindungDB();		
+			kundeWEB.neueVerbindungDB();
+			if(!programm.prüferSAPVerbindung())
+			{
+				System.out.println("Programm beendet!");
+				System.exit(1);			//Fehler 1: in die Doku: Keine Verbindung zum SAP-System
+			}
 		}
 	
 
