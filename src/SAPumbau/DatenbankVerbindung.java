@@ -60,9 +60,11 @@ public class DatenbankVerbindung {
 		} catch (ClassNotFoundException e) {
 			report.set("Treiber nicht gefunden");
 			report.set(e.toString());
+			System.out.println("error");
 		} catch (SQLException e) {
 			report.set("Connect nicht moeglich");
 			report.set(e.toString());
+			System.out.println("error");
 		}
 	}
 	/**

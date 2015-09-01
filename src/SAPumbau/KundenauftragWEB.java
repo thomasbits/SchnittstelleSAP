@@ -31,7 +31,7 @@ public class KundenauftragWEB {
 	 */
 	public void neueVerbindungDB()
 	{
-		verbindung.schliesseVerbindung();
+		//verbindung.schliesseVerbindung();
 		verbindung = new DatenbankVerbindung();
 	}
 
