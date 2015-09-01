@@ -155,7 +155,9 @@ public class KundenauftragSAP {
 			JCoFunction funcCommit = dest.getRepository().getFunction("BAPI_TRANSACTION_COMMIT");
 			funcCommit.execute(dest);
 			JCoContext.end(dest);
-
+			
+			
+//			System.out.println(func.getTableParameterList().getTable("RETURN"));
 
 			report.set(func.getTableParameterList().getTable("RETURN").toString());
 			report.set("Kundenauftrag angelegt: " + func.getExportParameterList().getValue("SALESDOCUMENT"));

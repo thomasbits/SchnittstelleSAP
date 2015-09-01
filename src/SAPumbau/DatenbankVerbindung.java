@@ -103,7 +103,7 @@ public class DatenbankVerbindung {
 	 */
 	public void schliesseVerbindung()
 	{
-		try 
+		try
 		{
 			conn.close();
 		}

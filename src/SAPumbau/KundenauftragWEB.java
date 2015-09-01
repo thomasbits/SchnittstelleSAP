@@ -60,6 +60,7 @@ public class KundenauftragWEB {
 				//Sonst Daten abfragen und in die instanz auftrag der Klasse Kundenauftrag schreiben	
 				results.last();
 
+				auftrag = new Kundenauftrag();
 
 				auftrag.setDebitorennummer(results.getString("KId"));
 				auftrag.setBestellNRWEB(results.getString("BestId"));
