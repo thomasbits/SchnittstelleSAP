@@ -199,8 +199,8 @@ public class MaterialSAP {
 			func2.getImportParameterList().setValue("CATALOG", "K01");
 			func2.getImportParameterList().setValue("VARIANT", "01");
 			func2.getImportParameterList().setValue("AREA", "1");
-			//func2.getImportParameterList().setValue("ITEM", itemNr);
-			func2.getImportParameterList().setValue("ITEM", 5);
+			func2.getImportParameterList().setValue("ITEM", itemNr);
+			
 			
 			//Daten an das SAP System übergeben
 			JCoContext.begin(dest);
@@ -212,9 +212,9 @@ public class MaterialSAP {
 			//Auslesen der Materialbeschreibung des Produnktkataloges
 
 			
-			;
+		
 			JCoTable table1 = func2.getTableParameterList().getTable("LINES");
-			//System.out.println(func2.getTableParameterList().getTable("LINES"));
+			
 			
 
 			if(table1.getNumRows() != 0)
@@ -226,10 +226,7 @@ public class MaterialSAP {
 					ergeb = ergeb + table1.getValue("LINE").toString();
 					table1.nextRow();
 				}
-				System.out.println("Ergebnis:" + ergeb);
-				
-				
-				
+								
 				String[] new1 = ergeb.split("\n");
 
 
