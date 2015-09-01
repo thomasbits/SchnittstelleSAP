@@ -8,6 +8,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import com.mysql.jdbc.Statement;
+
 
 /**
  *	Stellt die Methoden zur Verbindung zur Webshopdatenbank bereit.
@@ -64,7 +66,8 @@ public class DatenbankVerbindung {
 		} catch (SQLException e) {
 			report.set("Connect nicht moeglich");
 			report.set(e.toString());
-			System.out.println("error");
+			System.out.println("Datenbankenverbindung verloren. Das Programm wird beendet. Bitte neu starten!");
+			System.exit(0);
 		}
 	}
 	/**
@@ -114,4 +117,19 @@ public class DatenbankVerbindung {
 			report.set(sqle.toString());
 		}
 	}
+	
+	public void isDbConnected() {
+	    final String CHECK_SQL_QUERY = "SELECT 1";
+	    boolean isConnected = false;
+	    try {
+	        Statement statement = (Statement) conn.prepareStatement(CHECK_SQL_QUERY);
+	        isConnected = true;
+	    } catch (SQLException | NullPointerException e) {
+	        // handle SQL error here!
+	    	System.out.println("\nDatenbankverbindung verloren! Das Programm wurde beendet. Bitte neustarten!");
+	    	System.exit(0);
+	    }
+	}
+	
+	
 }
