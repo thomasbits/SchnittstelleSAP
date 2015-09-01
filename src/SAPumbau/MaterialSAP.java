@@ -176,7 +176,7 @@ public class MaterialSAP {
 			material.setBeschreibung(beschreibung);
 
 		} catch (Exception e) {
-			report.set(e.toString());
+			report.set("holeMaterialSAP_Beschreibung_Bezeichnung: " + e.toString());
 		}
 
 
@@ -230,7 +230,7 @@ public class MaterialSAP {
 				String[] new1 = ergeb.split("\n");
 
 
-				int laenge = (new1.length -1);
+				int laenge = (new1.length-1);
 
 				//Material des tages
 				if(laenge>=0)
@@ -274,17 +274,18 @@ public class MaterialSAP {
 				String eigenschaften = "";
 
 				
-				for(int i = 6; i<new1.length ;i++) {
+				for(int i = 6; i<(new1.length);i++) {
 					if(i > 6)
 					{
 						eigenschaften = eigenschaften + new1[i] + ";";
 					}
 				}
-				eigenschaften = eigenschaften.substring(0, eigenschaften.length()-1);
+				eigenschaften = eigenschaften.substring(0, eigenschaften.length());
 				material.setEigenschaften(eigenschaften);
 			}
 		} catch (Exception e) {
-			report.set(e.toString());
+			report.set("holeMaterialSAP_PK: " + e.toString());
+			e.printStackTrace();
 		}
 
 	}
