@@ -12,7 +12,7 @@ import com.sap.conn.jco.JCoException;
 public class Programmeinstieg{
 
 	private Report report = new Report(this.getClass().toString()); //Report instanziieren (Logger)
-	public static int status = 1;	//Status des Programms
+	public static int status = 1;	//Status des Programms, initialisiert mit "1", damit die Synchronisierung ohne Benutzereingaben nach Programmstart beginnt.
 	private Ablaufsteuerung_Kunde kunde;
 	private Ablaufsteuerung_Kundenauftrag auftrag;
 	private Ablaufsteuerung_Material material;
@@ -23,7 +23,7 @@ public class Programmeinstieg{
 	private static Programmeinstieg einstieg;
 
 	/**
-	 * Konstruktor Programmeinstieg bildes Instanzen der Klassen(Ablaufsteuerung_Kunde, Ablaufsteuerung_Kundenauftrag, Ablaufsteuerung_Material)
+	 * Konstruktor Programmeinstieg bildet Instanzen der Klassen(Ablaufsteuerung_Kunde, Ablaufsteuerung_Kundenauftrag, Ablaufsteuerung_Material)
 	 * Erstellt Threads der Klassen. Erstellt eine Instanz der Klasse (Verbindung SAP)
 	 */
 	

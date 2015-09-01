@@ -159,7 +159,7 @@ public class KundenauftragSAP {
 			
 //			System.out.println(func.getTableParameterList().getTable("RETURN"));
 
-			report.set(func.getTableParameterList().getTable("RETURN").toString());
+//			report.set(func.getTableParameterList().getTable("RETURN").toString());
 			report.set("Kundenauftrag angelegt: " + func.getExportParameterList().getValue("SALESDOCUMENT"));
 
 			try{
