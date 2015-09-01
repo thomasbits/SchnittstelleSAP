@@ -164,8 +164,15 @@ public class MaterialSAP {
 			//Material  Grunddatentext / Materiallongtext
 			table = func.getTableParameterList().getTable("MATERIALLONGTEXT");
 
-			String beschreibung = table.getString("TEXT_LINE");
-
+			int anzahlSpalten = table.getNumRows();
+			String beschreibung = "";
+			for (int i = 0;i<anzahlSpalten; i++)
+			{
+				
+				beschreibung = beschreibung + table.getString("TEXT_LINE");
+				table.nextRow();
+			}
+			
 			material.setBeschreibung(beschreibung);
 
 		} catch (Exception e) {
@@ -192,8 +199,9 @@ public class MaterialSAP {
 			func2.getImportParameterList().setValue("CATALOG", "K01");
 			func2.getImportParameterList().setValue("VARIANT", "01");
 			func2.getImportParameterList().setValue("AREA", "1");
-			func2.getImportParameterList().setValue("ITEM", itemNr);
-
+			//func2.getImportParameterList().setValue("ITEM", itemNr);
+			func2.getImportParameterList().setValue("ITEM", 5);
+			
 			//Daten an das SAP System übergeben
 			JCoContext.begin(dest);
 			func2.execute(dest);
@@ -204,12 +212,24 @@ public class MaterialSAP {
 			//Auslesen der Materialbeschreibung des Produnktkataloges
 
 			
-			int rows = func2.getTableParameterList().getTable("LINES").getNumRows();
+			;
+			JCoTable table1 = func2.getTableParameterList().getTable("LINES");
+			//System.out.println(func2.getTableParameterList().getTable("LINES"));
 			
 
-			if(rows != 0)
+			if(table1.getNumRows() != 0)
 			{
-				String ergeb = func2.getTableParameterList().getTable("LINES").getValue("LINE").toString();
+				String ergeb = "";
+				table1.firstRow();
+				for(int i = 0; i<table1.getNumRows();i++ )
+				{
+					ergeb = ergeb + table1.getValue("LINE").toString();
+					table1.nextRow();
+				}
+				System.out.println("Ergebnis:" + ergeb);
+				
+				
+				
 				String[] new1 = ergeb.split("\n");
 
 
@@ -256,15 +276,14 @@ public class MaterialSAP {
 				//Eigenschaften
 				String eigenschaften = "";
 
-				for(int i = 6; i<new1.length;i++) {
+				
+				for(int i = 6; i<new1.length ;i++) {
 					if(i > 6)
 					{
-						eigenschaften = eigenschaften + ", ";
+						eigenschaften = eigenschaften + new1[i] + ";";
 					}
-
-					eigenschaften = eigenschaften + new1[i];
-
 				}
+				eigenschaften = eigenschaften.substring(0, eigenschaften.length()-1);
 				material.setEigenschaften(eigenschaften);
 			}
 		} catch (Exception e) {
