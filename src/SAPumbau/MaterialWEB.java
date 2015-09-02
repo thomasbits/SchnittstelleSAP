@@ -45,6 +45,7 @@ public class MaterialWEB {
 		//Query ob Datensätze ohne SAP Nummer vorhanden sind?
 		ResultSet results;
 		try {
+			verbindung.isDbConnected();
 			results = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM produkte WHERE PId = '"+id+"';");
 
 			//Abfragen ob Datensatz leer ist
@@ -69,9 +70,10 @@ public class MaterialWEB {
 	public void materialAktualisieren(Material material)
 	{
 		
-		String query1 = "UPDATE `produkte` SET `Artikel des Tages`="+material.getAdt()+",`Beschreibung`="+material.getBeschreibung()+",`bauart`="+material.getBauart()+",`Preis`="+material.getPreis()+",`Stand`=null,`Farbe`="+material.getFarbe()+",`Bezeichnung`="+material.getBezeichnung()+",`Verfuegbare Menge`="+material.getvMenge()+",`preis_alt`="+material.getPreisAlt()+",`groesse`="+material.getGroesse()+",`bauvariante`="+material.getBauvariante()+",`marke`="+material.getMarke()+",`Eigenschaften`="+material.getEigenschaften()+" WHERE PId = "+material.getmID()+";";
+		String query1 = "UPDATE `produkte` SET `Artikel des Tages`="+material.getAdt()+",`Beschreibung`="+material.getBeschreibung()+",`bauart`="+material.getBauart()+",`Preis`="+material.getPreis()+",`Farbe`="+material.getFarbe()+",`Bezeichnung`="+material.getBezeichnung()+",`Verfuegbare Menge`="+material.getvMenge()+",`preis_alt`="+material.getPreisAlt()+",`groesse`="+material.getGroesse()+",`bauvariante`="+material.getBauvariante()+",`marke`="+material.getMarke()+",`Eigenschaften`="+material.getEigenschaften()+" WHERE PId = "+material.getmID()+";";
 		//Query ausführen
 		try {
+			verbindung.isDbConnected();
 			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
 			report.set(e.toString());
@@ -87,6 +89,7 @@ public class MaterialWEB {
 		String query1 = "INSERT INTO produkte(`PId`, `Artikel des Tages`, `Beschreibung`, `bauart`, `Preis`, `Stand`, `Farbe`, `Bezeichnung`, `Verfuegbare Menge`, `geloescht`, `produktkategorie`, `preis_alt`, `groesse`, `bauvariante`, `marke`, `Eigenschaften`) VALUES ("+material.getmID()+","+material.getAdt()+","+material.getBeschreibung()+","+material.getBauart()+","+material.getPreis()+",null,"+material.getFarbe()+","+material.getBezeichnung()+","+material.getvMenge()+",'nein',1,NULL,"+material.getGroesse()+","+material.getBauvariante()+","+material.getMarke()+","+material.getEigenschaften()+");";
 		//Query ausführen
 		try {
+			verbindung.isDbConnected();
 			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -103,6 +106,7 @@ public class MaterialWEB {
 	{
 		float preisAlt = 0;
 		try {
+			verbindung.isDbConnected();
 			//Query ob Datensätze ohne SAP Nummer vorhanden sind?
 			ResultSet results = verbindung.getInstance().createStatement().executeQuery("SELECT Preis FROM produkte WHERE PId = "+material.getmID()+";");
 			//Abfragen ob Datensatz leer ist

@@ -47,6 +47,7 @@ public class KundenauftragWEB {
 		}
 
 		try {
+			verbindung.isDbConnected();
 			//Query ob Datensätze ohne SAP Nummer vorhanden sind
 			ResultSet results = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM bestellung WHERE SAP_BestID IS NULL;");
 			//Abfragen ob Datensatz leer ist
@@ -82,7 +83,7 @@ public class KundenauftragWEB {
 				bestellID = results.getString("BestId");
 
 				//Ermitteln der SAP-Kundennummer des Auftraggebers
-
+				verbindung.isDbConnected();
 				ResultSet kunde = verbindung.getInstance().createStatement().executeQuery("SELECT SAP_KId from kunde Where KId = " + SAPNr + ";");
 
 				//Abfragen ob Datensatz leer ist
@@ -131,6 +132,7 @@ public class KundenauftragWEB {
 
 		//Query ausführen
 		try {
+			verbindung.isDbConnected();
 			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
 			report.set(e.toString());
@@ -148,6 +150,7 @@ public class KundenauftragWEB {
 		}
 
 		try {
+			verbindung.isDbConnected();
 			ResultSet auftragsnr = verbindung.getInstance().createStatement().executeQuery("SELECT SAP_BestId from bestellung Where Status !='Auftrag abgeschlossen';");
 
 			while(auftragsnr.next())
@@ -174,6 +177,7 @@ public class KundenauftragWEB {
 
 		//Query ausführen
 		try {
+			verbindung.isDbConnected();
 			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
 			report.set(e.toString());

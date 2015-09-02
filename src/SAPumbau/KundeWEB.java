@@ -51,6 +51,7 @@ public class KundeWEB {
 		}
 
 		try {
+			verbindung.isDbConnected();
 			//Query ob Datensätze ohne SAP Nummer vorhanden sind
 			ResultSet results = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM kunde WHERE SAP_KId IS NULL;");
 			//Abfragen ob Datensatz leer ist
@@ -105,6 +106,7 @@ public class KundeWEB {
 		}
 		kunde1 = new Kunde();
 		try {
+			verbindung.isDbConnected();
 			//Query ob Datensätze ohne SAP Nummer vorhanden sind?
 			ResultSet results = verbindung.getInstance().createStatement().executeQuery("SELECT SAP_KId FROM kunde WHERE status = 'l' AND geloescht = 'nein' AND SAP_KId IS NOT NULL;");
 			//Abfragen ob Datensatz leer ist?
@@ -137,6 +139,7 @@ public class KundeWEB {
 		}
 
 		try {
+			verbindung.isDbConnected();
 			//Query ob Datensätze mit Änderungen vorhanden sind
 			ResultSet results = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM kunde WHERE status = 'a' ;");
 			//Abfragen ob Datensatz leer ist?
@@ -186,6 +189,7 @@ public class KundeWEB {
 
 		//Query ausführen
 		try {
+			verbindung.isDbConnected();
 			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
 			report.set(e.toString());
@@ -204,6 +208,7 @@ public class KundeWEB {
 		
 		//Query ausführen
 		try {
+			verbindung.isDbConnected();
 			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
 			report.set(e.toString());
@@ -221,6 +226,7 @@ public class KundeWEB {
 
 		//Query ausführen
 		try {
+			verbindung.isDbConnected();
 			verbindung.getInstance().createStatement().execute(query1);
 		} catch (SQLException e) {
 			report.set(e.toString());
