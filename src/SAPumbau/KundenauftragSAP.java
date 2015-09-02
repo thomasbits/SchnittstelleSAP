@@ -146,20 +146,17 @@ public class KundenauftragSAP {
 			//			func.getImportParameterList().setValue("TESTRUN", "X");		//"X" zum Testen sonst "" oder auskommentieren
 
 
-
-
-
 			//Funktion ausführen und commiten
 			JCoContext.begin(dest);
 			func.execute(dest);
 			JCoFunction funcCommit = dest.getRepository().getFunction("BAPI_TRANSACTION_COMMIT");
 			funcCommit.execute(dest);
 			JCoContext.end(dest);
-			
-			
-//			System.out.println(func.getTableParameterList().getTable("RETURN"));
 
-//			report.set(func.getTableParameterList().getTable("RETURN").toString());
+
+			//			System.out.println(func.getTableParameterList().getTable("RETURN"));
+
+			//			report.set(func.getTableParameterList().getTable("RETURN").toString());
 			report.set("Kundenauftrag angelegt: " + func.getExportParameterList().getValue("SALESDOCUMENT"));
 
 			try{
