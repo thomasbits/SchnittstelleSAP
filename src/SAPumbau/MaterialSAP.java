@@ -32,7 +32,7 @@ public class MaterialSAP {
 	}
 
 	/**
-	 * Holt eine Lister aller Materialien aus dem SAP System. Anhand eines Produktkataloges
+	 * Holt eine Liste aller Materialien aus dem SAP System. Anhand eines Produktkataloges.
 	 */
 	public void materialListeHolen()
 	{
