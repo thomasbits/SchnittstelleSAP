@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.JTable;
 /**
  * Die Klasse MaterialWEB beinhaltet Methoden zur Synchronisierung von Materialen/Produkten auf der WEBSHOP Datenbank Seite.
  * @author Robin
