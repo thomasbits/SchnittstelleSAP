@@ -29,7 +29,7 @@ public class MaterialWEB {
 	 */
 	public void neueVerbindungDB()
 	{
-		verbindung.schliesseVerbindung();
+//		verbindung.schliesseVerbindung();
 		verbindung = new DatenbankVerbindung();
 	}
 

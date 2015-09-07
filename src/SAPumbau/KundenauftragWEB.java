@@ -56,10 +56,12 @@ public class KundenauftragWEB {
 			}else
 			{
 
-				report.set("Neuer Auftrag:" + results.getString("BestId"));
+				
 
 				//Sonst Daten abfragen und in die instanz auftrag der Klasse Kundenauftrag schreiben	
 				results.last();
+				
+				report.set("Neuer Auftrag:" + results.getString("BestId"));
 
 				auftrag = new Kundenauftrag();
 

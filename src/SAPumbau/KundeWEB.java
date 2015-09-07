@@ -35,7 +35,7 @@ public class KundeWEB {
 	 */
 	public void neueVerbindungDB()
 	{
-		verbindung.schliesseVerbindung();
+//		verbindung.schliesseVerbindung();
 		verbindung = new DatenbankVerbindung();
 	}
 
