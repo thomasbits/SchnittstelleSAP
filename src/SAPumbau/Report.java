@@ -41,7 +41,7 @@ public class Report {
 		Date currentTime = new Date();
 
 		try {
-			pWriter = new PrintWriter(new BufferedWriter(new FileWriter("Log_SAP_Schnittstelle.txt",true))); //Dateiauswählen
+			pWriter = new PrintWriter(new BufferedWriter(new FileWriter("LOG_SAP_Schnittstelle.txt",true))); //Dateiauswählen
 			pWriter.println(formatter.format(currentTime) + "("+ klasse +"): " + text);	//In Datei schreiben
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
