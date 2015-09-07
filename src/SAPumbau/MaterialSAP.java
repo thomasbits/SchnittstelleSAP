@@ -28,7 +28,6 @@ public class MaterialSAP {
 	 * @param ablaufsteuerung
 	 */
 	public MaterialSAP(Ablaufsteuerung_Material ablaufsteuerung) {
-		// TODO Auto-generated constructor stub
 		this.ablaufsteuerung = ablaufsteuerung;
 	}
 
@@ -93,8 +92,9 @@ public class MaterialSAP {
 				{
 					materialWEB.materialAnlegen(material);
 				}
+				//Überflüssige Datensätze im Webshop ermitteln
+				materialWEB.DatenbankSortieren(materialliste);
 			}
-
 		} catch (JCoException e) {
 			report.set(e.toString());
 		}
@@ -129,7 +129,12 @@ public class MaterialSAP {
 
 		return material;
 	}
-
+	
+	/**
+	 * Methode die die Materialbeschreibung und Bezeichnung aus dem SAP System holt
+	 * @param materialid Übergabe der Material ID
+	 * @param material Übergabe der Getter/Setter Klasse material
+	 */
 	public void holeMaterialSAP_Beschreibung_Bezeichnung(String materialid, Material material)
 	{
 
@@ -181,7 +186,12 @@ public class MaterialSAP {
 
 
 	}
-
+	
+	/**
+	 * Methode die Eigenschaften aus den Texten des Produktkataloges je Material/Produkt holt
+	 * @param materialid Übergabe der Material ID
+	 * @param material Übergabe der Getter/Setter Klasse material
+	 */
 	public void holeMaterialSAP_PK(String materialid, Material material)
 	{
 		//Hier wird folgendes aus dem SAP System geholt:
@@ -210,13 +220,8 @@ public class MaterialSAP {
 			JCoContext.end(dest);			
 
 			//Auslesen der Materialbeschreibung des Produnktkataloges
-
-			
-		
 			JCoTable table1 = func2.getTableParameterList().getTable("LINES");
 			
-			
-
 			if(table1.getNumRows() != 0)
 			{
 				String ergeb = "";
@@ -287,9 +292,14 @@ public class MaterialSAP {
 			report.set("holeMaterialSAP_PK: " + e.toString());
 			e.printStackTrace();
 		}
-
 	}
 
+	/**
+	 * Methode zum holen der ITEM Nummer aus dem Produktkatalog (ITEM Nummer bezieht sich auf die Reihenfolge im Produktkatalog)
+	 * Wird benötigt um spezielle Zeilen aus der Rückgabe aus dem Produktkatalog zu verwenden
+	 * @param materialid Übergabe der Materialid
+	 * @return Gibt die ITEM Nummer zurück
+	 */
 	public String holeItemNummer(String materialid)
 	{
 		String ret = null;
@@ -303,14 +313,11 @@ public class MaterialSAP {
 		return ret;
 	}
 
-
-
-
-
-
-
-
-
+	/**
+	 * Methode zum holen der Preise aus dem SAP System über den Produktkatalog
+	 * @param materialid Übergabe der Material ID
+	 * @param material Übergabe der Getter/Setter Klasse material
+	 */
 	public void holeMaterialSAP_Preise(String materialid, Material material)
 	{
 
@@ -347,64 +354,8 @@ public class MaterialSAP {
 			}
 
 			material.setPreis(preis.get(Integer.valueOf(itemNr)-1));
-
-
-
-
 		}catch (JCoException e) {
-			// TODO Auto-generated catch block
 			report.set(e.toString());
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-	public void neuAenderung()
-	{
-		try {
-			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
-			JCoDestination dest = JCoDestinationManager.getDestination("");
-			//Repository holen
-			JCoRepository repo = dest.getRepository();
-			//BAPI auswählen
-
-			JCoFunction func1 = repo.getFunction("CHANGEDOCUMENT_READ_HEADERS");
-
-			func1.getImportParameterList().setValue("OBJECTCLASS","MATERIAL");
-			func1.getImportParameterList().setValue("OBJECTID","M*");
-			func1.getImportParameterList().setValue("USERNAME","GBI-613");
-
-			/*
-			JCoStructure referenceData = func1.getImportParameterList().getStructure("OBJECTCLASS");
-			referenceData.setValue("OBJECTCLAS", "MATERIAL");
-			JCoStructure referenceData1 = func1.getImportParameterList().getStructure("OBJECTID");
-			referenceData1.setValue("OBJECTID", "M*");
-			JCoStructure referenceData2 = func1.getImportParameterList().getStructure("USERNAME");
-			referenceData2.setValue("USERNAME", "");
-			 */
-			JCoContext.begin(dest);
-			func1.execute(dest);
-
-			JCoFunction funcCommit = dest.getRepository().getFunction("BAPI_TRANSACTION_COMMIT");
-
-
-			funcCommit.execute(dest);
-			JCoContext.end(dest);
-
-
-
-
-		} catch (Exception e) {
-			report.set(e.toString());
-		}
-
-	}
-
 }

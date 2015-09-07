@@ -2,6 +2,9 @@ package SAPumbau;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.swing.JTable;
 /**
  * Die Klasse MaterialWEB beinhaltet Methoden zur Synchronisierung von Materialen/Produkten auf der WEBSHOP Datenbank Seite.
  * @author Robin
@@ -29,7 +32,7 @@ public class MaterialWEB {
 	 */
 	public void neueVerbindungDB()
 	{
-//		verbindung.schliesseVerbindung();
+		//		verbindung.schliesseVerbindung();
 		verbindung = new DatenbankVerbindung();
 	}
 
@@ -62,6 +65,75 @@ public class MaterialWEB {
 		}
 		return ret;
 	}
+	/**
+	 * Methode die zwei Strings im Detial vergleicht
+	 * @param a Übergabe String1
+	 * @param b Übergabe String2
+	 * @return Gibt true oder false zurück ob gleich oder ungleich
+	 */
+	public boolean StringVergleich(String a, String b)
+	{
+		boolean ergebnis = true;
+		char [] achar;
+		char [] bchar;
+
+		achar=a.toCharArray();
+		bchar=b.toCharArray();
+
+		if(achar.length != bchar.length)
+		{
+			ergebnis = false;
+		}else
+		{
+			for(int i = 0;i<achar.length;i++)
+			{
+				if(!(achar[i] == bchar[i]))
+				{
+					ergebnis = false;
+				}
+			}
+		}
+		return ergebnis;
+	}
+
+	/**
+	 * Methode die in der Webshopdatenbank unter Produkte das attribut geloescht auf ja setzt wenn diese im SAP System nicht vorhanden sind
+	 * @param materialliste Übergabe der Liste der Materialien aus dem SAP System
+	 */
+	public void DatenbankSortieren(ArrayList<String> materialliste)
+	{
+		try {
+			verbindung.isDbConnected();
+			//Abfragen aller Produkte
+			ResultSet results = verbindung.getInstance().createStatement().executeQuery("SELECT PId FROM `produkte` WHERE 1 AND geloescht = 'nein';");
+
+			results.first();
+			while(! results.isAfterLast()) // as long as valid data is in the result set
+			{
+
+				boolean stat = false;
+				for(int i = 0; i < materialliste.size();i++)
+				{
+					if(StringVergleich(results.getString("PId"),materialliste.get(i)))
+					{
+						stat = true;
+						i = materialliste.size()+5;
+					}
+				}
+				if(!stat)
+				{
+					verbindung.isDbConnected();
+					report.set("Material in der Datenbank zum löschen makiert." + results.getString("PId"));
+					String query = "UPDATE `produkte` SET geloescht = 'ja' WHERE PId= '"+results.getString("PId")+"';";
+					verbindung.getInstance().createStatement().execute(query);
+
+				}
+				results.next();
+			}
+		} catch (SQLException e) {
+			report.set(e.toString());
+		}
+	}
 
 	/**
 	 * Aktualisiert ein Material in der Datenbank ausgehend von der übergebenen Materialinstanz
@@ -69,7 +141,6 @@ public class MaterialWEB {
 	 */
 	public void materialAktualisieren(Material material)
 	{
-		
 		String query1 = "UPDATE `produkte` SET `Artikel des Tages`="+material.getAdt()+",`Beschreibung`="+material.getBeschreibung()+",`bauart`="+material.getBauart()+",`Preis`="+material.getPreis()+",`Farbe`="+material.getFarbe()+",`Bezeichnung`="+material.getBezeichnung()+",`Verfuegbare Menge`="+material.getvMenge()+",`preis_alt`="+material.getPreisAlt()+",`groesse`="+material.getGroesse()+",`bauvariante`="+material.getBauvariante()+",`marke`="+material.getMarke()+",`Eigenschaften`="+material.getEigenschaften()+" WHERE PId = "+material.getmID()+";";
 		//Query ausführen
 		try {
