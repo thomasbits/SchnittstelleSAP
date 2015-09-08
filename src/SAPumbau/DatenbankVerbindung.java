@@ -22,23 +22,15 @@ public class DatenbankVerbindung {
 	private static Connection conn = null;
 
 	// Hostname
-	private static String dbHost = "127.0.0.1";
-
+	private static String dbHost;
 	// Port -- Standard: 3306
-	private static String dbPort = "3306";
-
+	private static String dbPort;
 	// Datenbankname
-//	private static String database = "Webshop";					//Server
-	private static String database = "webshop";					//Benedikt
-
+	private static String database;
 	// Datenbankuser
-//	private static String dbUser = "webshop";					//Server
-	private static String dbUser = "root";						//Benedikt
-
+	private static String dbUser;
 	// Datenbankpasswort
-//	private static String dbPassword = "TestAcc123";			//Server
-//	private static String dbPassword = "Dagobert";				//Benedikt
-	private static String dbPassword = "test1234";				//lokal
+	private static String dbPassword;
 
 	/**
 	 * Konstruktor Lädt den Datenbanktreiber und erstellt eine Verbindung zur Datenbank
@@ -70,6 +62,7 @@ public class DatenbankVerbindung {
 			System.exit(0);
 		}
 	}
+	
 	/**
 	 * Liest die Verbindungs- und Zugangsdaten aus der Konfigurationsdatei
 	 */
@@ -93,6 +86,7 @@ public class DatenbankVerbindung {
 //		System.out.println(dbHost + dbPort + database + dbUser + dbPassword);			//Zum Testen
 		
 	}
+	
 	/**
 	 * Gibt eine Verbindung zur Datenbak zurück
 	 * @return
@@ -103,6 +97,7 @@ public class DatenbankVerbindung {
 			new DatenbankVerbindung();
 		return conn;
 	}
+	
 	/**
 	 * Schließt die Datenbankverbindung
 	 */
@@ -117,7 +112,10 @@ public class DatenbankVerbindung {
 			report.set(sqle.toString());
 		}
 	}
-	
+	/**
+	 * Mit dieser Methode kann gestestet werden ob die Verbindung zur Datenbank noch steht
+	 * Wenn keine Verbindung zur Datenbank besteht wird das Programm beendet
+	 */
 	public void isDbConnected() {
 	    final String CHECK_SQL_QUERY = "SELECT 1";
 	    boolean isConnected = false;
@@ -130,6 +128,4 @@ public class DatenbankVerbindung {
 	    	System.exit(0);
 	    }
 	}
-	
-	
 }
