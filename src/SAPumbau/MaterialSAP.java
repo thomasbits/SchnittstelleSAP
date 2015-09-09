@@ -80,7 +80,7 @@ public class MaterialSAP {
 				itemNr = holeItemNummer(materialliste.get(i));
 				//Daten aus SAP System holen und in Class.Material schreiben
 				holeMaterialSAP_Verteiler(materialliste.get(i));
-
+				
 				boolean rueck = materialWEB.datensatzAbfrage(materialliste.get(i));
 
 				if(rueck)
@@ -107,6 +107,7 @@ public class MaterialSAP {
 	 */
 	public Material holeMaterialSAP_Verteiler(String materialid)
 	{
+		
 		if (materialWEB == null) {
 			//Instanz KundeSAP holen
 			materialWEB = ablaufsteuerung.getInstanceMaterialWEB();
@@ -196,7 +197,7 @@ public class MaterialSAP {
 	{
 		//Hier wird folgendes aus dem SAP System geholt:
 		//Artikel des Tages, bauart, Farbe, grosse, bauvariante, marke, eigenschaften
-
+		itemNr = holeItemNummer(materialid);
 		try {
 
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
@@ -307,7 +308,14 @@ public class MaterialSAP {
 		{
 			if(materialliste.get(i).equals(materialid))
 			{
-				ret = String.valueOf(i+1);
+				if((i +1)>5 )
+				{
+					ret = String.valueOf(i+2);
+				}else
+				{
+					ret = String.valueOf(i+1);
+				}
+				
 			}
 		}
 		return ret;
