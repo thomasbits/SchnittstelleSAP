@@ -3,7 +3,6 @@ package SAPumbau;
 import com.sap.conn.jco.JCoDestinationManager;
 import com.sap.conn.jco.JCoException;
 
-
 /**
  * Stellt die Methoden bereit, um eine Verbindung zum SAP-System aufzubauen
  * @author Thomas und Robin
@@ -19,6 +18,7 @@ public class VerbindungSAP {
 	public VerbindungSAP() {
 		des = new Provider();
 	}
+	
 	/**
 	 * Stellt eine Verbindung mit dem SAP-System her
 	 */

@@ -11,7 +11,6 @@ import com.sap.conn.jco.JCoRepository;
 import com.sap.conn.jco.JCoStructure;
 import com.sap.conn.jco.JCoTable;
 
-
 /**
  *	Stellt die benötigten Methoden bereit, um einen Kundenauftrag im SAP-System anzulegen und den aktuellen Status abzufragen
  * @author Thomas
@@ -136,10 +135,6 @@ public class KundenauftragSAP {
 				shedules.setValue("ITM_NUMBER", i);							//Verkaufsbelegposition
 				shedules.setValue("SCHED_LINE", "1");						//Einteilungsnummer
 				shedules.setValue("REQ_QTY", e.getValue());					//Auftragsmenge des Kunden in VME
-
-				//				System.out.println(e.getKey());
-				//				System.out.println(e.getValue());
-
 				i++;
 			}
 
@@ -156,7 +151,7 @@ public class KundenauftragSAP {
 
 			//			System.out.println(func.getTableParameterList().getTable("RETURN"));
 
-						report.set(func.getTableParameterList().getTable("RETURN").toString());
+			report.set(func.getTableParameterList().getTable("RETURN").toString());
 			report.set("Kundenauftrag angelegt: " + func.getExportParameterList().getValue("SALESDOCUMENT"));
 
 			try{
@@ -172,6 +167,7 @@ public class KundenauftragSAP {
 		}
 
 	}
+
 	/**
 	 * Fragt den aktuellen Status eines Kundenauftrages im SAP-System ab
 	 * @param bestellNRSAP Auftragsnummer, des Auftrages, dessen Status abgefragt werden soll
@@ -184,7 +180,7 @@ public class KundenauftragSAP {
 		{
 			nummer = "0" + nummer;
 		}
-		
+
 		String statusSAP="";
 
 		if (auftragWEB == null) {
@@ -203,7 +199,7 @@ public class KundenauftragSAP {
 			JCoFunction func = repo.getFunction("BAPI_SALESORDER_GETSTATUS");	//Transaktion
 
 			func.getImportParameterList().setValue("SALESDOCUMENT", nummer);	//Auftragsnummer des Auftrages
-			
+
 
 			//Funktion ausführen und commiten
 			JCoContext.begin(dest);
@@ -213,8 +209,8 @@ public class KundenauftragSAP {
 			JCoContext.end(dest);
 
 			JCoTable statusinfo = func.getTableParameterList().getTable("STATUSINFO");
-		
-			
+
+
 			if (statusinfo.isEmpty())
 			{
 				report.set("Auftrag " + bestellNRSAP + " nicht vorhanden!");
@@ -237,7 +233,6 @@ public class KundenauftragSAP {
 				}
 
 				auftragWEB.setAuftragsStatus(bestellNRSAP, status);
-
 			}
 
 		} catch (JCoException e) {

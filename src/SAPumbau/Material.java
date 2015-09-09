@@ -45,7 +45,7 @@ public class Material {
 		return "'"+adt+"'";
 	}
 	public void setAdt(String adt) {
-		
+
 		if(adt == "")
 		{
 			adt = "nein";
@@ -171,7 +171,7 @@ public class Material {
 		{
 			this.marke = "'"+ marke + "'";
 		}
-		
+
 	}
 	public String getEigenschaften() {
 		return "'"+eigenschaften+"'";

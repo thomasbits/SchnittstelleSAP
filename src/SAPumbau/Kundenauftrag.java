@@ -117,7 +117,7 @@ public class Kundenauftrag {
 	}
 
 	public void setBestellDatum(String bestellDatum) {		//Format im SAP-System:  JJJJMMDD
-		
+
 		this.bestellDatum = bestellDatum.replace("-", "");
 	}
 

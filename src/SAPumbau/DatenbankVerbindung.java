@@ -7,9 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-
 import com.mysql.jdbc.Statement;
-
 
 /**
  *	Stellt die Methoden zur Verbindung zur Webshopdatenbank bereit.
@@ -18,7 +16,7 @@ import com.mysql.jdbc.Statement;
 public class DatenbankVerbindung {
 
 	private Report report = new Report(this.getClass().toString());
-	
+
 	private static Connection conn = null;
 
 	// Hostname
@@ -41,7 +39,7 @@ public class DatenbankVerbindung {
 			// Für verschiedene ODBC-Datenbanken muss dieser Treiber
 			// nur einmal geladen werden.
 			Class.forName("com.mysql.jdbc.Driver");
-			
+
 			//Verbindungsdaten aus der Konfigurationsdatei lesen
 			getConnectionProperties();
 
@@ -62,7 +60,7 @@ public class DatenbankVerbindung {
 			System.exit(0);
 		}
 	}
-	
+
 	/**
 	 * Liest die Verbindungs- und Zugangsdaten aus der Konfigurationsdatei
 	 */
@@ -70,11 +68,11 @@ public class DatenbankVerbindung {
 	{
 		File propertiesFile = new File("./resources/connection.properties");
 		Properties properties = new Properties();
-		
+
 		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(propertiesFile))) {
-		  properties.load(bis);
+			properties.load(bis);
 		} catch (Exception ex) {
-		  report.set(ex.toString());
+			report.set(ex.toString());
 		}
 
 		dbHost = properties.getProperty("dbHost");
@@ -82,11 +80,8 @@ public class DatenbankVerbindung {
 		database = properties.getProperty("database");
 		dbUser = properties.getProperty("dbUser");
 		dbPassword = properties.getProperty("dbPassword");
-		
-//		System.out.println(dbHost + dbPort + database + dbUser + dbPassword);			//Zum Testen
-		
 	}
-	
+
 	/**
 	 * Gibt eine Verbindung zur Datenbak zurück
 	 * @return
@@ -97,7 +92,7 @@ public class DatenbankVerbindung {
 			new DatenbankVerbindung();
 		return conn;
 	}
-	
+
 	/**
 	 * Schließt die Datenbankverbindung
 	 */
@@ -112,20 +107,21 @@ public class DatenbankVerbindung {
 			report.set(sqle.toString());
 		}
 	}
+
 	/**
 	 * Mit dieser Methode kann gestestet werden ob die Verbindung zur Datenbank noch steht
 	 * Wenn keine Verbindung zur Datenbank besteht wird das Programm beendet
 	 */
 	public void isDbConnected() {
-	    final String CHECK_SQL_QUERY = "SELECT 1";
-	    boolean isConnected = false;
-	    try {
-	        Statement statement = (Statement) conn.prepareStatement(CHECK_SQL_QUERY);
-	        isConnected = true;
-	    } catch (SQLException | NullPointerException e) {
-	        // handle SQL error here!
-	    	System.out.println("\nDatenbankverbindung verloren! Das Programm wurde beendet. Bitte neustarten!");
-	    	System.exit(0);
-	    }
+		final String CHECK_SQL_QUERY = "SELECT 1";
+		boolean isConnected = false;
+		try {
+			Statement statement = (Statement) conn.prepareStatement(CHECK_SQL_QUERY);
+			isConnected = true;
+		} catch (SQLException | NullPointerException e) {
+			// handle SQL error here!
+			System.out.println("\nDatenbankverbindung verloren! Das Programm wurde beendet. Bitte neustarten!");
+			System.exit(0);
+		}
 	}
 }

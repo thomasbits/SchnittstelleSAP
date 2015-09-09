@@ -26,6 +26,7 @@ public class KundenauftragWEB {
 
 		verbindung = new DatenbankVerbindung();	
 	}
+
 	/**
 	 * Stellt eine neue Verbindung zur WebDB her
 	 */
@@ -55,16 +56,10 @@ public class KundenauftragWEB {
 				auftrag = null;
 			}else
 			{
-
-				
-
 				//Sonst Daten abfragen und in die instanz auftrag der Klasse Kundenauftrag schreiben	
 				results.last();
-				
 				report.set("Neuer Auftrag:" + results.getString("BestId"));
-
 				auftrag = new Kundenauftrag();
-
 				auftrag.setDebitorennummer(results.getString("KId"));
 				auftrag.setBestellNRWEB(results.getString("BestId"));
 				auftrag.setBestellDatum(results.getString("Datum"));
@@ -107,10 +102,7 @@ public class KundenauftragWEB {
 
 					}while(!resultsprodukte.isAfterLast());
 				}
-
 			}			
-
-
 		} catch (SQLException e) {
 			report.set(e.toString());
 		}
@@ -120,6 +112,7 @@ public class KundenauftragWEB {
 			auftragSAP.createKundenauftrag(auftrag);
 		}
 	}
+
 	/**
 	 * Schreibt die Übergebene SAP-Nummer in die WebDB
 	 * @param SAPNr SAP-Nummer
@@ -160,10 +153,7 @@ public class KundenauftragWEB {
 		} catch (SQLException e) {
 			report.set(e.toString());
 		}
-
-
 	}
-
 
 	/**
 	 * Schreibt den aktuellen Status in die WebDB
@@ -174,7 +164,7 @@ public class KundenauftragWEB {
 	{
 		//Status in Datenbank schreiben
 		String query1 = "UPDATE `bestellung` SET Status = '" + status + "' WHERE SAP_BestId = '" + bestellNR + "';";
-		
+
 		//Query ausführen
 		try {
 			verbindung.isDbConnected();

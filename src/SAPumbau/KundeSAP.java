@@ -8,7 +8,6 @@ import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoRepository;
 import com.sap.conn.jco.JCoStructure;
 
-
 /**
  *	Die Klasse KundeSAP stellt Methoden bereit, um Kunden im SAP-System zu Erstellen und zu Ändern
  * @author Thomas
@@ -18,7 +17,7 @@ public class KundeSAP {
 	private Report report = new Report(this.getClass().toString());
 	private Ablaufsteuerung_Kunde ablaufsteuerung;
 	private KundeWEB kundeWEB;
-	
+
 	/**
 	 * Konstruktor 
 	 * @param ablaufsteuerung
@@ -78,14 +77,12 @@ public class KundeSAP {
 			//Rückgabewert engegennehmen (SAP Kundennummer/Debitor)
 			String sapNr = (String) func.getExportParameterList().getValue("CUSTOMERNO");
 			kunde1.setSapNummer(sapNr);
-			
+
 		} catch (JCoException e) {
 			report.set("Verbindung zum SAP System konnte nicht aufgebaut werden.");
 			report.set(e.toString());
 		}
 	}
-
-
 
 	/**
 	 * Ändert die Daten des übergebenen Kunden im SAP-System

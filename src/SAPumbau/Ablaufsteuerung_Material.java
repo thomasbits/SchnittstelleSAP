@@ -36,7 +36,7 @@ public class Ablaufsteuerung_Material implements Runnable{
 	{
 		return materialSAP;
 	}
-	
+
 	/**
 	 * Stoppt den Thread. Setzt dazu die Variable threadRun auf false, was die while Schleife in der Runmethode nach dem aktuellen Durchlauf beendet.
 	 */

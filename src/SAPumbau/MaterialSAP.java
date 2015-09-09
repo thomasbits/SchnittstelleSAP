@@ -129,7 +129,7 @@ public class MaterialSAP {
 
 		return material;
 	}
-	
+
 	/**
 	 * Methode die die Materialbeschreibung und Bezeichnung aus dem SAP System holt
 	 * @param materialid Übergabe der Material ID
@@ -173,11 +173,11 @@ public class MaterialSAP {
 			String beschreibung = "";
 			for (int i = 0;i<anzahlSpalten; i++)
 			{
-				
+
 				beschreibung = beschreibung + table.getString("TEXT_LINE");
 				table.nextRow();
 			}
-			
+
 			material.setBeschreibung(beschreibung);
 
 		} catch (Exception e) {
@@ -186,7 +186,7 @@ public class MaterialSAP {
 
 
 	}
-	
+
 	/**
 	 * Methode die Eigenschaften aus den Texten des Produktkataloges je Material/Produkt holt
 	 * @param materialid Übergabe der Material ID
@@ -210,8 +210,8 @@ public class MaterialSAP {
 			func2.getImportParameterList().setValue("VARIANT", "01");
 			func2.getImportParameterList().setValue("AREA", "1");
 			func2.getImportParameterList().setValue("ITEM", itemNr);
-			
-			
+
+
 			//Daten an das SAP System übergeben
 			JCoContext.begin(dest);
 			func2.execute(dest);
@@ -221,7 +221,7 @@ public class MaterialSAP {
 
 			//Auslesen der Materialbeschreibung des Produnktkataloges
 			JCoTable table1 = func2.getTableParameterList().getTable("LINES");
-			
+
 			if(table1.getNumRows() != 0)
 			{
 				String ergeb = "";
@@ -231,7 +231,7 @@ public class MaterialSAP {
 					ergeb = ergeb + table1.getValue("LINE").toString();
 					table1.nextRow();
 				}
-								
+
 				String[] new1 = ergeb.split("\n");
 
 
@@ -256,7 +256,7 @@ public class MaterialSAP {
 				}
 
 				//Größe
-				
+
 				if(laenge>=3)
 				{
 					material.setGroesse(new1[3]);
@@ -265,7 +265,7 @@ public class MaterialSAP {
 				//Bauvariante
 				if(laenge>=4)
 				{
-					
+
 					material.setBauvariante(new1[4]);
 				}
 
@@ -278,7 +278,7 @@ public class MaterialSAP {
 				//Eigenschaften
 				String eigenschaften = "";
 
-				
+
 				for(int i = 6; i<(new1.length);i++) {
 					if(i > 6)
 					{

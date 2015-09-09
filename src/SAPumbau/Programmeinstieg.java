@@ -1,7 +1,6 @@
 package SAPumbau;
 
 import java.util.Scanner;
-
 import com.sap.conn.jco.JCoDestinationManager;
 import com.sap.conn.jco.JCoException;
 
@@ -26,7 +25,7 @@ public class Programmeinstieg{
 	 * Konstruktor Programmeinstieg bildet Instanzen der Klassen(Ablaufsteuerung_Kunde, Ablaufsteuerung_Kundenauftrag, Ablaufsteuerung_Material)
 	 * Erstellt Threads der Klassen. Erstellt eine Instanz der Klasse (Verbindung SAP)
 	 */
-	
+
 	public Programmeinstieg() {
 
 		kunde = new Ablaufsteuerung_Kunde(this);
@@ -47,7 +46,7 @@ public class Programmeinstieg{
 	 */
 	public static void main(String[] args) {
 
-		
+
 		einstieg = new Programmeinstieg();	//Programeinstieg instanziieren
 		einstieg.synchonisiere();			//Synchronisierung starten (Threads starten)
 	}
@@ -73,28 +72,28 @@ public class Programmeinstieg{
 				}else
 				{
 
-				//Abfragen je Thread ob dieser läuft. Wenn nicht wird er gestartet.
-				if(t_kunde.isAlive())
-				{
+					//Abfragen je Thread ob dieser läuft. Wenn nicht wird er gestartet.
+					if(t_kunde.isAlive())
+					{
 
-				}else{
-					t_kunde.start();
-					report.set("Thread Kunde gestartet");
-				}
-				if(t_material.isAlive())
-				{
+					}else{
+						t_kunde.start();
+						report.set("Thread Kunde gestartet");
+					}
+					if(t_material.isAlive())
+					{
 
-				}else{
-					t_material.start();
-					report.set("Thread Material gestartet");
-				}
-				if(t_auftrag.isAlive())
-				{
+					}else{
+						t_material.start();
+						report.set("Thread Material gestartet");
+					}
+					if(t_auftrag.isAlive())
+					{
 
-				}else{
-					t_auftrag.start();
-					report.set("Thread Kundenauftrag gestartet");
-				}
+					}else{
+						t_auftrag.start();
+						report.set("Thread Kundenauftrag gestartet");
+					}
 				}
 				break;
 
@@ -140,21 +139,21 @@ public class Programmeinstieg{
 		kunde.threadStop();
 		material.threadStop();
 	}
-	
+
 	public boolean prüferSAPVerbindung()
 	{
 		//Testen der Verbindung
-				try
-				{
-					JCoDestinationManager.getDestination("").ping();
-					report.set("Verbindung mit dem SAP-System hergestellt");
-				}
-				catch (JCoException e)
-				{
-					report.set(e.toString());
-					System.out.println("\nKeine Verbindung zum SAP System!");
-					return false;
-				}
-				return true;
+		try
+		{
+			JCoDestinationManager.getDestination("").ping();
+			report.set("Verbindung mit dem SAP-System hergestellt");
+		}
+		catch (JCoException e)
+		{
+			report.set(e.toString());
+			System.out.println("\nKeine Verbindung zum SAP System!");
+			return false;
+		}
+		return true;
 	}
 }

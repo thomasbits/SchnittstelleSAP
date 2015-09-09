@@ -64,6 +64,7 @@ public class MaterialWEB {
 		}
 		return ret;
 	}
+
 	/**
 	 * Methode die zwei Strings im Detial vergleicht
 	 * @param a Übergabe String1

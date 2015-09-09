@@ -4,7 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
-
 import com.sap.conn.jco.ext.DestinationDataEventListener;
 import com.sap.conn.jco.ext.DestinationDataProvider;
 

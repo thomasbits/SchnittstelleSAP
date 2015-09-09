@@ -1,14 +1,12 @@
 package SAPumbau;
 
- 
-
 /**
  *	Enthält alle Attribute eines Kunden, wird zum Austausch zwischen KundeSAP und KundeWEB benutzt
  *  bietet Getter und Setter Methoden um die Datenfelder zu sethen bzw. deren Werte auszulesen
  * @author Thomas
  */
 public class Kunde {
-	
+
 	private String vorname;
 	private String name;
 	private String titel;
@@ -23,29 +21,28 @@ public class Kunde {
 	public Kunde() {
 
 	}
-	
 
 	public void setVorname(String Vorname)
 	{
 		vorname = Vorname;
 	}
-	
+
 	public String getVorname()
 	{
 		return vorname;
 	}
-	
+
 	public void setName(String Name)
 	{
 		name = Name;
 	}
-	
+
 	public String getName()
 	{
 		return name;
 	}
-	
-	//da es in der Webshopdatenbank keine Feld für die Anrede(Titel) gibt muss dies über das Geschlecht des Kunde ermittelt werden
+
+	//Da es in der Webshopdatenbank keine Feld für die Anrede(Titel) gibt muss dies über das Geschlecht des Kunde ermittelt werden
 	public void setGeschlecht(String Geschlecht)
 	{
 		if(Geschlecht.equals("männlich"))
@@ -56,24 +53,24 @@ public class Kunde {
 			titel = "Frau";
 		}
 	}
-	
+
 	public String getTitel()
 	{
 		return titel;
 	}
-	
+
 	//Geburtsdatum ist ein Pflichtfeld im SAP-System. Um einen Kunden anlegen zukönnen der noch kein Geburtsdatum angegeben hat wird hier ein Standardwert für das Geburtsdatum gesetzt
 	public void setGeburtstdatum(String Geburtsdatum)
 	{
 		if(Geburtsdatum == null || Geburtsdatum.equals(""))
 		{
-		geburtsdatum = "19700101";
+			geburtsdatum = "19700101";
 		}else
 		{
-		geburtsdatum = Geburtsdatum.replace( "-", "" );
+			geburtsdatum = Geburtsdatum.replace( "-", "" );
 		}
 	}
-	
+
 	public String getGeburtstdatum()
 	{
 		return geburtsdatum;
@@ -118,7 +115,7 @@ public class Kunde {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getPLZ() {
 		return PLZ;
 	}
@@ -130,31 +127,27 @@ public class Kunde {
 
 	//Anpassen der SAP Nummer. Die SAP Nummer wird immer auf 10 Stellen mit laufenden Nullen vorne gefüllt.
 	public String getSapNummer() {
-		
+
 		String sapNum = sapNummer;
-		
+
 		for(int i = sapNum.length();i<10;i++ )
 		{
 			sapNum = "0" + sapNum;
 		}
-		
-		
-		
+
 		return sapNum;
 	}
 
 	//Anpassen der SAP Nummer. Die SAP Nummer wird immer auf 10 Stellen mit laufenden Nullen vorne gefüllt.
 	public void setSapNummer(String sapNummer) {
-		
+
 		String sapNum = sapNummer;
-		
+
 		for(int i = sapNum.length();i<10;i++ )
 		{
 			sapNum = "0" + sapNum;
 		}
-		
+
 		this.sapNummer = sapNum;
-		
 	}
-	
 }

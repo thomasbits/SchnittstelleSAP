@@ -1,4 +1,5 @@
 package SAPumbau;
+
 /**
  * Klasse Ablaufsteuerung_Kunde, implementiert die Schnittstelle Runnable. Steuert die Synchronisierung der Kundendaten zwischen dem SAP-System und der Webshop-DB
  * @author Thomas & Robin
@@ -19,6 +20,7 @@ public class Ablaufsteuerung_Kunde implements Runnable{
 		kundeSAP = new KundeSAP(this);
 		this.programm = einstieg;
 	}
+
 	/**
 	 * 
 	 * @return Gibt die Instanz der Klasse KundeWEB zurück
@@ -27,6 +29,7 @@ public class Ablaufsteuerung_Kunde implements Runnable{
 	{
 		return kundeWEB;
 	}
+
 	/**
 	 * 
 	 * @return Gibt die Instanz der Klasse KundeSAP zurück
@@ -89,8 +92,5 @@ public class Ablaufsteuerung_Kunde implements Runnable{
 				System.exit(1);			//Fehler 1: in die Doku: Keine Verbindung zum SAP-System
 			}
 		}
-	
-
 	}
-
 }

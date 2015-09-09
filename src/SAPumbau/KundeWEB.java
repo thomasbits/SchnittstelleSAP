@@ -35,7 +35,7 @@ public class KundeWEB {
 	 */
 	public void neueVerbindungDB()
 	{
-//		verbindung.schliesseVerbindung();
+		//		verbindung.schliesseVerbindung();
 		verbindung = new DatenbankVerbindung();
 	}
 
@@ -142,7 +142,7 @@ public class KundeWEB {
 			verbindung.isDbConnected();
 			//Query ob Datensätze mit Änderungen vorhanden sind
 			ResultSet results = verbindung.getInstance().createStatement().executeQuery("SELECT * FROM kunde WHERE status = 'a' ;");
-			//Abfragen ob Datensatz leer ist?
+			//Abfragen ob Datensatz leer ist
 			if (!results.next()){
 				//				report.set("Kein Kunde zum ändern gefunden!");
 				kunde1 = null;
@@ -205,7 +205,7 @@ public class KundeWEB {
 		//SAP Nummer in Datenbank schreiben
 		String query1 = "UPDATE kunde set geloescht = 'ja' WHERE SAP_KId = \"" + kunde1.getSapNummer() +"\";";
 		report.set("Kunde " + kunde1.getSapNummer() + " wird gelöscht.");
-		
+
 		//Query ausführen
 		try {
 			verbindung.isDbConnected();

@@ -30,6 +30,7 @@ public class Ablaufsteuerung_Kundenauftrag implements Runnable {
 	{
 		return auftragSAP;
 	}
+
 	/**
 	 * 
 	 * @return Gibt die Instanz der Klasse KundenauftragWEB zurück.
@@ -46,40 +47,32 @@ public class Ablaufsteuerung_Kundenauftrag implements Runnable {
 	{
 		threadRun = false;
 	}
-	
+
 	@Override
 	public void run() {
-		
-				threadRun = true;
 
-				while(threadRun)			//Synchronisiere solange die Variable threadRun ture ist. Notwendig um zu verhinder das die Synchronisierung unvollständig beendet wird.
-				{
-		
-					for(int i = 0;i<15;i++)		//Führe die Schritte zur Synchronisierung 15 mal aus, anschließend baue eine neue Verbindung zur WebDB auf
-					{
+		threadRun = true;
 
-						auftragWEB.abfrageNeueBestellungen();
-						
-						try {
-							Thread.sleep(5000);
-						} catch (InterruptedException e) {
-							report.set(e.toString());
-						}
-						
-						auftragWEB.getAuftragsNr();
-						
-						try {
-							Thread.sleep(5000);
-						} catch (InterruptedException e) {
-							report.set(e.toString());
-						}
-					}
-					auftragWEB.neueVerbindungDB();
-					if(!programm.prüferSAPVerbindung())
-					{
-						System.out.println("Programm beendet!");
-						System.exit(1);			//Fehler 1: in die Doku: Keine Verbindung zum SAP-System
-					}
+		while(threadRun)			//Synchronisiere solange die Variable threadRun ture ist. Notwendig um zu verhinder das die Synchronisierung unvollständig beendet wird.
+		{
+
+			for(int i = 0;i<15;i++)		//Führe die Schritte zur Synchronisierung 15 mal aus, anschließend baue eine neue Verbindung zur WebDB auf
+			{
+
+				auftragWEB.abfrageNeueBestellungen();
+
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					report.set(e.toString());
 				}
+			}
+			auftragWEB.neueVerbindungDB();
+			if(!programm.prüferSAPVerbindung())
+			{
+				System.out.println("Programm beendet!");
+				System.exit(1);			//Fehler 1: in die Doku: Keine Verbindung zum SAP-System
+			}
+		}
 	}
 }
