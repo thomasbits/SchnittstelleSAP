@@ -151,7 +151,7 @@ public class KundenauftragWEB {
 
 		try {
 			verbindung.isDbConnected();
-			ResultSet auftragsnr = verbindung.getInstance().createStatement().executeQuery("SELECT SAP_BestId from bestellung Where Status !='Auftrag abgeschlossen';");
+			ResultSet auftragsnr = verbindung.getInstance().createStatement().executeQuery("SELECT SAP_BestId from bestellung Where Status !='Auftrag abgeschlossen' AND SAP_BestId IS NOT NULL;");
 
 			while(auftragsnr.next())
 			{
@@ -173,8 +173,8 @@ public class KundenauftragWEB {
 	public void setAuftragsStatus(String bestellNR, String status)
 	{
 		//Status in Datenbank schreiben
-		String query1 = "UPDATE bestellung set Status = " + status + " WHERE SAP_BestId = \"" + bestellNR +"\";";
-
+		String query1 = "UPDATE `bestellung` SET Status = '" + status + "' WHERE SAP_BestId = '" + bestellNR + "';";
+		
 		//Query ausführen
 		try {
 			verbindung.isDbConnected();

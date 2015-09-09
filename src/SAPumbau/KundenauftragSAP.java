@@ -156,7 +156,7 @@ public class KundenauftragSAP {
 
 			//			System.out.println(func.getTableParameterList().getTable("RETURN"));
 
-			//			report.set(func.getTableParameterList().getTable("RETURN").toString());
+						report.set(func.getTableParameterList().getTable("RETURN").toString());
 			report.set("Kundenauftrag angelegt: " + func.getExportParameterList().getValue("SALESDOCUMENT"));
 
 			try{
@@ -179,6 +179,12 @@ public class KundenauftragSAP {
 	 */
 	public void getStatus(String bestellNRSAP)
 	{
+		String nummer = bestellNRSAP;
+		for(int i = nummer.length();i<10;i++ )
+		{
+			nummer = "0" + nummer;
+		}
+		
 		String statusSAP="";
 
 		if (auftragWEB == null) {
@@ -188,8 +194,6 @@ public class KundenauftragSAP {
 		String status = "";
 
 
-
-		// TODO Auftragsstatus abfragen
 		try {
 			//Abfragen ob ein Ziel(Das SAP System vorhanden ist)
 			JCoDestination dest = JCoDestinationManager.getDestination("");
@@ -198,8 +202,8 @@ public class KundenauftragSAP {
 			//BAPI auswählen
 			JCoFunction func = repo.getFunction("BAPI_SALESORDER_GETSTATUS");	//Transaktion
 
-			func.getImportParameterList().setValue("SALESDOCUMENT", bestellNRSAP);	//Auftragsnummer des Auftrages
-
+			func.getImportParameterList().setValue("SALESDOCUMENT", nummer);	//Auftragsnummer des Auftrages
+			
 
 			//Funktion ausführen und commiten
 			JCoContext.begin(dest);
@@ -209,13 +213,14 @@ public class KundenauftragSAP {
 			JCoContext.end(dest);
 
 			JCoTable statusinfo = func.getTableParameterList().getTable("STATUSINFO");
-
+		
+			
 			if (statusinfo.isEmpty())
 			{
 				report.set("Auftrag " + bestellNRSAP + " nicht vorhanden!");
 			}else
 			{
-				statusSAP = (String) func.getTableParameterList().getTable("STATUSINFO").getValue("PRC_STAT_H");
+				statusSAP = (String) statusinfo.getValue("PRC_STAT_H");
 
 				if(statusSAP.equals("A"))
 				{
@@ -234,11 +239,6 @@ public class KundenauftragSAP {
 				auftragWEB.setAuftragsStatus(bestellNRSAP, status);
 
 			}
-
-
-
-
-
 
 		} catch (JCoException e) {
 			report.set(e.toString());

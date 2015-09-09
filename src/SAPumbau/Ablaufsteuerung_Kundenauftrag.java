@@ -65,6 +65,14 @@ public class Ablaufsteuerung_Kundenauftrag implements Runnable {
 						} catch (InterruptedException e) {
 							report.set(e.toString());
 						}
+						
+						auftragWEB.getAuftragsNr();
+						
+						try {
+							Thread.sleep(5000);
+						} catch (InterruptedException e) {
+							report.set(e.toString());
+						}
 					}
 					auftragWEB.neueVerbindungDB();
 					if(!programm.prüferSAPVerbindung())
